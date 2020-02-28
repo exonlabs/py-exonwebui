@@ -1,0 +1,83 @@
+# Arabic translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-02-16 18:04+0200\n"
+"PO-Revision-Date: 2019-11-10 00:20+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ar\n"
+"Language-Team: ar <LL@li.org>\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+msgid "Alerts"
+msgstr "تحذيرات"
+
+msgid "Home"
+msgstr "الصفحه الرئيسية"
+
+msgid "Invalid username or password"
+msgstr "خطأ في اسم المستخدم أو كلمة السر"
+
+msgid "Loader"
+msgstr "التحميل"
+
+msgid "Login"
+msgstr "تسجيل دخول"
+
+msgid "Login Page"
+msgstr "صفحه تسجيل الدخول"
+
+msgid "Notifications"
+msgstr "تنبيهات"
+
+msgid "Page Loader"
+msgstr "تحميل الصفحة"
+
+msgid "Password"
+msgstr "كلمة السر"
+
+msgid "Please enter username and password"
+msgstr "برجاء إدخال أسم المستخدم و كلمة السر"
+
+msgid "Sample Portal"
+msgstr "موقع تجريبي"
+
+msgid "UI Components"
+msgstr "مكونات الواجهة"
+
+msgid "Username"
+msgstr "أسم المستخدم"
+
+msgid "Welcome"
+msgstr "أهلا بكم"
+
+msgid "error"
+msgstr "خطأ"
+
+msgid "info"
+msgstr "معلومه"
+
+msgid "loaded after delay"
+msgstr "تم التحميل بعد فترة تأخير"
+
+msgid "message"
+msgstr "رسالة"
+
+msgid "showing notifications"
+msgstr "إظهار التنبيهات"
+
+msgid "success"
+msgstr "تم بنجاح"
+
+msgid "warning"
+msgstr "تحذير"
+

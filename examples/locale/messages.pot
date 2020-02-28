@@ -1,0 +1,82 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-02-16 18:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+msgid "Alerts"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Invalid username or password"
+msgstr ""
+
+msgid "Loader"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login Page"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "Page Loader"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Please enter username and password"
+msgstr ""
+
+msgid "Sample Portal"
+msgstr ""
+
+msgid "UI Components"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Welcome"
+msgstr ""
+
+msgid "error"
+msgstr ""
+
+msgid "info"
+msgstr ""
+
+msgid "loaded after delay"
+msgstr ""
+
+msgid "message"
+msgstr ""
+
+msgid "showing notifications"
+msgstr ""
+
+msgid "success"
+msgstr ""
+
+msgid "warning"
+msgstr ""
+

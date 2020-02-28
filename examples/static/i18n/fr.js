@@ -1,0 +1,18 @@
+
+var webui_i18n = {
+    "BAD REQUEST": "MAUVAISE DEMANDE",
+    "UNAUTHORIZED": "NON AUTORISÉ",
+    "FORBIDDEN": "INTERDIT",
+    "NOT FOUND": "PAS TROUVÉ",
+    "METHOD NOT ALLOWED": "MÉTHODE NON AUTORISÉE",
+    "TOO MANY REQUESTS": "TROP DE DEMANDES",
+    "INTERNAL SERVER ERROR": "ERREUR INTERNE DU SERVEUR",
+    "NOT IMPLEMENTED": "PAS MIS EN ŒUVRE",
+    "BAD GATEWAY": "MAUVAISE PASSERELLE",
+    "SERVICE UNAVAILABLE": "SERVICE INDISPONIBLE",
+    "GATEWAY TIMEOUT": "TEMPS DE PORTE",
+
+    "request cancelled": "demande annulée",
+    "service unavailable": "Service indisponible",
+    "request failed": "demande échoué",
+};

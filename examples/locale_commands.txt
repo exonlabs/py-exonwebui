@@ -1,0 +1,27 @@
+
+* Generating PO template
+-------------------------
+pybabel extract -F locale/babel.cfg -k lazy_gettext --no-location --no-wrap \
+    --sort-output -o locale/messages.pot ./ templates/webui/
+
+
+
+* Initialize message catalogs
+------------------------------
+pybabel init --no-wrap -i locale/messages.pot -d locale -l ar
+pybabel init --no-wrap -i locale/messages.pot -d locale -l fr
+
+
+
+* Update message catalogs
+------------------------------
+pybabel update --no-wrap -i locale/messages.pot -d locale
+
+** NOTE: AUTO UPDATE DROP CUSTOM CATALOG HEADERS
+
+
+
+* Compile message catalogs
+------------------------------
+pybabel compile -d locale
+
