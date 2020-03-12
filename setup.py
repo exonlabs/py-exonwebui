@@ -9,7 +9,7 @@ from setuptools import setup
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
 __PKGNAME__ = 'exonwebui'
-__VERSION__ = '0.3'
+__VERSION__ = '0.3.1.dev'
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
