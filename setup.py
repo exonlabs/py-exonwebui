@@ -30,9 +30,9 @@ setup(
     platforms='linux',
     python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*',
     install_requires=[
-        'exonutils>=1.1',
-        'flask-seasurf>=0.2.2',
-        'flask-babelex>=0.9.4',
+        'exonutils>=1.2',
+        'flask-seasurf>=0.2',
+        'flask-babelex>=0.9',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
