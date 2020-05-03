@@ -1,7 +1,7 @@
 {%- extends "webui/simplepage.tpl" -%}
 
 {% block b_page_head %}
-  <script type="text/javascript" src="/static/webui/vendor/cryptojs/md5.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/cryptojs/crypto-js.min.js"></script>
   {%- if page_lang and page_lang != 'en' -%}
   <script type="text/javascript" src="/static/i18n/{{page_lang}}.min.js"></script>
   {%- endif %}
