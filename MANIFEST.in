@@ -1,7 +1,5 @@
 include Makefile LICENSE *.md
-
 graft examples
 graft exonwebui/templates
 graft exonwebui/static
-
 global-exclude *.py[co]
