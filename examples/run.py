@@ -42,6 +42,7 @@ if __name__ == '__main__':
             cfg['simple_engine'] = True
 
         p = WebServer('SampleWebui', options=cfg)
+        p.log.setLevel(logging.getLogger().level)
         p.base_path = os.path.dirname(__file__)
 
         from views import MenuBoardView

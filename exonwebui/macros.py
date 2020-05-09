@@ -4,6 +4,7 @@
     :license: BSD, see LICENSE for more details.
 """
 from flask import render_template
+import random
 
 
 class Macro(object):
@@ -26,8 +27,9 @@ class Macro(object):
         return cls.load('alert', params)
 
     @classmethod
-    def loginform(cls, url, authkey, styles=''):
+    def loginform(cls, url, authkey, styles='', form_id=None):
         params = {
+            'id': form_id or random.randint(1000, 9999),
             'url': url,
             'authkey': authkey,
             'styles': styles,
