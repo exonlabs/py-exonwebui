@@ -117,6 +117,7 @@ var WebUI = function($, ui) {
         else if(!xhr.status) error = "service unavailable";
         else if(!error) error = "request failed";
         if(typeof fError === "function") fError($.i18n._(error));
+        else ui.notify.error($.i18n._(error));
       },
       complete: function(xhr, status) {
         if(typeof fComplete === "function") fComplete();
@@ -127,11 +128,11 @@ var WebUI = function($, ui) {
   ui.loader = {
     req_xhr: null,
     lock_timer: null,
-    load: function(verb, url, params, fSuccess, fError, fComplete) {
+    load: function(verb, url, params, fSuccess, fError, fComplete, timeout) {
       ui.loader.cancel();
       ui.loader.lock_timer = setTimeout(function() {
         ui.pagelock.loading().bind("click", function(e) {ui.loader.cancel()});
-      }, 1000);
+      }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
         function() {
           if(typeof fComplete === "function") fComplete();
