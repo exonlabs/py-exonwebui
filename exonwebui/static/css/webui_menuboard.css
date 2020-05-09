@@ -34,7 +34,7 @@
 [dir=ltr] #board-widgets {margin-left:auto !important}
 [dir=rtl] #board-widgets {margin-right:auto !important}
 
-#board-content {padding:40px 0 0}
+#board-body {padding:40px 0 0}
 
 
 /* board design with Menu Toggled (Menu ON) */
