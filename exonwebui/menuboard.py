@@ -24,7 +24,7 @@ class MenuBoardView(WebView):
             # initialize babel extension
             domain = Domain(dirname=locale_path)
             babel = Babel(app, default_domain=domain)
-            if locale_path and os.path.isdir(locale_path):
+            if locale_path and os.path.exists(locale_path):
                 babel.localeselector(lambda: session.get('lang', 'en'))
                 app.config['LOCALE_ENABLED'] = True
                 app.config['LOCALE_PATH'] = locale_path
