@@ -12,6 +12,11 @@ a, a:hover, a:focus, button:focus {
 .ease {-webkit-transition:all 0.4s ease; -moz-transition:all 0.4s ease;
   -o-transition:all 0.4s ease; transition:all 0.4s ease}
 
+.scroll {scrollbar-width:thin; scrollbar-color:rgba(0,0,0,0.25) rgba(0,0,0,0.1)}
+.scroll::-webkit-scrollbar {width:5px}
+.scroll::-webkit-scrollbar-track {-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.1)}
+.scroll::-webkit-scrollbar-thumb {background:rgba(0,0,0,0.25)}
+
 .form-control::placeholder {color:#c0c0c0}
 
 .page-lock {position:fixed; top:0; bottom:0; left:0; right:0;

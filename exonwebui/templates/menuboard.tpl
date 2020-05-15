@@ -20,7 +20,7 @@
 {%- block b_html_body -%}
   {% block b_board_body %}
     <div id="board-wrapper" class="ease">
-      <div id="board-menubar" class="text-center ease d-print-none">
+      <div id="board-menubar" class="text-center ease scroll d-print-none">
         <div id="menubar-head">
           {% block b_board_menuhead -%}{{menubar_head|safe}}{%- endblock %}
         </div>
