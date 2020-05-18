@@ -9,4 +9,9 @@
       </div>
     </div>
   </div>
+  <div class="card mt-2">
+    <div class="card-body text-left">
+        <a class="btn btn-secondary px-3" href="#?toogleboard=1">{{gettext("Toogle boards")}}</a>
+    </div>
+  </div>
 </div>

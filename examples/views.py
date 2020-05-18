@@ -12,6 +12,12 @@ class VIndex(MenuBoardView):
 
     @classmethod
     def initialize(cls, websrv, app):
+        # adjust session and csrf cookies attrs
+        app.config['SESSION_COOKIE_HTTPONLY'] = True
+        app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+        app.config['CSRF_COOKIE_HTTPONLY'] = True
+        app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
+
         # initialize board
         locale_path = os.path.join(websrv.base_path, 'locale')
         cls.board_initialize(app, locale_path=locale_path)
@@ -25,7 +31,17 @@ class VIndex(MenuBoardView):
             'page_langdir': session.get('lang_dir', ''),
             'page_doctitle': "WebUI",
         }
-        return tpl('mainboard.tpl', **params)
+
+        if not session.get('simpleboard', None):
+            session['simpleboard'] = False
+        if request.args.get('toogleboard', '').strip():
+            session['simpleboard'] = not session['simpleboard']
+            return self.redirect(url_for('index'))
+
+        if session.get('simpleboard', False):
+            return tpl('simpleboard.tpl', **params)
+        else:
+            return tpl('mainboard.tpl', **params)
 
 
 class VHome(MenuBoardView):
@@ -36,7 +52,7 @@ class VHome(MenuBoardView):
         cls.add_menulink(app, 0, lazy_gettext('Home'), url='#home')
 
     def get(self, **kwargs):
-        html = tpl('lang_panel.tpl', message=gettext("Welcome"))
+        html = tpl('option_panel.tpl', message=gettext("Welcome"))
         return self.reply(html, doctitle=gettext('Home'))
 
 
