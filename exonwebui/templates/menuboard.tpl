@@ -66,6 +66,9 @@
       </div>
     </div>
     <div id="board-backdrop" class="d-print-none"></div>
+    <div id="_UiPageLock" class="page-lock page-loading invisible">
+      <div><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div>
+    </div>
   {% endblock %}
   {% block b_board_scripts %}
     <script type="text/javascript">

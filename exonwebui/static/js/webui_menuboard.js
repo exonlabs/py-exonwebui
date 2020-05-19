@@ -42,12 +42,12 @@ var WebUI = function($, ui) {
         '<div class="p-3"><div class="alert alert-success text-left">' +
         '<i class="fas fa-ta fa-check-circle"></i> ' + message + '</div></div>');
     },
-    load: function(url, params) {
+    load: function(verb, url, params) {
       if(ui.board_content.load_neglect) {
         ui.board_content.load_neglect = false;
         return null;
       };
-      ui.loader.load("GET", url, params,
+      ui.loader.load(verb, url, params,
         function(result) {
           ui.board_content.old_hash = window.location.hash;
           if(result.redirect) ui.redirect(result.redirect, result.blank);
@@ -77,7 +77,7 @@ var WebUI = function($, ui) {
       .bind("hashchange", function(e) {
         e.preventDefault();
         if(window.innerWidth < 992) ui.board_menu.hide();
-        ui.board_content.load(window.location.hash, null);
+        ui.board_content.load("GET", window.location.hash, null);
       });
 
     $("#menubar-body>ul.metismenu").metisMenu();
@@ -103,10 +103,12 @@ var WebUI = function($, ui) {
         ui.board_menu.hide();
       });
 
-    if(window.location.hash.length <= 1) {
-      window.location.hash = $('#menubar-body a.pagelink').attr("href");
-    }
-    else $(window).trigger("hashchange");
+    setTimeout(function() {
+      if(window.location.hash.length <= 1) {
+        window.location.hash = $('#menubar-body a.pagelink').attr("href");
+      }
+      else $(window).trigger("hashchange");
+    }, 100);
   };
 
   return ui;
