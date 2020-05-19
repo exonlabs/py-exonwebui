@@ -48,26 +48,39 @@ class MenuBoardView(WebView):
         #      'menu': {0: {'label': ..., 'url': ...},
         #               1: {'label': ..., 'url': ...}}},
         # }
+        menu = {}
+
         if not app:
             app = current_app
-        return app.config.get('MENUBOARD_MENULINKS', {})
+
+        buff = app.config.get('MENUBOARD_MENUBUFFER', [])
+        for index, label, url, parent, loader in buff:
+            if loader and not loader():
+                continue
+
+            # standalone link
+            if parent is None:
+                if index in menu:
+                    menu[index].update({'label': label, 'url': url})
+                else:
+                    menu.update({index: {'label': label, 'url': url}})
+            # submenu link
+            else:
+                if parent not in menu:
+                    menu[parent] = {'menu': {}}
+                elif 'menu' not in menu[parent]:
+                    menu[parent]['menu'] = {}
+                menu[parent]['menu'].update(
+                    {index: {'label': label, 'url': url}})
+
+        return menu
 
     @classmethod
-    def add_menulink(cls, app, index, label, url='#', parent=None):
-        menu = app.config.get('MENUBOARD_MENULINKS', {})
-        if parent is not None:
-            if parent not in menu:
-                menu[parent] = {'menu': {}}
-            elif 'menu' not in menu[parent]:
-                menu[parent]['menu'] = {}
-            menu[parent]['menu'].update(
-                {index: {'label': label, 'url': url}})
-        else:
-            if index not in menu:
-                menu.update({index: {'label': label, 'url': url}})
-            else:
-                menu[index].update({'label': label, 'url': url})
-        app.config['MENUBOARD_MENULINKS'] = menu
+    def add_menulink(cls, app, index, label, url='#', parent=None,
+                     loader=None):
+        buff = app.config.get('MENUBOARD_MENUBUFFER', [])
+        buff.append([index, label, url, parent, loader])
+        app.config['MENUBOARD_MENUBUFFER'] = buff
 
     # xhr request validation
     def request_xhr(self):
