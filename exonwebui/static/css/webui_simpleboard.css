@@ -11,8 +11,6 @@ body, html {min-width:992px}
   background-color:#f8f9fa; color:#343a40}
 [dir=ltr] #board-wrapper {padding-left:220px}
 [dir=rtl] #board-wrapper {padding-right:220px}
-#board-backdrop {position:fixed; top:0; bottom:0; left:0; right:0; opacity:0.4;
-  display:none; z-index:-1; background-color:#6c757d; color:#fff}
 
 #board-menubar {position:fixed; top:0; bottom:0; width:220px; overflow-x:hidden}
 [dir=ltr] #board-menubar {left:0; padding-left:5px}

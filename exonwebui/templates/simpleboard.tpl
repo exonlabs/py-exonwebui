@@ -55,7 +55,6 @@
         </div>
       </div>
     </div>
-    <div id="board-backdrop" class="d-print-none"></div>
   {% endblock %}
   {% block b_board_scripts %}
     <script type="text/javascript">
