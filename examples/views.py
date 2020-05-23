@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import time
 from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
@@ -17,6 +18,7 @@ class VIndex(MenuBoardView):
         app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
         app.config['CSRF_COOKIE_HTTPONLY'] = True
         app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
+        app.config['CSRF_DISABLE'] = True
 
         # initialize board
         locale_path = os.path.join(websrv.base_path, 'locale')
@@ -105,11 +107,29 @@ class VLoader(MenuBoardView):
             app, 2, lazy_gettext('Page Loader'), url='#loader')
 
     def get(self, **kwargs):
-        import time
-        time.sleep(5)
         html = Macro.alert(
             'message', gettext('loaded after delay'), styles='p-3')
-        return self.reply(html, doctitle=gettext('Loader'))
+        html += tpl('progress_loader.tpl')
+
+        # simulate delay
+        time.sleep(5)
+
+        return self.reply(html, doctitle=gettext('Page Loader'))
+
+    def post(self, **kwargs):
+        # get loading progress status
+        if request.form.get('get_progress', ''):
+            res = self.shared_buffer.get('loader_progress', 0)
+            return self.reply(res)
+
+        # simulate long delay
+        t = 20
+        for i in range(t):
+            self.shared_buffer.set('loader_progress', int(i * 100 / t))
+            time.sleep(1)
+
+        flash(gettext('success'), 'success')
+        return self.reply(None)
 
 
 class VLoginpage(MenuBoardView):

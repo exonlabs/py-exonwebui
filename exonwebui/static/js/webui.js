@@ -28,9 +28,16 @@ var WebUI = function($, ui) {
     },
     loading: function() {
       ui.pagelock.hide();
-      $("body").append('<div id="_UiPageLock" class="page-lock page-loading"><div>' +
-        '<a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div></div>');
+      $("body").append('<div id="_UiPageLock" class="container-fluid page-lock page-loading"><div class="row"><div class="col cancel"><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div></div></div>');
       return $("#_UiPageLock_btnCancel");
+    },
+    progress: function() {
+      var r = ui.pagelock.loading();
+      $("#_UiPageLock").append('<div class="row h-100 align-items-center justify-content-center"><div class="col-5"><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated"></div></div></div></div>');
+      return r;
+    },
+    progress_update: function(percent) {
+      $("#_UiPageLock .progress-bar").css("width", percent+"%");
     },
     hide: function() {
       if($("#_UiPageLock").length) $("#_UiPageLock").remove();
@@ -128,6 +135,7 @@ var WebUI = function($, ui) {
   ui.loader = {
     req_xhr: null,
     lock_timer: null,
+    progress_timer: null,
     load: function(verb, url, params, fSuccess, fError, fComplete, timeout) {
       ui.loader.cancel();
       ui.loader.lock_timer = setTimeout(function() {
@@ -135,8 +143,28 @@ var WebUI = function($, ui) {
       }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
         function() {
-          if(typeof fComplete === "function") fComplete();
           ui.loader.reset();
+          ui.pagelock.hide();
+          if(typeof fComplete === "function") fComplete();
+        }
+      );
+    },
+    progress: function(verb, url, params, fSuccess, fError, fComplete, timeout, interval) {
+      ui.loader.cancel();
+      ui.loader.lock_timer = setTimeout(function() {
+        ui.pagelock.progress().bind("click", function(e) {ui.loader.cancel()});
+        ui.loader.progress_timer = setInterval(function() {
+          ui.request(verb, url, {get_progress:1}, function(r){ui.pagelock.progress_update(r.payload)});
+        }, (interval)?interval:5000);
+      }, (timeout)?timeout:500);
+      ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
+        function() {
+          ui.loader.reset();
+          ui.pagelock.progress_update(100);
+          setTimeout(function() {
+            ui.pagelock.hide();
+            if(typeof fComplete === "function") fComplete();
+          }, 400);
         }
       );
     },
@@ -145,9 +173,10 @@ var WebUI = function($, ui) {
     },
     reset: function() {
       if(ui.loader.lock_timer) clearTimeout(ui.loader.lock_timer);
-      ui.pagelock.hide();
+      if(ui.loader.progress_timer) clearTimeout(ui.loader.progress_timer);
       ui.loader.req_xhr = null;
       ui.loader.lock_timer = null;
+      ui.loader.progress_timer = null;
     }
   }
 
