@@ -9,6 +9,7 @@
   <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/js/js.cookie.min.js"></script>
   <script type="text/javascript" src="/static/webui/js/webui.js"></script>
   {% block b_page_head %}{% endblock %}
 {%- endblock -%}
