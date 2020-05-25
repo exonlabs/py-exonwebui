@@ -29,14 +29,14 @@
             {%- for i in links.keys()|sort -%}
               {%- if 'menu' in links[i] and links[i].menu.keys() -%}
                 <div class="list-group pb-2">
-                  <div class="list-group-item list-group-item-secondary py-2">{{links[i].label}}</div>
+                  <div class="list-group-item list-group-item-secondary py-2">{{links[i].label|safe}}</div>
                   {%- for j in links[i].menu.keys()|sort -%}
-                    <a class="pagelink list-group-item list-group-item-action" href="{{links[i].menu[j].url}}">{{links[i].menu[j].label}}</a>
+                    <a class="pagelink list-group-item list-group-item-action" href="{{links[i].menu[j].url}}">{{links[i].menu[j].label|safe}}</a>
                   {%- endfor -%}
                 </div>
               {%- elif links[i].url != '#' -%}
                 <div class="list-group pb-2">
-                  <a class="pagelink list-group-item list-group-item-action" href="{{links[i].url}}">{{links[i].label}}</a>
+                  <a class="pagelink list-group-item list-group-item-action" href="{{links[i].url}}">{{links[i].label|safe}}</a>
                 </div>
               {%- endif -%}
             {%- endfor -%}
