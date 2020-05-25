@@ -29,20 +29,19 @@ cfg = {
 if __name__ == '__main__':
     try:
         pr = ArgumentParser(prog=None)
-        pr.add_argument('-x', '--debug', action='store_true',
-                        help='enable debug mode')
+        pr.add_argument('-x', dest='debug', action='count', default=0,
+                        help='set debug modes')
         pr.add_argument('--simple', action='store_true',
                         help='use simple web engine')
         args = pr.parse_args()
 
-        if args.debug:
+        if args.debug > 0:
             logging.getLogger().setLevel(logging.DEBUG)
 
         if args.simple:
             cfg['simple_engine'] = True
 
-        p = WebServer('SampleWebui', options=cfg)
-        p.log.setLevel(logging.getLogger().level)
+        p = WebServer('SampleWebui', options=cfg, debug=args.debug)
         p.base_path = os.path.dirname(__file__)
 
         from views import MenuBoardView
