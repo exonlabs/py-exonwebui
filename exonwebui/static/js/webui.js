@@ -136,6 +136,7 @@ var WebUI = function($, ui) {
     req_xhr: null,
     lock_timer: null,
     progress_timer: null,
+    progress_xhr: null,
     load: function(verb, url, params, fSuccess, fError, fComplete, timeout) {
       ui.loader.cancel();
       ui.loader.lock_timer = setTimeout(function() {
@@ -154,8 +155,10 @@ var WebUI = function($, ui) {
       ui.loader.lock_timer = setTimeout(function() {
         ui.pagelock.progress().bind("click", function(e) {ui.loader.cancel()});
         ui.loader.progress_timer = setInterval(function() {
-          ui.request(verb, url, {_csrf_token:Cookies.get("_csrf_token"),get_progress:1},
-            function(r){ui.pagelock.progress_update(r.payload)}, function(e){});
+          if(ui.loader.progress_xhr === null) {
+            ui.loader.progress_xhr = ui.request(verb, url, {_csrf_token:Cookies.get("_csrf_token"),get_progress:1},
+              function(r){ui.pagelock.progress_update(r.payload)}, function(e){}, function(){ui.loader.progress_xhr=null});
+          };
         }, (interval)?interval:5000);
       }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
