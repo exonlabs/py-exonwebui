@@ -55,8 +55,16 @@ h4.ui-pnotify-title {font-size:1.1em}
   .hidden-xs {display:none}
 }
 
+@media(min-width:401px) {
+  .visible-xs {display:none}
+}
+
 @media(max-width:576px) {
   .hidden-sm {display:none}
+}
+
+@media(min-width:577px) {
+  .visible-sm {display:none}
 }
 
 @media print {

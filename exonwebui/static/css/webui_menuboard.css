@@ -23,7 +23,7 @@
 [dir=rtl] #menubar-toggle {right:0; margin-right:0}
 
 #board-head {position:fixed; top:0; left:0; right:0; height:40px; z-index:100;
-  box-shadow:0 1px 8px #ccc; overflow:hidden; background-color:#fff}
+  box-shadow:0 1px 8px #ccc; background-color:#fff}
 [dir=ltr] #board-head {padding-left:46px}
 [dir=rtl] #board-head {padding-right:46px}
 
