@@ -16,3 +16,22 @@
 {% block b_board_title %}
   <span>{{gettext("Sample Portal")}}</span>
 {% endblock %}
+
+{% block b_board_widgets %}
+  <div class="btn-group">
+    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+      <i class="fas fa-user"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item btn-sm px-3" href="#?toogleboard=1">{{gettext("Toogle boards")}}</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item btn-sm px-3" href="#?lang=en">English</a>
+      <a class="dropdown-item btn-sm px-3" href="#?lang=ar">عربي</a>
+      <a class="dropdown-item btn-sm px-3" href="#?lang=fr">Français</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item btn-sm px-3" href="/loginpage">
+        <i class="fas fa-flip fa-sign-out-alt"></i>
+      </a>
+    </div>
+  </div>
+{% endblock %}
