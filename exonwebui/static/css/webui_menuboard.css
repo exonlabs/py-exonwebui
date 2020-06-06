@@ -22,7 +22,7 @@
 [dir=ltr] #menubar-toggle {left:0; margin-left:0}
 [dir=rtl] #menubar-toggle {right:0; margin-right:0}
 
-#board-head {position:fixed; top:0; left:0; right:0; height:40px; z-index:100;
+#board-head {position:fixed; top:0; left:0; right:0; height:40px; z-index:5000;
   box-shadow:0 1px 8px #ccc; background-color:#fff}
 [dir=ltr] #board-head {padding-left:46px}
 [dir=rtl] #board-head {padding-right:46px}
@@ -34,7 +34,8 @@
 [dir=ltr] #board-widgets {margin-left:auto !important}
 [dir=rtl] #board-widgets {margin-right:auto !important}
 
-#board-body {padding:40px 0 0}
+#board-headbar {padding-top:40px}
+#board-body {padding:0}
 
 
 /* board design with Menu Toggled (Menu ON) */

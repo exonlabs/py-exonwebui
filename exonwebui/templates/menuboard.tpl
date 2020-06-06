@@ -59,6 +59,9 @@
             {% block b_board_widgets %}{{board_widgets|safe}}{% endblock %}
           </div>
         </div>
+        <div id="board-headbar" class="sticky-top">
+          {% block b_board_headbar -%}{{headbar|safe}}{%- endblock %}
+        </div>
         <div id="board-body">
           {% block b_board_content %}
             <div id="board-content" class="text-left"></div>
