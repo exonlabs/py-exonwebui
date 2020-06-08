@@ -5,7 +5,6 @@ from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
 from exonwebui.menuboard import MenuBoardView
-from exonwebui.macros import Macro
 
 
 class VIndex(MenuBoardView):
@@ -13,6 +12,9 @@ class VIndex(MenuBoardView):
 
     @classmethod
     def initialize(cls, websrv, app):
+        # disable strict slash matching
+        app.url_map.strict_slashes = False
+
         # adjust session and csrf cookies attrs
         app.config['SESSION_COOKIE_HTTPONLY'] = True
         app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
@@ -25,7 +27,8 @@ class VIndex(MenuBoardView):
         cls.board_initialize(app, locale_path=locale_path)
 
         # add menu section
-        cls.add_menulink(app, 1, lazy_gettext('UI Components'))
+        cls.add_menulink(
+            app, 1, lazy_gettext('UI Components'), icon='fa-shapes')
 
     def get(self, **kwargs):
         params = {
@@ -51,7 +54,8 @@ class VHome(MenuBoardView):
 
     @classmethod
     def initialize(cls, websrv, app):
-        cls.add_menulink(app, 0, lazy_gettext('Home'), url='#home')
+        cls.add_menulink(
+            app, 0, lazy_gettext('Home'), icon='fa-home', url='#home')
 
     def get(self, **kwargs):
         html = tpl('option_panel.tpl', message=gettext("Welcome"))
@@ -67,12 +71,13 @@ class VNotify(MenuBoardView):
             app, 1, lazy_gettext('Notifications'), url='#notify', parent=1)
 
     def get(self, **kwargs):
+        from exonwebui.macros.basic import UiAlert
         flash(gettext('error'), 'error')
         flash(gettext('warning'), 'warn')
         flash(gettext('info'), 'info')
         flash(gettext('success'), 'success')
-        html = Macro.alert(
-            'message', gettext('showing notifications'), styles='p-3')
+        html = UiAlert('message', gettext('showing notifications'),
+                       styles='p-3', dismiss=False)
         return self.reply(html, doctitle=gettext('Notifications'))
 
 
@@ -85,16 +90,12 @@ class VAlerts(MenuBoardView):
             app, 2, lazy_gettext('Alerts'), url='#alerts', parent=1)
 
     def get(self, **kwargs):
-        html = Macro.alert(
-            'info', gettext('info'), styles='px-3 pt-3', dismissible=True)
-        html += Macro.alert(
-            'warn', gettext('warning'), styles='px-3', dismissible=True)
-        html += Macro.alert(
-            'error', gettext('error'), styles='px-3', dismissible=True)
-        html += Macro.alert(
-            'success', gettext('success'), styles='px-3', dismissible=True)
-        html += Macro.alert(
-            'message', gettext('message'), styles='px-3', dismissible=True)
+        from exonwebui.macros.basic import UiAlert
+        html = UiAlert('info', gettext('info'), styles='px-3 pt-3')
+        html += UiAlert('warn', gettext('warning'), styles='px-3')
+        html += UiAlert('error', gettext('error'), styles='px-3')
+        html += UiAlert('success', gettext('success'), styles='px-3')
+        html += UiAlert('message', gettext('message'), styles='px-3')
         return self.reply(html, doctitle=gettext('Alerts'))
 
 
@@ -107,8 +108,9 @@ class VLoader(MenuBoardView):
             app, 2, lazy_gettext('Page Loader'), url='#loader')
 
     def get(self, **kwargs):
-        html = Macro.alert(
-            'message', gettext('loaded after delay'), styles='p-3')
+        from exonwebui.macros.basic import UiAlert
+        html = UiAlert('message', gettext('loaded after delay'),
+                       styles='p-3', dismiss=False)
         html += tpl('progress_loader.tpl')
 
         # simulate delay
@@ -141,11 +143,12 @@ class VLoginpage(MenuBoardView):
             app, 3, lazy_gettext('Login Page'), url='loginpage')
 
     def get(self, **kwargs):
+        from exonwebui.macros.forms import UiLoginForm
         params = {
             'page_lang': session.get('lang', ''),
             'page_langdir': session.get('lang_dir', ''),
             'page_doctitle': "Login | WebUI",
-            'loginform': Macro.loginform(
+            'loginform': UiLoginForm(
                 url_for('loginpage'), '123456',
                 styles="text-white bg-secondary"),
         }
@@ -164,5 +167,4 @@ class VLoginpage(MenuBoardView):
             else:
                 err = gettext("Invalid username or password")
 
-        flash(err, 'error')
-        return self.reply(None)
+        return self.notify(err, 'error')

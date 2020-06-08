@@ -10,7 +10,8 @@ from flask_seasurf import SeaSurf
 from flask_babelex import Babel, Domain, get_domain, refresh as lang_refresh
 
 from exonutils.webserver import WebView
-from .macros import Macro
+
+__all__ = ['MenuBoardView']
 
 
 class MenuBoardView(WebView):
@@ -110,10 +111,11 @@ class MenuBoardView(WebView):
                 params['notifications'] = notifications
             return jsonify(**params)
         else:
-            return response if response is not None else ''
+            return str(response) if response is not None else ''
 
     def alert(self, message, category='error', **params):
-        response = Macro.alert(category, message)
+        from .macros.basic import UiAlert
+        response = UiAlert(category, message)
         return self.reply(response, **params)
 
     def notify(self, message, category='error', **params):

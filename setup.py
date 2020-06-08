@@ -4,7 +4,7 @@
     :license: BSD, see LICENSE for more details.
 """
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
@@ -24,7 +24,7 @@ setup(
     description='Web libraries for UI web applications.',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=[__PKGNAME__],
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     platforms='linux',
