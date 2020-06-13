@@ -1,7 +1,7 @@
 {%- extends "webui/html.tpl" -%}
 
 {%- block b_html_head -%}
-  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if page_langdir == 'rtl' %}-rtl{% endif %}.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/fontawesome/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/pnotify/pnotify.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
@@ -10,7 +10,7 @@
   <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/js/js.cookie.min.js"></script>
-  <script type="text/javascript" src="/static/webui/js/webui.js"></script>
+  <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
   {% block b_page_head %}{% endblock %}
 {%- endblock -%}
 

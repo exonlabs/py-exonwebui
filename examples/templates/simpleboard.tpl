@@ -1,8 +1,8 @@
 {%- extends "webui/simpleboard.tpl" -%}
 
 {% block b_board_head %}
-  {%- if page_lang and page_lang != 'en' -%}
-  <script type="text/javascript" src="/static/i18n/{{page_lang}}.min.js"></script>
+  {%- if doc_lang and doc_lang != 'en' -%}
+  <script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>
   {%- endif %}
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
   <link rel="apple-touch-icon" type="image/png" href="/static/images/favicon.png">
@@ -10,9 +10,11 @@
 {% endblock %}
 
 {% block b_board_menuhead %}
-  <img class="img-fluid pt-3" src="/static/images/logo.png">
+  <div class="pb-2">
+    <img class="img-fluid" src="/static/images/logo.png">
+  </div>
 {% endblock %}
 
-{% block b_board_title %}
+{% block b_pagehead_title %}
   <span>{{gettext("Sample Portal")}}</span>
 {% endblock %}

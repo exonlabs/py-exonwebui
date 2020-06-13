@@ -3,7 +3,7 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $("#btnLoad").bind('click', function(e){
-        WebUI.loader.progress("POST","/loader",{},null,null,null,200);
+        WebUI.loader.progress("POST","/loader",{},null,null,null,200,1000);
       });
     });
   </script>

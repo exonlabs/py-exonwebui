@@ -3,42 +3,31 @@
   :license: BSD, see LICENSE for more details.
 */
 
-body, html {min-width:992px}
+html, body {min-width:768px}
 
 /* board design */
-#board-wrapper {position:relative; margin:0;
-  height:auto !important; height:100%; min-height:100%;
-  background-color:#f8f9fa; color:#343a40}
-[dir=ltr] #board-wrapper {padding-left:220px}
-[dir=rtl] #board-wrapper {padding-right:220px}
+#board-wrapper {position:relative; background-color:#f8f9fa; color:#343a40}
+[dir=ltr] #board-wrapper {padding-left:200px}
+[dir=rtl] #board-wrapper {padding-right:200px}
 
-#board-menubar {position:fixed; top:0; bottom:0; width:220px; overflow-x:hidden}
-[dir=ltr] #board-menubar {left:0; padding-left:5px}
-[dir=rtl] #board-menubar {right:0; padding-right:5px}
+#board-menu {position:fixed; top:0; bottom:0; width:200px}
+[dir=ltr] #board-menu {left:0}
+[dir=rtl] #board-menu {right:0}
+#board-page {overflow:auto}
 
-#board-page {height:auto !important; height:100%; min-height:100%}
+#board-menubody {overflow:auto}
+#board-menuhead {overflow:hidden}
 
-#board-head {position:fixed; top:0; left:0; right:0; height:40px; overflow:hidden}
-[dir=ltr] #board-head {left:220px}
-[dir=rtl] #board-head {right:220px}
+#board-pagehead {}
+#board-pagebody {margin-top:-40px; padding-top:40px}
 
-#board-title {line-height:40px; min-width:150px; font-size:1em;
-  font-weight:bold; color:#343a40}
-
-#board-body {padding:40px 0 0}
-
-
-/* sidemenu */
-#menubar-head {padding:10px 0; overflow:hidden}
-
-#menubar-body {font-weight: bold;}
-[dir=ltr] #menubar-body {text-align:left !important}
-[dir=rtl] #menubar-body {text-align:right !important}
+/* headbar */
+#pagehead-bar {height:40px; padding:0 15px; background-color:#fff}
+#pagehead-title {line-height:40px; font-weight:bold; color:#343a40}
 
 
 @media print {
-  #board-wrapper, #board-page, #board-head {
+  #board-wrapper,#board-page,#board-pagehead,#board-pagebody,#pagehead-bar {
     left:0 !important; right:0 !important;
-    margin-left:0 !important; margin-right:0 !important;
-    padding-left:0 !important; padding-right:0 !important}
+    margin:0 !important; padding:0 !important}
 }

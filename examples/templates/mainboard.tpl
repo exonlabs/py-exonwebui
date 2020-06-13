@@ -1,8 +1,8 @@
 {%- extends "webui/menuboard.tpl" -%}
 
 {% block b_board_head %}
-  {%- if page_lang and page_lang != 'en' -%}
-  <script type="text/javascript" src="/static/i18n/{{page_lang}}.min.js"></script>
+  {%- if doc_lang and doc_lang != 'en' -%}
+  <script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>
   {%- endif %}
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
   <link rel="apple-touch-icon" type="image/png" href="/static/images/favicon.png">
@@ -10,14 +10,23 @@
 {% endblock %}
 
 {% block b_board_menuhead %}
-  <img class="img-fluid" src="/static/images/logo.png">
+  <div class="p-3">
+    <img class="img-fluid" src="/static/images/logo.png">
+  </div>
 {% endblock %}
 
-{% block b_board_title %}
+{% block b_board_pagehead %}
+  {{super()}}
+  <div class="px-3 text-right text-info" style="line-height:18px; margin-bottom:-20px">
+    <small>[info bar]</small>
+  </div>
+{% endblock %}
+
+{% block b_pagehead_title %}
   <span>{{gettext("Sample Portal")}}</span>
 {% endblock %}
 
-{% block b_board_widgets %}
+{% block b_pagehead_widgets %}
   <div class="btn-group">
     <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
       <i class="fas fa-user"></i>
@@ -34,4 +43,8 @@
       </a>
     </div>
   </div>
+{% endblock %}
+
+{% block b_board_pagebody %}
+  <div id="pagebody-contents" class="pt-2"></div>
 {% endblock %}

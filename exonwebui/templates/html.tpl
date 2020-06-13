@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="{{page_lang or 'en'}}" dir="{{page_langdir or 'ltr'}}" class="scroll">
+<html lang="{{doc_lang or 'en'}}" dir="{{doc_langdir or 'ltr'}}" class="scroll">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>{{page_doctitle}}</title>
+  <title>{{doc_title}}</title>
   {% block b_html_head %}{% endblock %}
 </head>
-<body dir="{{page_langdir or 'ltr'}}" class="scroll">
+<body dir="{{doc_langdir or 'ltr'}}" class="scroll">
   {% block b_html_body %}{% endblock %}
   <!--[if IE]>
   <script type="text/javascript">

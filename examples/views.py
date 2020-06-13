@@ -32,9 +32,9 @@ class VIndex(MenuBoardView):
 
     def get(self, **kwargs):
         params = {
-            'page_lang': session.get('lang', ''),
-            'page_langdir': session.get('lang_dir', ''),
-            'page_doctitle': "WebUI",
+            'doc_lang': session.get('lang', ''),
+            'doc_langdir': session.get('lang_dir', ''),
+            'doc_title': "WebUI",
         }
 
         if not session.get('simpleboard', None):
@@ -114,7 +114,7 @@ class VLoader(MenuBoardView):
         html += tpl('progress_loader.tpl')
 
         # simulate delay
-        time.sleep(5)
+        time.sleep(3)
 
         return self.reply(html, doctitle=gettext('Page Loader'))
 
@@ -125,7 +125,7 @@ class VLoader(MenuBoardView):
             return self.reply(res)
 
         # simulate long delay
-        t = 20
+        t = 5
         for i in range(t):
             self.shared_buffer.set('loader_progress', int(i * 100 / t))
             time.sleep(1)
@@ -145,9 +145,9 @@ class VLoginpage(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiLoginForm
         params = {
-            'page_lang': session.get('lang', ''),
-            'page_langdir': session.get('lang_dir', ''),
-            'page_doctitle': "Login | WebUI",
+            'doc_lang': session.get('lang', ''),
+            'doc_langdir': session.get('lang_dir', ''),
+            'doc_title': "Login | WebUI",
             'loginform': UiLoginForm(
                 url_for('loginpage'), '123456',
                 styles="text-white bg-secondary"),

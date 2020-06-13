@@ -1,7 +1,7 @@
 {%- extends "webui/html.tpl" -%}
 
 {%- block b_html_head -%}
-  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if page_langdir == 'rtl' %}-rtl{% endif %}.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/fontawesome/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/pnotify/pnotify.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/metismenu/metisMenu.min.css">
@@ -20,13 +20,16 @@
 
 {%- block b_html_body -%}
   {% block b_board_body %}
-    <div id="board-wrapper" class="ease">
-      <div id="board-menubar" class="text-center ease scroll d-print-none">
-        <div id="menubar-head">
-          {% block b_board_menuhead -%}{{menubar_head|safe}}{%- endblock %}
+    <div id="board-wrapper" class="ease h-100">
+      <div id="board-menu" class="ease h-100 d-print-none">
+        <div id="board-menutoggle" class="text-right">
+          <a title="{{gettext('Toggle Menu')}}"><i class="fas fa-bars"></i></a>
         </div>
-        <div id="menubar-body">
-          {% block menubar_body %}
+        <div id="board-menubody" class="h-100 scroll">
+          <div id="board-menuhead">
+            {% block b_board_menuhead %}{% endblock %}
+          </div>
+          {% block board_menubody %}
             <ul class="metismenu">
               {%- set links = get_menulinks() -%}
               {%- for i in links.keys()|sort -%}
@@ -47,32 +50,27 @@
           {% endblock %}
         </div>
       </div>
-      <div id="board-page">
-        <div id="menubar-toggle" class="ease d-print-none">
-          <a title="Toggle Menu"><i class="fas fa-bars"></i></a>
+      <div id="board-page" class="h-100 scroll">
+        <div id="board-pagehead" class="sticky-top">
+          {% block b_board_pagehead %}
+            <div id="pagehead-bar" class="d-flex">
+              <div id="pagehead-title" class="flex-grow-1 text-truncate text-left">
+                {% block b_pagehead_title %}{% endblock %}
+              </div>
+              <div id="pagehead-widgets" class="text-right d-print-none">
+                {% block b_pagehead_widgets %}{% endblock %}
+              </div>
+            </div>
+          {% endblock %}
         </div>
-        <div id="board-head" class="d-flex ease">
-          <div id="board-title" class="text-truncate text-left">
-            {% block b_board_title %}{{board_title|safe}}{% endblock %}
-          </div>
-          <div id="board-widgets" class="d-print-none">
-            {% block b_board_widgets %}{{board_widgets|safe}}{% endblock %}
-          </div>
-        </div>
-        <div id="board-headbar" class="sticky-top">
-          {% block b_board_headbar -%}{{headbar|safe}}{%- endblock %}
-        </div>
-        <div id="board-body">
-          {% block b_board_content %}
-            <div id="board-content" class="text-left"></div>
+        <div id="board-pagebody" class="h-100">
+          {% block b_board_pagebody %}
+            <div id="pagebody-contents"></div>
           {% endblock %}
         </div>
       </div>
     </div>
     <div id="board-backdrop" class="d-print-none"></div>
-    <div id="_UiPageLock" class="page-lock page-loading invisible">
-      <div><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div>
-    </div>
   {% endblock %}
   {% block b_board_scripts %}
     <script type="text/javascript">

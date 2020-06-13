@@ -1,8 +1,8 @@
 {%- extends "webui/simplepage.tpl" -%}
 
 {% block b_page_head %}
-  {%- if page_lang and page_lang != 'en' -%}
-  <script type="text/javascript" src="/static/i18n/{{page_lang}}.min.js"></script>
+  {%- if doc_lang and doc_lang != 'en' -%}
+  <script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>
   {%- endif %}
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
   <link rel="apple-touch-icon" type="image/png" href="/static/images/favicon.png">

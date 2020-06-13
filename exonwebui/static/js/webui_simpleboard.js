@@ -8,7 +8,7 @@ var WebUI = function($, ui) {
     old_hash: null,
     load_neglect: false,
     update: function(data) {
-      $("#board-content").html(data);
+      $("#pagebody-contents").html(data);
     },
     error: function(message) {
       ui.board_content.update(
@@ -64,7 +64,7 @@ var WebUI = function($, ui) {
         ui.board_content.load("GET", window.location.hash, null);
       });
 
-    $('#menubar-body a.pagelink[href="' +
+    $('#board-menubody a.pagelink[href="' +
         window.location.hash.replace(/[\/?].*$/,"") + '"]')
       .parents('ul').prev('a').click();
 
@@ -76,7 +76,7 @@ var WebUI = function($, ui) {
 
     setTimeout(function() {
       if(window.location.hash.length <= 1) {
-        window.location.hash = $('#menubar-body a.pagelink').attr("href");
+        window.location.hash = $('#board-menubody a.pagelink').attr("href");
       }
       else $(window).trigger("hashchange");
     }, 100);
