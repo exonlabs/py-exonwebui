@@ -5,14 +5,15 @@
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/fontawesome/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/pnotify/pnotify.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/metismenu/metisMenu.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_menuboard.min.css">
   <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/metismenu/metisMenu.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/js/js.cookie.min.js"></script>
+  {% block b_board_plugins %}{% endblock %}
+  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_menuboard.min.css">
   <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
   <script type="text/javascript" src="/static/webui/js/webui_menuboard.min.js"></script>
   {% block b_board_head %}{% endblock %}
