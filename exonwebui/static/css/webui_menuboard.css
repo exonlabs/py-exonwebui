@@ -62,6 +62,35 @@ body.MenuToggled #board-menu {box-shadow:0 0 8px #303030}
 [dir=ltr] #board-menubody>ul.metismenu a {text-align:left !important}
 [dir=rtl] #board-menubody>ul.metismenu a {text-align:right !important}
 
+/* datagrid */
+.datagrid-wrapper thead {font-size:13px}
+.datagrid-wrapper .table-index {font-size:12px; color:#9c9c9c; vertical-align:middle}
+
+.datagrid-wrapper .tick-select.active, .datagrid-wrapper .tick-select:not(.active):active {
+  background-color:inherit; color:inherit}
+.datagrid-wrapper .tick-select.active>span::before{content:'\2713'}
+.datagrid-wrapper .tick-select:not(.active)>span{padding-left:12px; color:#9a9a9a}
+
+.datagrid-wrapper table.dataTable tbody>tr.selected,
+.datagrid-wrapper table.dataTable tbody>tr>.selected {background-color:#6c757d}
+
+.datagrid-wrapper table.dataTable thead th:nth-child(2)::before,
+.datagrid-wrapper table.dataTable thead th:nth-child(2)::after {
+  display:block; position:absolute; width:12px; height:12px; top:1.5rem}
+.datagrid-wrapper table.dataTable thead th:nth-child(2)::before {
+  content:' '; margin-top:-6px; margin-left:-6px; border:1px solid grey;
+  border-radius:3px; box-shadow:-1px 1px 1px #ddd inset}
+.datagrid-wrapper table.dataTable thead th.selected:nth-child(2)::after {
+  content:'\2714';margin-left:-4px; margin-top: -10px}
+
+.datagrid-wrapper table.dataTable tbody td.select-checkbox::before,
+.datagrid-wrapper table.dataTable tbody td.select-checkbox::after {
+  left:auto; margin-top:-8px}
+.datagrid-wrapper table.dataTable tbody td.select-checkbox::before {
+  border:1px solid grey; box-shadow:-1px 1px 1px rgba(200,200,200,0.5) inset}
+.datagrid-wrapper table.dataTable tr.selected td.select-checkbox::after {
+  text-shadow:none; margin-top:-13px}
+
 
 @media (max-width:991px) {
   /* board design "Mobile View" (MenuToggled == Menu ON) */
