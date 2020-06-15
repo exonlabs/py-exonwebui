@@ -17,10 +17,10 @@ class UiLoginForm(UiFormsMacro):
 
     tpl_name = 'loginform.tpl'
 
-    def __new__(cls, url, authkey, form_id=None, styles=''):
+    def __new__(cls, options, styles=''):
         return cls.tpl(**{
-            'id': cls.randint() if form_id is None else form_id,
-            'url': url,
-            'authkey': authkey,
+            'id': options.get('form_id', cls.randint()),
+            'url': options.get('submit_url', ''),
+            'authkey': options.get('authkey', ''),
             'styles': styles,
         })

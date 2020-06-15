@@ -8,7 +8,7 @@
 </head>
 <body dir="{{doc_langdir or 'ltr'}}" class="scroll">
   {% block b_html_body %}{% endblock %}
-  <!--[if IE]>
+  <!--[if lt IE 11 ]>
   <script type="text/javascript">
     document.body.innerHTML = '<h2>You are using an outdated browser.</h2><p>Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>';
   </script>
