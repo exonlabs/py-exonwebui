@@ -97,6 +97,10 @@ var WebUI = function($, ui) {
     }
   };
 
+  ui.scrolltop = function(interval) {
+    $("body").animate({scrollTop:0},(interval)?interval:300);
+  };
+
   ui.redirect = function(url, blank) {
     if(url !== undefined && url.length > 0) {
       if(url[0] == '#') {
@@ -182,7 +186,7 @@ var WebUI = function($, ui) {
       ui.loader.lock_timer = null;
       ui.loader.progress_timer = null;
     }
-  }
+  };
 
   ui.init = function() {
     var lang = $('html').attr("lang");

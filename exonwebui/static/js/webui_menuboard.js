@@ -4,6 +4,10 @@
 */
 var WebUI = function($, ui) {
 
+  ui.scrolltop = function(interval) {
+    $("#board-page").animate({scrollTop:0},(interval)?interval:300);
+  };
+
   ui.board_menu = {
     show: function() {
       $("body").addClass("MenuToggled");
@@ -21,6 +25,7 @@ var WebUI = function($, ui) {
     load_neglect: false,
     update: function(data) {
       $("#pagebody-contents").html(data);
+      ui.scrolltop(0);
     },
     error: function(message) {
       ui.board_content.update(
