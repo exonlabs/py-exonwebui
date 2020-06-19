@@ -21,16 +21,16 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $("#btnViewPW_{{id}} span")
-      .bind("mousedown touchstart",function(){
+      .on("mousedown touchstart",function(){
         $("#btnViewPW_{{id}}>input").attr("type","text");
         $("#btnViewPW_{{id}} i").removeClass("fa-eye-slash").addClass("fa-eye")})
-      .bind("mouseup mouseleave touchend",function(){
+      .on("mouseup mouseleave touchend",function(){
         $("#btnViewPW_{{id}}>input").attr("type","password");
         $("#btnViewPW_{{id}} i").removeClass("fa-eye").addClass("fa-eye-slash")});
     $("#frmLogin_{{id}}").submit(function(e){
       e.preventDefault(); WebUI.notify.clear();
       var u=$("#frmLogin_{{id}} input[name=username]"),p=$("#frmLogin_{{id}} input[name=password]");
-      WebUI.loader.load("POST","{{url}}",
+      WebUI.loader.load("POST","{{submit_url}}",
         {_csrf_token:"{{csrf_token()}}",username:u.val(),
          digest:(p.val())?CryptoJS.SHA256("{{authkey}}"+CryptoJS.SHA256(p.val())).toString():""},
         null,null,function(){p.val("");p.focus()},200);

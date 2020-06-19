@@ -64,7 +64,7 @@ var WebUI = function($, ui) {
     ui.init();
 
     $(window)
-      .bind("hashchange", function(e) {
+      .on("hashchange", function(e) {
         e.preventDefault();
         ui.board_content.load("GET", window.location.hash, null);
       });

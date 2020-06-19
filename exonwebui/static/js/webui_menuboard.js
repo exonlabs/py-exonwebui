@@ -76,10 +76,10 @@ var WebUI = function($, ui) {
     ui.init();
 
     $(window)
-      .bind("resize", function() {
+      .on("resize", function() {
         if(window.innerWidth < 992) ui.board_menu.hide();
       })
-      .bind("hashchange", function(e) {
+      .on("hashchange", function(e) {
         e.preventDefault();
         if(window.innerWidth < 992) ui.board_menu.hide();
         ui.board_content.load("GET", window.location.hash, null);

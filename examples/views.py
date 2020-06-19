@@ -149,7 +149,7 @@ class VLoginpage(MenuBoardView):
             'doc_langdir': session.get('lang_dir', ''),
             'doc_title': "Login | WebUI",
             'loginform': UiLoginForm(
-                url_for('loginpage'), '123456',
+                {'submit_url': url_for('loginpage'), 'authkey': '123456'},
                 styles="text-white bg-secondary"),
         }
         return tpl('loginpage.tpl', **params)

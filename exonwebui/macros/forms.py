@@ -20,7 +20,7 @@ class UiLoginForm(UiFormsMacro):
     def __new__(cls, options, styles=''):
         return cls.tpl(**{
             'id': options.get('form_id', cls.randint()),
-            'url': options.get('submit_url', ''),
+            'submit_url': options.get('submit_url', ''),
             'authkey': options.get('authkey', ''),
             'styles': styles,
         })

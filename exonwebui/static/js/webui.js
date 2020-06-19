@@ -22,22 +22,21 @@ var WebUI = function($, ui) {
   };
 
   ui.pagelock = {
-    show: function() {
+    show: function(html, styles) {
       ui.pagelock.hide();
-      $("body").append('<div id="_UiPageLock" class="page-lock"></div>');
+      $("body").append('<div id="_UiPageLock" class="container-fluid overflow-auto scroll page-lock '+(styles?styles:'')+'">'+(html?html:'')+'</div>');
     },
-    loading: function() {
-      ui.pagelock.hide();
-      $("body").append('<div id="_UiPageLock" class="container-fluid page-lock page-loading"><div class="row"><div class="col cancel"><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div></div></div>');
+    loading: function(html) {
+      ui.pagelock.show('<div class="row"><div class="col cancel"><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div></div>'+(html?html:''),'page-loading');
+      $("#_UiPageLock_btnCancel").on('click',function(){ui.pagelock.hide()});
       return $("#_UiPageLock_btnCancel");
     },
-    progress: function() {
-      var r = ui.pagelock.loading();
-      $("#_UiPageLock").append('<div class="row h-100 align-items-center justify-content-center"><div class="col-5"><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated"></div></div></div></div>');
-      return r;
+    progress: function(percent) {
+      if(percent) $("#_UiPageLock .progress-bar").css("width", percent+"%");
+      else return ui.pagelock.loading('<div class="row h-100 align-items-center justify-content-center"><div class="col-5"><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated"></div></div></div></div>');
     },
-    progress_update: function(percent) {
-      $("#_UiPageLock .progress-bar").css("width", percent+"%");
+    modal: function(title, contents, footer, styles) {
+      ui.pagelock.show('<div class="modal-dialog modal-dialog-centered '+(styles?styles:'')+'"><div class="modal-content"><div class="modal-header pt-2 pb-1">'+(title?title:'')+'<button class="close" onclick="WebUI.pagelock.hide()">×</button></div><div class="modal-body scroll">'+(contents?contents:'')+(footer?'</div><div class="modal-footer p-1">'+footer+'</div></div></div>':''));
     },
     hide: function() {
       if($("#_UiPageLock").length) $("#_UiPageLock").remove();
@@ -144,7 +143,7 @@ var WebUI = function($, ui) {
     load: function(verb, url, params, fSuccess, fError, fComplete, timeout) {
       ui.loader.cancel();
       ui.loader.lock_timer = setTimeout(function() {
-        ui.pagelock.loading().bind("click", function(e) {ui.loader.cancel()});
+        ui.pagelock.loading().off("click").on("click", function(e) {ui.loader.cancel()});
       }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
         function() {
@@ -157,18 +156,18 @@ var WebUI = function($, ui) {
     progress: function(verb, url, params, fSuccess, fError, fComplete, timeout, interval) {
       ui.loader.cancel();
       ui.loader.lock_timer = setTimeout(function() {
-        ui.pagelock.progress().bind("click", function(e) {ui.loader.cancel()});
+        ui.pagelock.progress().off("click").on("click", function(e) {ui.loader.cancel()});
         ui.loader.progress_timer = setInterval(function() {
           if(ui.loader.progress_xhr === null) {
             ui.loader.progress_xhr = ui.request(verb, url, {_csrf_token:Cookies.get("_csrf_token"),get_progress:1},
-              function(r){ui.pagelock.progress_update(r.payload)}, function(e){}, function(){ui.loader.progress_xhr=null});
+              function(r){ui.pagelock.progress(r.payload)}, function(e){}, function(){ui.loader.progress_xhr=null});
           };
         }, (interval)?interval:5000);
       }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
         function() {
           ui.loader.reset();
-          ui.pagelock.progress_update(100);
+          ui.pagelock.progress(100);
           setTimeout(function() {
             ui.pagelock.hide();
             if(typeof fComplete === "function") fComplete();
