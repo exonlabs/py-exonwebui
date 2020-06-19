@@ -72,7 +72,7 @@ class VNotify(MenuBoardView):
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        flash(gettext('error'), 'error')
+        flash(gettext('error') + " STICKY_MSG", 'error.us')
         flash(gettext('warning'), 'warn')
         flash(gettext('info'), 'info')
         flash(gettext('success'), 'success')

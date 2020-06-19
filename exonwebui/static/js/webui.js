@@ -47,7 +47,7 @@ var WebUI = function($, ui) {
     stack: {"dir1":"down", "dir2":"left", "push":"top",
             "firstpos1":14, "firstpos2":10, "spacing1":7, "spacing2":7},
     clear: PNotify.removeAll,
-    show: function(category, message, unique) {
+    show: function(category, message, unique, sticky) {
       if(unique) PNotify.removeAll();
       if(window.innerWidth < 576) {
         ui.notify.stack.firstpos1 = 0; ui.notify.stack.firstpos2 = 0;
@@ -58,7 +58,7 @@ var WebUI = function($, ui) {
         ui.notify.stack.dir2 = "right";
       else ui.notify.stack.dir2 = "left";
       var opt = {
-        styling: "fontawesome", icon: false,
+        styling: "fontawesome", icon: false, hide: (sticky?false:true),
         animate_speed: "fast", buttons: {sticker:false, closer:true},
         addclass: "stack-custom", stack: ui.notify.stack
       };
@@ -78,21 +78,21 @@ var WebUI = function($, ui) {
       var n = new PNotify(opt);
       n.get().click(function() {n.remove()});
     },
-    error: function(message, unique) {
-      ui.notify.show('error', message, unique);
+    error: function(message, unique, sticky) {
+      ui.notify.show('error', message, unique, sticky);
     },
-    warn: function(message, unique) {
-      ui.notify.show('warn', message, unique);
+    warn: function(message, unique, sticky) {
+      ui.notify.show('warn', message, unique, sticky);
     },
-    info: function(message, unique) {
-      ui.notify.show('info', message, unique);
+    info: function(message, unique, sticky) {
+      ui.notify.show('info', message, unique, sticky);
     },
-    success: function(message, unique) {
-      ui.notify.show('success', message, unique);
+    success: function(message, unique, sticky) {
+      ui.notify.show('success', message, unique, sticky);
     },
     load: function(notifications) {
       for(var i=0; i<notifications.length; i++)
-        ui.notify.show(notifications[i][0],notifications[i][1]);
+        ui.notify.show(notifications[i][0],notifications[i][1],notifications[i][2],notifications[i][3]);
     }
   };
 

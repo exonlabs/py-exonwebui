@@ -108,7 +108,15 @@ class MenuBoardView(WebView):
                 params['payload'] = response
             notifications = get_flashed_messages(with_categories=True)
             if notifications:
-                params['notifications'] = notifications
+                params['notifications'] = []
+                for cat, msg in notifications:
+                    if '.' in cat:
+                        _cat, opts = cat.split('.', 1)
+                        params['notifications'].append(
+                            [_cat, msg, 'u' in opts, 's' in opts])
+                    else:
+                        params['notifications'].append(
+                            [cat, msg, False, False])
             return jsonify(**params)
         else:
             return str(response) if response is not None else ''
@@ -118,8 +126,11 @@ class MenuBoardView(WebView):
         response = UiAlert(category, message)
         return self.reply(response, **params)
 
-    def notify(self, message, category='error', **params):
-        flash(message, category)
+    def notify(self, message, category='error', unique=False, sticky=False,
+               **params):
+        opts = 'u' if unique else ''
+        opts += 's' if sticky else ''
+        flash(message, '%s.%s' % (category, opts) if opts else category)
         return self.reply(None, **params)
 
     # request handling ###############
