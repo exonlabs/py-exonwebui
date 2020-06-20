@@ -8,7 +8,7 @@
   <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/js/js.cookie.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/js/cookie.min.js"></script>
   {% block b_board_plugins %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_simpleboard.min.css">
