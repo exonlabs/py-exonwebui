@@ -112,9 +112,11 @@ var WebUI = function($, ui) {
     };
   };
 
-  ui.request = function(verb, url, params, fSuccess, fError, fComplete) {
+  ui.request = function(verb, url, params, fSuccess, fError, fComplete, fXhr) {
     return $.ajax({
       url: ui.format_url(url), type: verb, data: params?params:{},
+      contentType:(params instanceof FormData)?false:'application/x-www-form-urlencoded; charset=UTF-8',
+      processData:!(params instanceof FormData),
       success: function(result, status, xhr) {
         if(typeof fSuccess === "function") fSuccess(result);
         else {
@@ -131,6 +133,10 @@ var WebUI = function($, ui) {
       },
       complete: function(xhr, status) {
         if(typeof fComplete === "function") fComplete();
+      },
+      xhr: function() {
+        if(typeof fXhr === "function") return fXhr();
+        else return (new window.XMLHttpRequest());
       }
     });
   };
@@ -175,6 +181,32 @@ var WebUI = function($, ui) {
         }
       );
     },
+    formsubmit: function(form, fSuccess, fError, fComplete, timeout) {
+      ui.loader.cancel();
+      var uiloader = ui.pagelock.progress;
+      ui.loader.lock_timer = setTimeout(function() {
+        uiloader().off("click").on("click", function(e) {ui.loader.cancel()});
+      }, (timeout)?timeout:500);
+      ui.loader.req_xhr = ui.request(
+        form.attr('method'), form.attr('action'), (new FormData(form[0])), fSuccess, fError,
+        function() {
+          ui.loader.reset(); ui.pagelock.hide();
+          if(typeof fComplete === "function") fComplete();
+        },
+        function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener("progress", function(evt) {
+            if (evt.lengthComputable) {
+              var percent = parseInt(evt.loaded / evt.total * 100);
+              if(percent<100) {ui.pagelock.progress(percent);return null};
+              ui.pagelock.progress(100);
+            };
+            uiloader = ui.pagelock.loading;
+          }, false);
+          return xhr;
+        }
+      );
+    },
     cancel: function() {
       if(ui.loader.req_xhr) ui.loader.req_xhr.abort();
     },
@@ -187,7 +219,20 @@ var WebUI = function($, ui) {
     }
   };
 
+  ui.getScript = function(url, fSuccess, fError) {
+    $.getScript(url)
+      .done(function(script, status) {
+        if(typeof fSuccess === "function") fSuccess();
+      })
+      .fail(function(xhr, status, error) {
+        console.error('failed loading '+url+' ['+error+']');
+        if(typeof fError === "function") fError(result);
+        else ui.notify.warn('Not all page contents loaded !<br>Please refresh page and try again.',null,true);
+    });
+  };
+
   ui.init = function() {
+    $.ajaxSetup({cache:true});
     var lang = $('html').attr("lang");
     if(lang && typeof(webui_i18n) != "undefined") {
       $.i18n.load(webui_i18n, lang);
