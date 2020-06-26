@@ -167,7 +167,7 @@ class MenuBoardView(WebView):
                             [cat, msg, False, False])
             return jsonify(**params)
         else:
-            return str(response) if response is not None else ''
+            return response.encode('utf8') if response is not None else ''
 
     def alert(self, message, category='error', **params):
         from .macros.basic import UiAlert

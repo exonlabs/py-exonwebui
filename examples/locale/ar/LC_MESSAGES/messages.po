@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-23 17:20+0200\n"
+"POT-Creation-Date: 2020-06-27 16:57+0200\n"
 "PO-Revision-Date: 2019-11-10 00:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -18,11 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
+msgid "* all types allowed, max file size: 1MB"
+msgstr "* يسمح بجميع الأنواع ، الحد الأقصى لحجم الملف: 1MB"
+
+msgid "* example with input append"
+msgstr "* مثال مع إلحاق الإدخال"
+
+msgid "* example with input prepend"
+msgstr "* مثال مع الإدخال المسبق"
+
+msgid "* help text for field"
+msgstr "* نص المساعدة للحقل"
+
 msgid "Alerts"
 msgstr "تحذيرات"
 
+msgid "All"
+msgstr "الكل"
+
+msgid "Browse"
+msgstr "تصفح"
+
+msgid "Checkbox"
+msgstr "خانة اختيار"
+
+msgid "Columns"
+msgstr "الأعمدة"
+
+msgid "Confirm"
+msgstr "تأكيد"
+
+msgid "Date"
+msgstr "تاريخ"
+
+msgid "Date & Time"
+msgstr "التاريخ و الوقت"
+
+msgid "Export"
+msgstr "تصدير"
+
+msgid "Extra detailed long help for fields"
+msgstr "مساعدة طويلة مفصلة للغاية للحقول"
+
+msgid "Got it"
+msgstr "فهمتك"
+
+msgid "Group Label"
+msgstr "تسمية المجموعة"
+
 msgid "Home"
 msgstr "الصفحه الرئيسية"
+
+msgid "Input Form"
+msgstr "نموذج الإدخال"
+
+msgid "Input Form Title"
+msgstr "عنوان نموذج الإدخال"
 
 msgid "Invalid username or password"
 msgstr "خطأ في اسم المستخدم أو كلمة السر"
@@ -36,8 +87,35 @@ msgstr "تسجيل دخول"
 msgid "Login Page"
 msgstr "صفحه تسجيل الدخول"
 
+msgid "Loginpage"
+msgstr "صفحه تسجيل الدخول"
+
+msgid "No data available"
+msgstr "لا تتوافر بيانات"
+
+msgid "No matching records found"
+msgstr "لم يتم العثور على سجلات مطابقة"
+
 msgid "Notifications"
 msgstr "تنبيهات"
+
+msgid "Option 1"
+msgstr "الخيار 1"
+
+msgid "Option 2"
+msgstr "الخيار 2"
+
+msgid "Option 3"
+msgstr "الخيار 3"
+
+msgid "Option 4"
+msgstr "الخيار 4"
+
+msgid "Option 5"
+msgstr "الخيار 5"
+
+msgid "Optional Field"
+msgstr "حقل اختياري"
 
 msgid "Page Loader"
 msgstr "تحميل الصفحة"
@@ -45,11 +123,83 @@ msgstr "تحميل الصفحة"
 msgid "Password"
 msgstr "كلمة السر"
 
+msgid "Password 1"
+msgstr "كلمة المرور 1"
+
+msgid "Password 2"
+msgstr "كلمة المرور 2"
+
+msgid "Password 3"
+msgstr "كلمة المرور 3"
+
+msgid "Please correct invalid fields"
+msgstr "يرجى تصحيح الحقول غير الصحيحة"
+
 msgid "Please enter username and password"
 msgstr "برجاء إدخال أسم المستخدم و كلمة السر"
 
+msgid "Please fill all required fields"
+msgstr "يرجى تعبئة جميع الحقول المطلوبة"
+
+msgid "Quick Guide"
+msgstr "مرشد سريع"
+
+msgid "Radio"
+msgstr "زر الراديو"
+
+msgid "Required Field"
+msgstr "حقل مطلوب"
+
+msgid "Reset"
+msgstr "إعادة تعيين"
+
 msgid "Sample Portal"
 msgstr "موقع تجريبي"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Select"
+msgstr "تحديد"
+
+msgid "Select 1"
+msgstr "تحديد 1"
+
+msgid "Select 2"
+msgstr "تحديد 2"
+
+msgid "Select files"
+msgstr "اختر الملفات"
+
+msgid "Select multiple"
+msgstr "اختر متعدد"
+
+msgid "Server side validation"
+msgstr "التحقق من جانب الخادم"
+
+msgid "Show / Hide"
+msgstr "إظهار / إخفاء"
+
+msgid "Showing _START_-_END_ of _TOTAL_"
+msgstr "عرض _START_-_END_ من _TOTAL_"
+
+msgid "Submit"
+msgstr "إرسال"
+
+msgid "Submited Data:"
+msgstr "البيانات المقدمة:"
+
+msgid "Textarea"
+msgstr "منطقة النص"
+
+msgid "Time"
+msgstr "الوقت"
+
+msgid "Toggle Menu"
+msgstr "افتح القائمة"
+
+msgid "Too Large File"
+msgstr "ملف كبير جدًا"
 
 msgid "Toogle boards"
 msgstr "تبديل الواجهة"
@@ -57,11 +207,26 @@ msgstr "تبديل الواجهة"
 msgid "UI Components"
 msgstr "مكونات الواجهة"
 
+msgid "Upload File"
+msgstr "تحميل ملف"
+
+msgid "Upload Multiple"
+msgstr "تحميل ملفات"
+
 msgid "Username"
 msgstr "أسم المستخدم"
 
+msgid "Validation"
+msgstr "التحقق"
+
 msgid "Welcome"
 msgstr "أهلا بكم"
+
+msgid "allowed types"
+msgstr "الأنواع المسموح بها"
+
+msgid "csv"
+msgstr "csv"
 
 msgid "error"
 msgstr "خطأ"
@@ -75,6 +240,9 @@ msgstr "تم التحميل بعد فترة تأخير"
 msgid "message"
 msgstr "رسالة"
 
+msgid "print"
+msgstr "طباعة"
+
 msgid "showing notifications"
 msgstr "إظهار التنبيهات"
 
@@ -83,4 +251,7 @@ msgstr "تم بنجاح"
 
 msgid "warning"
 msgstr "تحذير"
+
+msgid "xls"
+msgstr "xls"
 

@@ -99,6 +99,140 @@ class VAlerts(MenuBoardView):
         return self.reply(html, doctitle=gettext('Alerts'))
 
 
+class VInputForm(MenuBoardView):
+    routes = [('/inputform', 'inputform')]
+
+    @classmethod
+    def initialize(cls, websrv, app):
+        cls.add_menulink(
+            app, 3, lazy_gettext('Input Form'), url='#inputform', parent=1)
+
+    def get(self, **kwargs):
+        from exonwebui.macros.forms import UiInputForm
+        options = {
+            'form_id': "1234",
+            'submit_url': "/inputform",
+            'fields': [
+                {'type': 'checkbox', 'label': gettext('Validation'),
+                 'options': [{'label': gettext('Server side validation'),
+                              'name': 'validation'}]},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'text', 'label': gettext('Required Field'),
+                 'name': 'field1', 'required': True,
+                 'help': gettext("* example with input append"),
+                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'append': [{'type': 'text', 'value': '.00'},
+                            {'type': 'text', 'value': '$'}]},
+                {'type': 'text', 'label': gettext('Optional Field'),
+                 'name': 'field2', 'required': False,
+                 'help': gettext("* example with input prepend"),
+                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'prepend': [{'type': 'icon', 'value': 'fa-phone'},
+                             {'type': 'text', 'value': '+00'}]},
+                {'type': 'text', 'label': gettext('Optional Field'),
+                 'name': 'field3', 'required': False,
+                 'help': gettext("* help text for field"),
+                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'append': [{'type': 'select', 'options': [
+                            {'label': '.com', 'value': '.com'},
+                            {'label': '.net', 'value': '.net',
+                             'selected': True},
+                            {'label': '.com', 'value': '.com'}]}]},
+                {'type': 'textarea', 'label': gettext('Textarea'),
+                 'name': 'field4',
+                 'help': gettext("* help text for field"),
+                 'helpguide': gettext("Extra detailed long help for fields")},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'password', 'label': gettext('Password 1'),
+                 'name': 'pass1', 'required': True, 'strength': True},
+                {'type': 'password', 'label': gettext('Password 2'),
+                 'name': 'pass2', 'required': True, 'confirm': True},
+                {'type': 'password', 'label': gettext('Password 3'),
+                 'name': 'pass3', 'required': True, 'strength': True,
+                 'confirm': True},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'select', 'label': gettext('Select'),
+                 'name': 'select1', 'required': True,
+                 'options': [{'label': gettext('Select'), 'value': None},
+                             {'label': gettext('Option 1'), 'value': '01'},
+                             {'label': gettext('Option 2'), 'value': '02'},
+                             {'label': gettext('Option 3'), 'value': '03'},
+                             {'label': gettext('Option 4'), 'value': '04'},
+                             {'label': gettext('Option 5'), 'value': '05'}]},
+                {'type': 'select', 'label': gettext('Select multiple'),
+                 'name': 'select2', 'required': True, 'multiple': True,
+                 'options': [{'label': gettext('Option 1'), 'value': '01',
+                              'selected': True},
+                             {'label': gettext('Option 2'), 'value': '02',
+                              'selected': True},
+                             {'label': gettext('Option 3'), 'value': '03'},
+                             {'label': gettext('Option 4'), 'value': '04'},
+                             {'label': gettext('Option 5'), 'value': '05'}]},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'checkbox', 'label': gettext('Checkbox'),
+                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'options': [{'label': gettext('Select 1'),
+                              'name': 'check1', 'selected': True},
+                             {'label': gettext('Select 2'),
+                              'name': 'check2'}]},
+                {'type': 'radio', 'label': gettext('Radio'),
+                 'name': 'radio1', 'required': True,
+                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'options': [{'label': gettext('Option 1'), 'value': '1'},
+                             {'label': gettext('Option 2'), 'value': '2'},
+                             {'label': gettext('Option 3'), 'value': '3'}]},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'datetime', 'label': gettext('Date & Time'),
+                 'name': 'date1', 'required': True},
+                {'type': 'date', 'label': gettext('Date'), 'name': 'date2'},
+                {'type': 'time', 'label': gettext('Time'), 'name': 'time1'},
+
+                {'type': 'title', 'label': gettext('Group Label')},
+                {'type': 'file', 'label': gettext('Upload File'),
+                 'name': 'files1', 'required': True,
+                 'format': '.txt,.pdf,.png',
+                 'help': '* %s: <span dir="ltr">.txt, .pdf, .png</span>'
+                    % gettext("allowed types")},
+                {'type': 'file', 'label': gettext('Upload Multiple'),
+                 'name': 'files2', 'required': False, 'multiple': True,
+                 'placeholder': '', 'maxsize': 1048576,
+                 'help': gettext("* all types allowed, max file size: 1MB"),
+                 'helpguide': gettext("Extra detailed long help for fields")},
+            ]
+        }
+        html = tpl('input_form.tpl', contents=UiInputForm(options))
+        return self.reply(html, doctitle=gettext('Input Form'))
+
+    def post(self, **kwargs):
+        validation = request.form.get('validation', '')
+        if validation == '1':
+            params = {
+                'validation': ['field1', 'date1', 'files1'],
+            }
+            flash(gettext('Please correct invalid fields'), 'error')
+            return self.reply(None, **params)
+
+        msg = '%s<br><div dir="ltr" style="text-align:left">' \
+            % gettext('Submited Data:')
+        for k in request.form.keys():
+            if k == '_csrf_token':
+                continue
+            v = request.form.getlist(k)
+            msg += "<b>%s:</b> %s<br>" % (k, v[0] if len(v) == 1 else v)
+        for k in request.files.keys():
+            v = [(f.filename, f.content_type)
+                 for f in request.files.getlist(k) if f.filename]
+            msg += "<b>%s:</b> %s<br>" % (k, v[0] if len(v) == 1 else v)
+        msg += '</div>'
+        msg = msg.replace("'", "")
+        return self.notify(msg, 'success', sticky=True)
+
+
 class VLoader(MenuBoardView):
     routes = [('/loader', 'loader')]
 

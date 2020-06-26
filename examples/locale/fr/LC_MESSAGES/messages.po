@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-23 17:20+0200\n"
+"POT-Creation-Date: 2020-06-27 16:57+0200\n"
 "PO-Revision-Date: 2019-11-10 00:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,14 +18,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
+msgid "* all types allowed, max file size: 1MB"
+msgstr ""
+
+msgid "* example with input append"
+msgstr ""
+
+msgid "* example with input prepend"
+msgstr ""
+
+msgid "* help text for field"
+msgstr ""
+
 msgid "Alerts"
 msgstr "Les alertes"
 
+msgid "All"
+msgstr "Tout"
+
+msgid "Browse"
+msgstr "Feuilleter"
+
+msgid "Checkbox"
+msgstr ""
+
+msgid "Columns"
+msgstr "Colonnes"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Date"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Export"
+msgstr "Exportation"
+
+msgid "Extra detailed long help for fields"
+msgstr ""
+
+msgid "Got it"
+msgstr "Je l\'ai"
+
+msgid "Group Label"
+msgstr ""
+
 msgid "Home"
-msgstr "Page d'accueil"
+msgstr "Page d\'accueil"
+
+msgid "Input Form"
+msgstr "Formulaire de saisie"
+
+msgid "Input Form Title"
+msgstr "Titre du formulaire de saisie"
 
 msgid "Invalid username or password"
-msgstr "Nom d'utilisateur ou mot de passe invalide"
+msgstr "Nom d\'utilisateur ou mot de passe invalide"
 
 msgid "Load with Progress update"
 msgstr "Charger avec la mise à jour Progress"
@@ -36,8 +87,35 @@ msgstr "se connecter"
 msgid "Login Page"
 msgstr "Page de Connexion"
 
+msgid "Loginpage"
+msgstr "Page de Connexion"
+
+msgid "No data available"
+msgstr "Pas de données disponibles"
+
+msgid "No matching records found"
+msgstr "Aucun enregistrements correspondants trouvés"
+
 msgid "Notifications"
 msgstr "Les notifications"
+
+msgid "Option 1"
+msgstr ""
+
+msgid "Option 2"
+msgstr ""
+
+msgid "Option 3"
+msgstr ""
+
+msgid "Option 4"
+msgstr ""
+
+msgid "Option 5"
+msgstr ""
+
+msgid "Optional Field"
+msgstr ""
 
 msgid "Page Loader"
 msgstr "Chargeur de page"
@@ -45,23 +123,110 @@ msgstr "Chargeur de page"
 msgid "Password"
 msgstr "Mot de passe"
 
+msgid "Password 1"
+msgstr ""
+
+msgid "Password 2"
+msgstr ""
+
+msgid "Password 3"
+msgstr ""
+
+msgid "Please correct invalid fields"
+msgstr "Veuillez corriger les champs incorrects"
+
 msgid "Please enter username and password"
-msgstr "Veuillez saisir votre nom d'utilisateur et votre mot de passe"
+msgstr "Veuillez saisir votre nom d\'utilisateur et votre mot de passe"
+
+msgid "Please fill all required fields"
+msgstr "Veuillez remplir tous les champs obligatoires"
+
+msgid "Quick Guide"
+msgstr ""
+
+msgid "Radio"
+msgstr ""
+
+msgid "Required Field"
+msgstr ""
+
+msgid "Reset"
+msgstr "Réinitialiser"
 
 msgid "Sample Portal"
 msgstr "Portail échantillon"
 
+msgid "Search"
+msgstr "Chercher"
+
+msgid "Select"
+msgstr ""
+
+msgid "Select 1"
+msgstr ""
+
+msgid "Select 2"
+msgstr ""
+
+msgid "Select files"
+msgstr "Sélectionnez les fichiers"
+
+msgid "Select multiple"
+msgstr ""
+
+msgid "Server side validation"
+msgstr ""
+
+msgid "Show / Hide"
+msgstr "Montrer / Cacher"
+
+msgid "Showing _START_-_END_ of _TOTAL_"
+msgstr "Montrant _START_-_END_ de _TOTAL_"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Submited Data:"
+msgstr ""
+
+msgid "Textarea"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Toggle Menu"
+msgstr "Ouvrir le Menu"
+
+msgid "Too Large File"
+msgstr "Fichier trop volumineux"
+
 msgid "Toogle boards"
-msgstr "Basculer l'interface"
+msgstr "Basculer l\'interface"
 
 msgid "UI Components"
-msgstr "Composants d'interface"
+msgstr "Composants d\'interface"
+
+msgid "Upload File"
+msgstr ""
+
+msgid "Upload Multiple"
+msgstr ""
 
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Nom d\'utilisateur"
+
+msgid "Validation"
+msgstr ""
 
 msgid "Welcome"
 msgstr "Bienvenue"
+
+msgid "allowed types"
+msgstr ""
+
+msgid "csv"
+msgstr "csv"
 
 msgid "error"
 msgstr "Erreur"
@@ -75,6 +240,9 @@ msgstr "chargé après retard"
 msgid "message"
 msgstr "message"
 
+msgid "print"
+msgstr "imprimer"
+
 msgid "showing notifications"
 msgstr "affichage des notifications"
 
@@ -83,4 +251,7 @@ msgstr "Succès"
 
 msgid "warning"
 msgstr "Attention"
+
+msgid "xls"
+msgstr "xls"
 

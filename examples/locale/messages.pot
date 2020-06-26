@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-05-23 17:20+0200\n"
+"POT-Creation-Date: 2020-06-27 16:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
+msgid "* all types allowed, max file size: 1MB"
+msgstr ""
+
+msgid "* example with input append"
+msgstr ""
+
+msgid "* example with input prepend"
+msgstr ""
+
+msgid "* help text for field"
+msgstr ""
+
 msgid "Alerts"
 msgstr ""
 
+msgid "All"
+msgstr ""
+
+msgid "Browse"
+msgstr ""
+
+msgid "Checkbox"
+msgstr ""
+
+msgid "Columns"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Date & Time"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Extra detailed long help for fields"
+msgstr ""
+
+msgid "Got it"
+msgstr ""
+
+msgid "Group Label"
+msgstr ""
+
 msgid "Home"
+msgstr ""
+
+msgid "Input Form"
+msgstr ""
+
+msgid "Input Form Title"
 msgstr ""
 
 msgid "Invalid username or password"
@@ -35,7 +86,34 @@ msgstr ""
 msgid "Login Page"
 msgstr ""
 
+msgid "Loginpage"
+msgstr ""
+
+msgid "No data available"
+msgstr ""
+
+msgid "No matching records found"
+msgstr ""
+
 msgid "Notifications"
+msgstr ""
+
+msgid "Option 1"
+msgstr ""
+
+msgid "Option 2"
+msgstr ""
+
+msgid "Option 3"
+msgstr ""
+
+msgid "Option 4"
+msgstr ""
+
+msgid "Option 5"
+msgstr ""
+
+msgid "Optional Field"
 msgstr ""
 
 msgid "Page Loader"
@@ -44,10 +122,82 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
+msgid "Password 1"
+msgstr ""
+
+msgid "Password 2"
+msgstr ""
+
+msgid "Password 3"
+msgstr ""
+
+msgid "Please correct invalid fields"
+msgstr ""
+
 msgid "Please enter username and password"
 msgstr ""
 
+msgid "Please fill all required fields"
+msgstr ""
+
+msgid "Quick Guide"
+msgstr ""
+
+msgid "Radio"
+msgstr ""
+
+msgid "Required Field"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
 msgid "Sample Portal"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Select 1"
+msgstr ""
+
+msgid "Select 2"
+msgstr ""
+
+msgid "Select files"
+msgstr ""
+
+msgid "Select multiple"
+msgstr ""
+
+msgid "Server side validation"
+msgstr ""
+
+msgid "Show / Hide"
+msgstr ""
+
+msgid "Showing _START_-_END_ of _TOTAL_"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Submited Data:"
+msgstr ""
+
+msgid "Textarea"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Toggle Menu"
+msgstr ""
+
+msgid "Too Large File"
 msgstr ""
 
 msgid "Toogle boards"
@@ -56,10 +206,25 @@ msgstr ""
 msgid "UI Components"
 msgstr ""
 
+msgid "Upload File"
+msgstr ""
+
+msgid "Upload Multiple"
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
+msgid "Validation"
+msgstr ""
+
 msgid "Welcome"
+msgstr ""
+
+msgid "allowed types"
+msgstr ""
+
+msgid "csv"
 msgstr ""
 
 msgid "error"
@@ -74,6 +239,9 @@ msgstr ""
 msgid "message"
 msgstr ""
 
+msgid "print"
+msgstr ""
+
 msgid "showing notifications"
 msgstr ""
 
@@ -81,5 +249,8 @@ msgid "success"
 msgstr ""
 
 msgid "warning"
+msgstr ""
+
+msgid "xls"
 msgstr ""
 
