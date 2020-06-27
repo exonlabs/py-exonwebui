@@ -8,31 +8,32 @@
     <div class="input-group">
       <input type="password" class="form-control" name="password" value="">
       <div class="input-group-append">
-        <span class="input-group-text btnViewPassword" data-viewfor="password"><i class="fa fa-fw fa-eye-slash"></i></span>
+        <span class="input-group-text" data-pwdview="password"><i class="fa fa-fw fa-eye-slash"></i></span>
       </div>
     </div>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary float-right font-weight-bold">
-      <i class="fas fa-sign-in-alt"></i> {{gettext("Login")}}
+      <i class="fa fas fa-ta fa-sign-in fa-sign-in-alt"></i>{{gettext("Login")}}
     </button>
   </div>
 </form>
 <script type="text/javascript">
   $(document).ready(function(){
-    $("#frmLogin_{{id}} .btnViewPassword")
-      .on("mousedown touchstart",function(){$("#frmLogin_{{id}} input[name="+$(this).data("viewfor")+"]").attr("type","text");$(this).children("i").removeClass("fa-eye-slash").addClass("fa-eye")})
-      .on("mouseup mouseleave touchend",function(){$("#frmLogin_{{id}} input[name="+$(this).data("viewfor")+"]").attr("type","password");$(this).children("i").removeClass("fa-eye").addClass("fa-eye-slash")});
-    WebUI.getScript("/static/webui/vendor/cryptojs/crypto-js.min.js", function(){
+    WebUI.loadScript("/static/webui/vendor/cryptojs/crypto-js.min.js",function(){
       $("#frmLogin_{{id}}").submit(function(e){
         e.preventDefault(); WebUI.notify.clear();
         var u=$("#frmLogin_{{id}} input[name=username]"),p=$("#frmLogin_{{id}} input[name=password]");
-        WebUI.loader.load("POST","{{submit_url}}",
-          {_csrf_token:"{{csrf_token()}}",username:u.val(),
-           digest:(p.val())?CryptoJS.SHA256("{{authkey}}"+CryptoJS.SHA256(p.val())).toString():""},
-          null,null,function(){p.val("");p.focus()},200);
+        WebUI.loader.load("POST","{{submit_url}}",{_csrf_token:"{{csrf_token()}}",username:u.val(),digest:(p.val())?CryptoJS.SHA256("{{authkey}}"+CryptoJS.SHA256(p.val())).toString():''},null,null,function(){p.val('');p.focus()},200);
         return false;
       });
     });
+    $("#frmLogin_{{id}} span[data-pwdview=password]")
+      .on("mousedown touchstart",function(){
+        $("#frmLogin_{{id}} input[name=password]").attr("type","text");
+        $(this).children("i").removeClass("fa-eye-slash").addClass("fa-eye")})
+      .on("mouseup mouseleave touchend",function(){
+        $("#frmLogin_{{id}} input[name=password]").attr("type","password");
+        $(this).children("i").removeClass("fa-eye").addClass("fa-eye-slash")});
   });
 </script>

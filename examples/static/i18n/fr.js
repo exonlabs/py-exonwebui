@@ -15,4 +15,6 @@ var webui_i18n = {
     "request cancelled": "demande annulée",
     "service unavailable": "Service indisponible",
     "request failed": "demande échoué",
+    "Failed to load all page contents !!": "Impossible de charger tout le contenu de la page !!",
+    "Please reload page and try again.": "Veuillez recharger la page et réessayer.",
 };

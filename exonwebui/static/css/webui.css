@@ -25,7 +25,8 @@ a, a:hover, a:focus, button:focus {
 .page-lock {position:fixed; top:0; left:0; width:100%; height:100%;
   background-color:rgba(50,50,50,0.7); z-index:900000}
 .page-loading {background:rgba(50,50,50,0.7) url('../images/loader.gif') center 45% no-repeat}
-.page-lock .cancel {padding:10px 20px; color:#ccc; line-height:20px; margin-bottom:-40px}
+.page-lock .cancel {padding:10px 20px; line-height:20px; margin-bottom:-40px;
+  color:#ccc; font-size:18px; font-weight:bold}
 [dir=ltr] .page-lock .cancel {text-align:right}
 [dir=rtl] .page-lock .cancel {text-align:left}
 
@@ -39,8 +40,8 @@ a, a:hover, a:focus, button:focus {
 [dir=rtl] .close {float:left !important}
 
 /* font-awesome RTL fixes */
-[dir=ltr] .fa-ta, [dir=rtl] .fa-tb {margin-right:4px}
-[dir=rtl] .fa-ta, [dir=ltr] .fa-tb {margin-left:4px}
+[dir=ltr] .fa-ta, [dir=rtl] .fa-tb {margin-right:6px}
+[dir=rtl] .fa-ta, [dir=ltr] .fa-tb {margin-left:6px}
 [dir=rtl] .fa-flip {
   -webkit-transform:scale(-1, 1); -ms-transform:scale(-1, 1);
   -ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
@@ -53,23 +54,6 @@ h4.ui-pnotify-title {font-size:1.1em}
 [dir=rtl] .ui-pnotify-text {float:right; text-align:right}
 [dir=rtl] .ui-pnotify-closer, .ui-pnotify-sticker {float:left}
 
-/* input forms */
-.form-wrapper .form-title {font-size:13px; font-weight:bold}
-.form-wrapper .form-row>label {font-size:13px; font-weight:bold}
-[dir=ltr] .form-wrapper .form-row>label {text-align:right; padding-right:25px}
-[dir=rtl] .form-wrapper .form-row>label {text-align:left; padding-left:25px}
-.form-wrapper .form-row>label::after {position:absolute; font-weight:bold; font-size:16px}
-.form-wrapper .form-row>label.required::after {content:'*'; color:#f00}
-[dir=ltr] .form-wrapper .form-row>label.required::after {padding-left:8px}
-[dir=rtl] .form-wrapper .form-row>label.required::after {padding-right:8px}
-.form-wrapper .input-group-append select:focus {z-index:2}
-[dir=ltr] .form-wrapper .input-group-append select {border-top-left-radius:0; border-bottom-left-radius:0}
-[dir=rtl] .form-wrapper .input-group-append select {border-top-right-radius:0; border-bottom-right-radius:0}
-.form-wrapper .custom-file-label::after {display:none}
-.form-wrapper .form-control::placeholder, .form-wrapper .form-control::placeholder:focus,
-.form-wrapper select:invalid, .form-wrapper select:invalid:focus,
-.form-wrapper .custom-file-input:invalid ~ .custom-file-label {color:#6c757d; text-shadow:none}
-
 
 @media(max-width:400px) {
   .hidden-xs {display:none}
@@ -81,10 +65,6 @@ h4.ui-pnotify-title {font-size:1.1em}
 
 @media(max-width:576px) {
   .hidden-sm {display:none}
-
-  /* input forms */
-  [dir=ltr] .form-wrapper .form-row>label {text-align:left}
-  [dir=rtl] .form-wrapper .form-row>label {text-align:right}
 }
 
 @media(min-width:577px) {

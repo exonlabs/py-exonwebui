@@ -27,7 +27,7 @@ var WebUI = function($, ui) {
       $("body").append('<div id="_UiPageLock" class="container-fluid overflow-auto scroll page-lock '+(styles?styles:'')+'">'+(html?html:'')+'</div>');
     },
     loading: function(html) {
-      ui.pagelock.show('<div class="row"><div class="col cancel"><a id="_UiPageLock_btnCancel"><i class="fas fa-times"></i></a></div></div>'+(html?html:''),'page-loading');
+      ui.pagelock.show('<div class="row"><div class="col cancel"><a id="_UiPageLock_btnCancel">&times;</a></div></div>'+(html?html:''),'page-loading');
       $("#_UiPageLock_btnCancel").on('click',function(){ui.pagelock.hide()});
       return $("#_UiPageLock_btnCancel");
     },
@@ -36,7 +36,7 @@ var WebUI = function($, ui) {
       else return ui.pagelock.loading('<div class="row h-100 align-items-center justify-content-center"><div class="col-5"><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated"></div></div></div></div>');
     },
     modal: function(title, contents, footer, styles) {
-      ui.pagelock.show('<div class="modal-dialog modal-dialog-centered '+(styles?styles:'')+'"><div class="modal-content"><div class="modal-header pt-2 pb-1">'+(title?title:'')+'<button class="close" onclick="WebUI.pagelock.hide()">×</button></div><div class="modal-body scroll">'+(contents?contents:'')+(footer?'</div><div class="modal-footer p-1">'+footer+'</div></div></div>':''));
+      ui.pagelock.show('<div class="modal-dialog modal-dialog-centered '+(styles?styles:'')+'"><div class="modal-content"><div class="modal-header pt-2 pb-1">'+(title?title:'')+'<button class="close" onclick="WebUI.pagelock.hide()">&times;</button></div><div class="modal-body scroll">'+(contents?contents:'')+(footer?'</div><div class="modal-footer p-1">'+footer+'</div></div></div>':''));
     },
     hide: function() {
       if($("#_UiPageLock").length) $("#_UiPageLock").remove();
@@ -64,16 +64,16 @@ var WebUI = function($, ui) {
       };
       if(category == "error") {
         opt.type = "error";
-        opt.text = '<i class="fas fa-ta fa-exclamation-circle"></i> ' + message;
+        opt.text = '<i class="fa fas fa-ta fa-exclamation-circle"></i>' + message;
       } else if(category == "warn") {
         opt.type = "notice";
-        opt.text = '<i class="fas fa-ta fa-exclamation-circle"></i> ' + message;
+        opt.text = '<i class="fa fas fa-ta fa-exclamation-circle"></i>' + message;
       } else if(category == "success") {
         opt.type = "success";
-        opt.text = '<i class="fas fa-ta fa-check-circle"></i> ' + message;
+        opt.text = '<i class="fa fas fa-ta fa-check-circle"></i>' + message;
       } else {
         opt.type = "info";
-        opt.text = '<i class="fas fa-ta fa-info-circle"></i> ' + message;
+        opt.text = '<i class="fa fas fa-ta fa-info-circle"></i>' + message;
       };
       var n = new PNotify(opt);
       n.get().click(function() {n.remove()});
@@ -118,27 +118,36 @@ var WebUI = function($, ui) {
       contentType:(params instanceof FormData)?false:'application/x-www-form-urlencoded; charset=UTF-8',
       processData:!(params instanceof FormData),
       success: function(result, status, xhr) {
-        if(typeof fSuccess === "function") fSuccess(result);
-        else {
-          if(result.notifications) ui.notify.load(result.notifications);
-          if(result.redirect) ui.redirect(result.redirect, result.blank);
-        };
+        ui.request.success(result, fSuccess);
       },
       error: function(xhr, status, error) {
         if(error == 'abort') error = "request cancelled";
         else if(!xhr.status) error = "service unavailable";
         else if(!error) error = "request failed";
-        if(typeof fError === "function") fError($.i18n._(error));
-        else ui.notify.error($.i18n._(error));
+        ui.request.error($.i18n._(error), fError);
       },
       complete: function(xhr, status) {
-        if(typeof fComplete === "function") fComplete();
+        ui.request.complete(status, fComplete);
       },
       xhr: function() {
         if(typeof fXhr === "function") return fXhr();
         else return (new window.XMLHttpRequest());
       }
     });
+  };
+  ui.request.success = function(result, fSuccess) {
+    if(typeof fSuccess === "function") fSuccess(result);
+    else {
+      if(result.notifications) ui.notify.load(result.notifications);
+      if(result.redirect) ui.redirect(result.redirect, result.blank);
+    };
+  };
+  ui.request.error = function(error, fError) {
+    if(typeof fError === "function") fError(error);
+    else ui.notify.error(error);
+  };
+  ui.request.complete = function(status, fComplete) {
+    if(typeof fComplete === "function") fComplete(status);
   };
 
   ui.loader = {
@@ -151,12 +160,18 @@ var WebUI = function($, ui) {
       ui.loader.lock_timer = setTimeout(function() {
         ui.pagelock.loading().off("click").on("click", function(e) {ui.loader.cancel()});
       }, (timeout)?timeout:500);
-      ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
-        function() {
+      ui.loader.req_xhr = ui.request(verb, url, params,
+        function(result) {
           ui.loader.reset();
           ui.pagelock.hide();
-          if(typeof fComplete === "function") fComplete();
-        }
+          ui.request.success(result, fSuccess);
+        },
+        function(error) {
+          ui.loader.reset();
+          ui.pagelock.hide();
+          ui.request.error(error, fError);
+        },
+        fComplete
       );
     },
     progress: function(verb, url, params, fSuccess, fError, fComplete, timeout, interval) {
@@ -166,19 +181,25 @@ var WebUI = function($, ui) {
         ui.loader.progress_timer = setInterval(function() {
           if(ui.loader.progress_xhr === null) {
             ui.loader.progress_xhr = ui.request(verb, url, {_csrf_token:Cookies.get("_csrf_token"),get_progress:1},
-              function(r){ui.pagelock.progress(r.payload)}, function(e){}, function(){ui.loader.progress_xhr=null});
+              function(r){ui.pagelock.progress(r.payload)}, function(e){}, function(s){ui.loader.progress_xhr=null});
           };
         }, (interval)?interval:5000);
       }, (timeout)?timeout:500);
-      ui.loader.req_xhr = ui.request(verb, url, params, fSuccess, fError,
-        function() {
+      ui.loader.req_xhr = ui.request(verb, url, params,
+        function(result) {
           ui.loader.reset();
           ui.pagelock.progress(100);
           setTimeout(function() {
             ui.pagelock.hide();
-            if(typeof fComplete === "function") fComplete();
-          }, 400);
-        }
+            ui.request.success(result, fSuccess);
+          }, 500);
+        },
+        function(error) {
+          ui.loader.reset();
+          ui.pagelock.hide();
+          ui.request.error(error, fError);
+        },
+        fComplete
       );
     },
     formsubmit: function(form, fSuccess, fError, fComplete, timeout) {
@@ -188,11 +209,18 @@ var WebUI = function($, ui) {
         uiloader().off("click").on("click", function(e) {ui.loader.cancel()});
       }, (timeout)?timeout:500);
       ui.loader.req_xhr = ui.request(
-        form.attr('method'), form.attr('action'), (new FormData(form[0])), fSuccess, fError,
-        function() {
-          ui.loader.reset(); ui.pagelock.hide();
-          if(typeof fComplete === "function") fComplete();
+        form.attr('method'), form.attr('action'), (new FormData(form[0])),
+        function(result) {
+          ui.loader.reset();
+          ui.pagelock.hide();
+          ui.request.success(result, fSuccess);
         },
+        function(error) {
+          ui.loader.reset();
+          ui.pagelock.hide();
+          ui.request.error(error, fError);
+        },
+        fComplete,
         function() {
           var xhr = new window.XMLHttpRequest();
           xhr.upload.addEventListener("progress", function(evt) {
@@ -219,24 +247,37 @@ var WebUI = function($, ui) {
     }
   };
 
-  ui.getScript = function(url, fSuccess, fError) {
+  ui.loadCss = {
+    after: function(url, selector) {
+      if(!$("link[href='"+url+"']").length) {
+        if(selector !== undefined) $(selector).after('<link rel="stylesheet" type="text/css" href="'+url+'">');
+        else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
+      };
+    },
+    before: function(url, selector) {
+      if(!$("link[href='"+url+"']").length) {
+        if(selector !== undefined) $(selector).before('<link rel="stylesheet" type="text/css" href="'+url+'">');
+        else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
+      };
+    }
+  };
+
+  ui.loadScript = function(url, fSuccess) {
     $.getScript(url)
-      .done(function(script, status) {
+      .done(function(script, status){
         if(typeof fSuccess === "function") fSuccess();
       })
       .fail(function(xhr, status, error) {
+        ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
+          $.i18n._('Please reload page and try again.'),null,true);
         console.error('failed loading '+url+' ['+error+']');
-        if(typeof fError === "function") fError(result);
-        else ui.notify.warn('Not all page contents loaded !<br>Please refresh page and try again.',null,true);
-    });
+      });
   };
 
   ui.init = function() {
     $.ajaxSetup({cache:true});
     var lang = $('html').attr("lang");
-    if(lang && typeof(webui_i18n) != "undefined") {
-      $.i18n.load(webui_i18n, lang);
-    };
+    if(lang && typeof(webui_i18n) != "undefined") $.i18n.load(webui_i18n);
   };
 
   return ui;

@@ -4,6 +4,8 @@
     :license: BSD, see LICENSE for more details.
 """
 import os
+import gzip
+from io import BytesIO
 from flask import current_app, request, session, redirect, jsonify, url_for
 from flask import flash, get_flashed_messages
 from flask_seasurf import SeaSurf
@@ -16,11 +18,22 @@ __all__ = ['MenuBoardView']
 
 class MenuBoardView(WebView):
 
+    # enable minimize output html response data
+    mindata_enable = True
+
+    # enable gzip response data
+    gzip_enable = True
+    gzip_compress_level = 6
+    gzip_minimum_size = 500
+
     @classmethod
     def board_initialize(cls, app, locale_path=''):
         if not app.config.get('MENUBOARD_INIT', False):
             # initialize seasurf extension
             SeaSurf(app)
+
+            if cls.gzip_enable:
+                app.after_request(cls.gzip_response)
 
             # initialize babel extension
             domain = Domain(dirname=locale_path)
@@ -85,12 +98,45 @@ class MenuBoardView(WebView):
         buff.append([index, label, icon, url, parent, loader])
         app.config['MENUBOARD_MENUBUFFER'] = buff
 
+    # gzip response data
+    @classmethod
+    def gzip_response(cls, response):
+        accept_encoding = request.headers.get('Accept-Encoding', '')
+
+        if response.status_code < 200 or \
+           response.status_code >= 300 or \
+           response.direct_passthrough or \
+           len(response.get_data()) < cls.gzip_minimum_size or \
+           'gzip' not in accept_encoding.lower() or \
+           'Content-Encoding' in response.headers:
+            return response
+
+        gzip_buffer = BytesIO()
+        gzip_file = gzip.GzipFile(
+            mode='wb',
+            compresslevel=cls.gzip_compress_level,
+            fileobj=gzip_buffer)
+        gzip_file.write(response.get_data())
+        gzip_file.close()
+        response.set_data(gzip_buffer.getvalue())
+        response.headers['Content-Encoding'] = 'gzip'
+        response.headers['Content-Length'] = len(response.get_data())
+
+        return response
+
     # xhr request validation
     def request_xhr(self):
         if 'X-Requested-With' in request.headers and \
            request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return True
         return False
+
+    # minimize html by removing line breaks and extra white spaces
+    def minimize_data(self, data):
+        if type(data) is str:
+            return ''.join([l.strip() for l in data.split('\n')])
+        else:
+            return data
 
     # redirect methods ###############
 
@@ -103,6 +149,8 @@ class MenuBoardView(WebView):
     # reply methods ###############
 
     def reply(self, response, **params):
+        if self.mindata_enable:
+            response = self.minimize_data(response)
         if self.request_xhr():
             if response is not None:
                 params['payload'] = response

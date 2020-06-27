@@ -1,23 +1,16 @@
-{%- extends "webui/html.tpl" -%}
+{% extends "webui/html.tpl" %}
 
-{%- block b_html_head -%}
+{% block b_html_head %}
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/webui/vendor/fontawesome/css/fa4.min.css">
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/pnotify/pnotify.min.css">
-  <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/js/cookie.min.js"></script>
-  {% block b_board_plugins %}{% endblock %}
-  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_simpleboard.min.css">
-  <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
-  <script type="text/javascript" src="/static/webui/js/webui_simpleboard.min.js"></script>
-  {% block b_board_head %}{% endblock %}
-{%- endblock -%}
+  {% block b_board_head %}
+    <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_simpleboard.min.css">
+  {% endblock %}
+{% endblock %}
 
-{%- block b_html_body -%}
+{% block b_html_body %}
   {% block b_board_body %}
     <div id="board-wrapper" class="ease h-100">
       <div id="board-menu" class="ease h-100 d-print-none">
@@ -26,19 +19,19 @@
             {% block b_board_menuhead %}{% endblock %}
           </div>
           {% block board_menubody %}
-            {%- set links = get_menulinks() -%}
-            {%- for i in links.keys()|sort -%}
-              {%- if 'menu' in links[i] and links[i].menu.keys() -%}
-                <div class="list-group pb-2">
-                  <div class="list-group-item list-group-item-secondary py-2">{% if links[i].icon %}<i class="fas fa-fw fa-ta {{links[i].icon}}"></i> {% endif %}{{links[i].label|safe}}</div>
-                  {%- for j in links[i].menu.keys()|sort -%}
-                    <a class="pagelink list-group-item list-group-item-action" href="{{links[i].menu[j].url}}">{% if links[i].menu[j].icon %}<i class="fas fa-fw fa-ta {{links[i].menu[j].icon}}"></i> {% endif %}{{links[i].menu[j].label|safe}}</a>
-                  {%- endfor -%}
-                </div>
-              {%- elif links[i].url != '#' -%}
-                <div class="list-group pb-2"><a class="pagelink list-group-item list-group-item-action" href="{{links[i].url}}">{% if links[i].icon %}<i class="fas fa-fw fa-ta {{links[i].icon}}"></i> {% endif %}{{links[i].label|safe}}</a></div>
-              {%- endif -%}
-            {%- endfor -%}
+            {% set links = get_menulinks() %}
+            {% for i in links.keys()|sort %}
+              <div class="list-group pb-2">
+                {% if 'menu' in links[i] and links[i].menu.keys() %}
+                  <div class="list-group-item list-group-item-secondary py-2">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</div>
+                  {% for j in links[i].menu.keys()|sort %}
+                    <a class="pagelink list-group-item list-group-item-action" href="{{links[i].menu[j].url}}">{% if links[i].menu[j].icon %}<i class="fa fas fa-fw fa-ta {{links[i].menu[j].icon}}"></i>{% endif %}{{links[i].menu[j].label|safe}}</a>
+                  {% endfor %}
+                {% elif links[i].url != '#' %}
+                  <a class="pagelink list-group-item list-group-item-action" href="{{links[i].url}}">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
+                {% endif %}
+              </div>
+            {% endfor %}
           {% endblock %}
         </div>
       </div>
@@ -60,9 +53,14 @@
       </div>
     </div>
   {% endblock %}
+  <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
+  <script type="text/javascript" src="/static/webui/vendor/js/cookie.min.js"></script>
+  <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
+  <script type="text/javascript" src="/static/webui/js/webui_simpleboard.min.js"></script>
   {% block b_board_scripts %}
-    <script type="text/javascript">
-      $(document).ready(function(){WebUI.board_init()});
-    </script>
+    <script type="text/javascript">$(document).ready(function(){WebUI.board_init()})</script>
   {% endblock %}
-{%- endblock -%}
+{% endblock %}

@@ -18,22 +18,22 @@ var WebUI = function($, ui) {
     error: function(message) {
       ui.board_content.update(
         '<div class="p-3"><div class="alert alert-danger text-left">' +
-        '<i class="fas fa-ta fa-exclamation-circle"></i> ' + message + '</div></div>');
+        '<i class="fa fas fa-ta fa-exclamation-circle"></i> ' + message + '</div></div>');
     },
     warn: function(message) {
       ui.board_content.update(
         '<div class="p-3"><div class="alert alert-warning text-left">' +
-        '<i class="fas fa-ta fa-exclamation-circle"></i> ' + message + '</div></div>');
+        '<i class="fa fas fa-ta fa-exclamation-circle"></i> ' + message + '</div></div>');
     },
     info: function(message) {
       ui.board_content.update(
         '<div class="p-3"><div class="alert alert-info text-left">' +
-        '<i class="fas fa-ta fa-info-circle"></i> ' + message + '</div></div>');
+        '<i class="fa fas fa-ta fa-info-circle"></i> ' + message + '</div></div>');
     },
     success: function(message) {
       ui.board_content.update(
         '<div class="p-3"><div class="alert alert-success text-left">' +
-        '<i class="fas fa-ta fa-check-circle"></i> ' + message + '</div></div>');
+        '<i class="fa fas fa-ta fa-check-circle"></i> ' + message + '</div></div>');
     },
     load: function(verb, url, params) {
       if(ui.board_content.load_neglect) {

@@ -28,7 +28,7 @@ class VIndex(MenuBoardView):
 
         # add menu section
         cls.add_menulink(
-            app, 1, lazy_gettext('UI Components'), icon='fa-shapes')
+            app, 1, lazy_gettext('UI Components'), icon='fa-cubes')
 
     def get(self, **kwargs):
         params = {
@@ -44,9 +44,9 @@ class VIndex(MenuBoardView):
             return self.redirect(url_for('index'))
 
         if session.get('simpleboard', False):
-            return tpl('simpleboard.tpl', **params)
+            return self.reply(tpl('simpleboard.tpl', **params))
         else:
-            return tpl('mainboard.tpl', **params)
+            return self.reply(tpl('mainboard.tpl', **params))
 
 
 class VHome(MenuBoardView):
@@ -135,24 +135,30 @@ class VLoader(MenuBoardView):
 
 
 class VLoginpage(MenuBoardView):
-    routes = [('/loginpage', 'loginpage')]
+    routes = [('/loginpage', 'loginpage'),
+              ('/loginpage/<action>', 'loginpage_1')]
 
     @classmethod
     def initialize(cls, websrv, app):
         cls.add_menulink(
             app, 3, lazy_gettext('Login Page'), url='loginpage')
 
-    def get(self, **kwargs):
+    def get(self, action='', **kwargs):
         from exonwebui.macros.forms import UiLoginForm
-        params = {
-            'doc_lang': session.get('lang', ''),
-            'doc_langdir': session.get('lang_dir', ''),
-            'doc_title': "Login | WebUI",
-            'loginform': UiLoginForm(
+
+        if action == 'load':
+            html = UiLoginForm(
                 {'submit_url': url_for('loginpage'), 'authkey': '123456'},
-                styles="text-white bg-secondary"),
-        }
-        return tpl('loginpage.tpl', **params)
+                styles="text-white bg-secondary")
+            return self.reply(html, doctitle=gettext('Loginpage'))
+        else:
+            params = {
+                'doc_lang': session.get('lang', ''),
+                'doc_langdir': session.get('lang_dir', ''),
+                'doc_title': "WebUI",
+                'load_url': "%s/load" % url_for('loginpage'),
+            }
+            return self.reply(tpl('loginpage.tpl', **params))
 
     def post(self):
         username = request.form.get('username', '')
