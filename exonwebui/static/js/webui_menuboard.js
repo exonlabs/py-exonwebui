@@ -73,9 +73,7 @@ var WebUI = function($, ui) {
     }
   };
 
-  ui.board_init = function() {
-    ui.init();
-
+  $(document).ready(function() {
     $(window)
       .on("resize", function() {
         if(window.innerWidth < 992) ui.board_menu.hide();
@@ -115,7 +113,7 @@ var WebUI = function($, ui) {
       }
       else $(window).trigger("hashchange");
     }, 100);
-  };
+  });
 
   return ui;
 }(jQuery, WebUI || {});

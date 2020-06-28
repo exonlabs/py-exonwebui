@@ -116,7 +116,7 @@
       });
     };
     if($("#form_{{id}} input[data-plugin='datetimepicker']").length){
-      WebUI.loadCss.after("/static/webui/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui.min.css']");
+      WebUI.loadCss.before("/static/webui/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui_inputform.min.css']");
       WebUI.loadScript("/static/webui/vendor/js/moment.min.js",function(){
         WebUI.loadScript("/static/webui/vendor/datetimepicker/datetimepicker.min.js",function(){
           $("#form_{{id}} input[data-plugin='datetimepicker']").each(function(){

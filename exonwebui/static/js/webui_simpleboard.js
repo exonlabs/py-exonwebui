@@ -60,9 +60,7 @@ var WebUI = function($, ui) {
     }
   };
 
-  ui.board_init = function() {
-    ui.init();
-
+  $(document).ready(function() {
     $(window)
       .on("hashchange", function(e) {
         e.preventDefault();
@@ -85,7 +83,7 @@ var WebUI = function($, ui) {
       }
       else $(window).trigger("hashchange");
     }, 100);
-  };
+  });
 
   return ui;
 }(jQuery, WebUI || {});

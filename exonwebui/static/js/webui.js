@@ -4,6 +4,8 @@
 */
 var WebUI = function($, ui) {
 
+  $.ajaxSetup({cache:true});
+
   ui.format_url = function(url) {
     return "/" + url.replace(/^[\/#]/, "");
   };
@@ -249,13 +251,13 @@ var WebUI = function($, ui) {
 
   ui.loadCss = {
     after: function(url, selector) {
-      if(!$("link[href='"+url+"']").length) {
+      if(!$("head link[href='"+url+"']").length) {
         if(selector !== undefined) $(selector).after('<link rel="stylesheet" type="text/css" href="'+url+'">');
         else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
       };
     },
     before: function(url, selector) {
-      if(!$("link[href='"+url+"']").length) {
+      if(!$("head link[href='"+url+"']").length) {
         if(selector !== undefined) $(selector).before('<link rel="stylesheet" type="text/css" href="'+url+'">');
         else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
       };
@@ -263,22 +265,25 @@ var WebUI = function($, ui) {
   };
 
   ui.loadScript = function(url, fSuccess) {
-    $.getScript(url)
-      .done(function(script, status){
-        if(typeof fSuccess === "function") fSuccess();
-      })
-      .fail(function(xhr, status, error) {
-        ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
-          $.i18n._('Please reload page and try again.'),null,true);
-        console.error('failed loading '+url+' ['+error+']');
-      });
+    if(!$("body script[_src='"+url+"']").length) {
+      $.getScript(url)
+        .done(function(script, status){
+          $('body').append('<script type="text/javascript" _src="'+url+'"></script>');
+          if(typeof fSuccess === "function") fSuccess();
+        })
+        .fail(function(xhr, status, error) {
+          ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
+            $.i18n._('Please reload page and try again.'),null,true);
+          console.error('failed loading '+url+' ['+error+']');
+        });
+    }
+    else if(typeof fSuccess === "function") fSuccess();
   };
 
-  ui.init = function() {
-    $.ajaxSetup({cache:true});
+  $(document).ready(function() {
     var lang = $('html').attr("lang");
     if(lang && typeof(webui_i18n) != "undefined") $.i18n.load(webui_i18n);
-  };
+  });
 
   return ui;
 }(jQuery, WebUI || {});
