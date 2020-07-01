@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import time
+from random import randint
 from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
@@ -231,6 +232,105 @@ class VInputForm(MenuBoardView):
         msg += '</div>'
         msg = msg.replace("'", "")
         return self.notify(msg, 'success', sticky=True)
+
+
+class VDatagrid(MenuBoardView):
+    routes = [('/datagrid', 'datagrid'),
+              ('/datagrid/<action>', 'datagrid_1')]
+
+    @classmethod
+    def initialize(cls, websrv, app):
+        cls.add_menulink(
+            app, 4, lazy_gettext('Datagrid'), url='#datagrid', parent=1)
+
+    def get(self, **kwargs):
+        from exonwebui.macros.datagrids import UiStdDataGrid
+        options = {
+            'grid_id': "1234",
+            'base_url': "/datagrid",
+            'length_menu': [10, 50, 100, 250, -1],
+            'columns': [
+                {'id': 'field1', 'title': "Field Name 1",
+                 'render': UiStdDataGrid.link_render},
+                {'id': 'field2', 'title': "Field Name 2"},
+                {'id': 'field3.item1', 'title': "Field3_1",
+                 'render': UiStdDataGrid.text_render},
+                {'id': 'field3.item2', 'title': "Field3_2"},
+                {'id': 'field4', 'title': "Other Field 4",
+                 'render': UiStdDataGrid.pill_render},
+                {'id': 'field5', 'title': "Extra Field 5", 'visible': False,
+                 'render': UiStdDataGrid.check_render},
+                {'id': 'field6', 'title': "Data Field 6", 'visible': False},
+                {'id': 'field7', 'title': "Field Header 7", 'visible': False},
+                {'id': 'field8', 'title': "Field8", 'visible': False},
+                {'id': 'field9', 'title': "Field Number 9", 'visible': False},
+            ],
+            'export': {
+                'types': ['csv', 'xls', 'print'],
+                'file_title': "Example Data",
+                'file_prefix': "export",
+                'csv_fieldSeparator': ";",
+                'csv_fieldBoundary': '',
+            },
+            'single_ops': [
+                {'label': 'Single Operation 1', 'value': "single_op1"},
+                {'label': 'Single Op 2 with confirm', 'value': "single_op2",
+                 'confirm': 'Are you sure you want to do this operation?'},
+            ],
+            'group_ops': [
+                {'label': 'Group Operation 1', 'value': "group_op1"},
+                {'label': 'Group Op 2 with confirm', 'value': "group_op2",
+                 'confirm': 'Are you sure?'},
+                {'label': 'Op 3 with Reload', 'value': "group_op3"},
+            ],
+        }
+        html = tpl('data_grid.tpl', contents=UiStdDataGrid(options))
+        return self.reply(html, doctitle=gettext('Datagrid'))
+
+    def post(self, action='', **kwargs):
+        from exonwebui.macros.datagrids import UiStdDataGrid
+        if action == 'loaddata':
+            data = []
+            for k in range(228):
+                _k = str(k).rjust(3, '0')
+                data.append({
+                    'DT_RowId': 'rowid_%s' % _k,
+                    'field1': UiStdDataGrid.link(
+                        'master_%s' % _k, '#datagrid'),
+                    'field2': 'field2 %s' % _k,
+                    'field3': {
+                        'item1': UiStdDataGrid.text(
+                            'field3.1 %s' % _k if randint(0, 2) else ''),
+                        'item2': 'field3.2 %s' % _k if randint(0, 3) else '',
+                    },
+                    'field4': UiStdDataGrid.pill(
+                        'Yes' if randint(0, 1) else 'No', 'Yes'),
+                    'field5': UiStdDataGrid.check(bool(randint(0, 1))),
+                    'field6': 'field6 %s' % _k if randint(0, 1) else '',
+                    'field7': 'field7 %s' % _k if randint(0, 1) else '',
+                    'field8': 'field8 %s' % _k if randint(0, 1) else '',
+                    'field9': 'field9 %s' % _k if randint(0, 1) else '',
+                })
+            return self.reply(data)
+
+        if action in ['single_op1', 'single_op2',
+                      'group_op1', 'group_op2', 'group_op3']:
+            rows = request.form.getlist('rows[]')
+            if len(rows) > 20:
+                rows = rows[:21]
+                rows[20] = '...'
+            msg = '<span dir="ltr" style="text-align:left">'
+            msg += 'Operation: %s<br>' % action
+            msg += 'Rows: %s' % rows
+            msg += '</span>'
+            msg = msg.replace("'", "")
+            flash(msg, 'success.us')
+            if action == 'group_op3':
+                return self.reply(None, reload=True)
+            else:
+                return self.reply(None)
+
+        return self.notify("Invalid request", 'error')
 
 
 class VLoader(MenuBoardView):

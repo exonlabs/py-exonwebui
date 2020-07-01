@@ -33,6 +33,7 @@ setup(
     install_requires=[
         'future>=0.18',
         'exonutils>=1.7',
+        'simplejson>=3.17',
         'flask-seasurf>=0.2',
         'flask-babelex>=0.9',
     ],
