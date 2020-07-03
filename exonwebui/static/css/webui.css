@@ -52,6 +52,8 @@ a, a:hover, a:focus, button:focus {
 [dir=rtl] .float-right {float:left !important}
 [dir=rtl] .text-left {text-align:right !important}
 [dir=rtl] .text-right {text-align:left !important}
+[dir=rtl] .pull-left {float:right !important}
+[dir=rtl] .pull-right {float:left !important}
 [dir=rtl] .alert-dismissible {padding-left:35px; padding-right:15px}
 [dir=rtl] .alert-dismissible .close {left:0; right:auto !important}
 [dir=rtl] .close {float:left !important}

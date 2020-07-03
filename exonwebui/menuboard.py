@@ -193,30 +193,28 @@ class MenuBoardView(WebView):
 
             # check lang change request
             new_lang = request.args.get('lang', '').strip()
-            if new_lang and new_lang != session['lang']:
-                old_lang = session['lang']
-                try:
-                    session['lang'] = new_lang
-                    if get_domain().get_translations().info() \
-                       or new_lang == 'en':
-                        lang_refresh()
+            if new_lang:
+                if new_lang != session['lang']:
+                    old_lang = session['lang']
+                    try:
+                        session['lang'] = new_lang
+                        if get_domain().get_translations().info() \
+                           or new_lang == 'en':
+                            lang_refresh()
+                        else:
+                            raise Exception(
+                                "no [%s] translation available" % new_lang)
+                    except Exception as e:
+                        session['lang'] = old_lang
+                        flash(str(e).strip(), 'error')
+
+                    # adjust lang direction
+                    if session['lang'] in ['ar', 'fa', 'he', 'ku', 'ur']:
+                        session['lang_dir'] = 'rtl'
                     else:
-                        raise Exception(
-                            "no [%s] translation available" % new_lang)
-                except Exception as e:
-                    session['lang'] = old_lang
-                    flash(str(e).strip(), 'error')
+                        session['lang_dir'] = 'ltr'
 
-                # adjust lang direction
-                if session['lang'] in ['ar', 'fa', 'he', 'ku', 'ur']:
-                    session['lang_dir'] = 'rtl'
-                else:
-                    session['lang_dir'] = 'ltr'
-
-                if request.endpoint:
-                    return self.redirect(url_for(request.endpoint))
-                else:
-                    return self.redirect(url_for('index'))
+                return self.redirect(url_for('index'))
 
         return self.before_request()
 

@@ -5,7 +5,7 @@
         <div class="card-header">
           {{gettext('Datagrid Title')}}
         </div>
-        <div id="InputForm" class="card-body p-3">
+        <div class="card-body p-3">
           {{contents|safe}}
         </div>
       </div>

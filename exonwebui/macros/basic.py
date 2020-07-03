@@ -14,7 +14,6 @@ class UiBasicMacro(UiBaseMacro):
 
 
 class UiAlert(UiBasicMacro):
-
     tpl_name = 'alert.tpl'
 
     def __new__(cls, type, msg, icon=True, dismiss=True, styles=''):

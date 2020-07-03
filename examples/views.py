@@ -139,7 +139,7 @@ class VInputForm(MenuBoardView):
                             {'label': '.com', 'value': '.com'},
                             {'label': '.net', 'value': '.net',
                              'selected': True},
-                            {'label': '.com', 'value': '.com'}]}]},
+                            {'label': '.org', 'value': '.org'}]}]},
                 {'type': 'textarea', 'label': gettext('Textarea'),
                  'name': 'field4',
                  'help': gettext("* help text for field"),

@@ -118,11 +118,10 @@
     if($("#form_{{id}} input[data-plugin='datetimepicker']").length){
       WebUI.loadCss.before("/static/webui/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui_inputform.min.css']");
       WebUI.loadScript("/static/webui/vendor/js/moment.min.js",function(){
-        WebUI.loadScript("/static/webui/vendor/datetimepicker/datetimepicker.min.js",function(){
-          $("#form_{{id}} input[data-plugin='datetimepicker']").each(function(){
-            $(this).datetimepicker({format:$(this).data('format'),useCurrent:true,showClear:true,showClose:true})});
-        });
-      });
+      WebUI.loadScript("/static/webui/vendor/datetimepicker/datetimepicker.min.js",function(){
+        $("#form_{{id}} input[data-plugin='datetimepicker']").each(function(){
+          $(this).datetimepicker({format:$(this).data('format'),useCurrent:true,showClear:true,showClose:true})});
+      })});
     };
     if($("#form_{{id}} input[data-plugin='bsCustomFileInput']").length){
       WebUI.loadScript("/static/webui/vendor/js/bs-custom-file-input.min.js",function(){

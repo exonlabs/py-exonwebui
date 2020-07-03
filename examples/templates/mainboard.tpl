@@ -32,9 +32,9 @@
     <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item btn-sm px-3" href="#?toogleboard=1">{{gettext("Toogle boards")}}</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="#?lang=en">English</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="#?lang=ar">عربي</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="#?lang=fr">Français</a>
+      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=en">English</a>
+      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=ar">عربي</a>
+      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=fr">Français</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item btn-sm px-3" href="/loginpage">
         <i class="fa fa-flip fa-sign-out-alt"></i>

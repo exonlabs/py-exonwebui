@@ -60,7 +60,7 @@ class UiStdDataGrid(UiDataGridsMacro):
         })
 
     @classmethod
-    def text(cls, value, default='n/a', styles=''):
+    def text(cls, value, default='-', styles=''):
         return {
             cls.text_render['_']: value,
             cls.text_render['display']:
@@ -70,12 +70,12 @@ class UiStdDataGrid(UiDataGridsMacro):
         }
 
     @classmethod
-    def link(cls, value, url, styles=''):
+    def link(cls, value, url, label=None, styles=''):
         return {
             cls.link_render['_']: value,
             cls.link_render['display']:
                 '<a class="text-primary %s" href="%s">%s</a>' % (
-                    styles, url, value),
+                    styles, url, value if label is None else label),
         }
 
     @classmethod

@@ -29,14 +29,14 @@
           buttons:[
             {extend:'columnsToggle',columns:':not(.dtctrl)'},
             {extend:'csvHtml5',className:'d-none',
-             filename:dataTables_expfname,exportOptions:{columns:':visible:not(.dtctrl)'},
+             filename:dataTables_expfname,exportOptions:{columns:':visible:not(.dtctrl)',orthogonal:'_'},
              fieldSeparator:'{{export.csv_fieldSeparator|safe}}',fieldBoundary:'{{export.csv_fieldBoundary|safe}}',
              escapeChar:'{{export.csv_escapeChar|safe}}',extension:'{{export.csv_extension|safe}}'},
             {extend:'excelHtml5',className:'d-none',title:'{{export.file_title}}',sheetName:'{{export.xls_sheetName|safe}}',
-             filename:dataTables_expfname,exportOptions:{columns:':visible:not(.dtctrl)'},
+             filename:dataTables_expfname,exportOptions:{columns:':visible:not(.dtctrl)',orthogonal:'_'},
              extension:'{{export.xls_extension|safe}}'},
             {extend:'print',className:'d-none',title:'{{export.file_title}}',
-             exportOptions:{columns:':visible:not(.dtctrl)'}},
+             exportOptions:{columns:':visible:not(.dtctrl)',orthogonal:'_'}},
           ]
         },
         language:{
@@ -59,7 +59,7 @@
         {% if export.types|length >0 %}
           '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Export")}}"><i class="fa fas fa-fw fa-download fa-file-export"></i></button><div class="dropdown-menu dropdown-menu-right p-0 pb-1" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Export")}}</h6>'+
           {% if 'csv' in export.types %}'<button id="btnExpCSV_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-text-o fa-file-csv"></i> {{gettext("csv")}}</button>'+{% endif %}
-          {% if 'xls' in export.types %}'<button id="btnExpXLS_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-excel-o fa-file-excel"></i> {{gettext("xls")}}</button>'+{% endif %}
+          {% if 'xls' in export.types %}'<button id="btnExpXLS_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-excel-o fa-file-excel"></i> {{gettext("excel")}}</button>'+{% endif %}
           {% if 'print' in export.types %}'<button id="btnPRINT_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-print"></i> {{gettext("print")}}</button>'+{% endif %}
           '</div></div>'+
         {% endif %}
