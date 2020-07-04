@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-27 16:57+0200\n"
+"POT-Creation-Date: 2020-07-04 14:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,15 @@ msgstr ""
 msgid "* help text for field"
 msgstr ""
 
+msgid "AND"
+msgstr ""
+
+msgid "Add group"
+msgstr ""
+
+msgid "Add rule"
+msgstr ""
+
 msgid "Alerts"
 msgstr ""
 
@@ -47,16 +56,34 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Datagrid"
+msgstr ""
+
+msgid "Datagrid Title"
+msgstr ""
+
 msgid "Date"
 msgstr ""
 
 msgid "Date & Time"
 msgstr ""
 
+msgid "Delete"
+msgstr ""
+
+msgid "Empty Result"
+msgstr ""
+
+msgid "Empty value"
+msgstr ""
+
 msgid "Export"
 msgstr ""
 
 msgid "Extra detailed long help for fields"
+msgstr ""
+
+msgid "Failed loading data"
 msgstr ""
 
 msgid "Got it"
@@ -74,7 +101,19 @@ msgstr ""
 msgid "Input Form Title"
 msgstr ""
 
+msgid "Invalid date format ({0})"
+msgstr ""
+
+msgid "Invalid format ({0})"
+msgstr ""
+
 msgid "Invalid username or password"
+msgstr ""
+
+msgid "Invalid values, {0} is greater than {1}"
+msgstr ""
+
+msgid "Invert"
 msgstr ""
 
 msgid "Load with Progress update"
@@ -89,13 +128,64 @@ msgstr ""
 msgid "Loginpage"
 msgstr ""
 
+msgid "Must be a multiple of {0}"
+msgstr ""
+
+msgid "Must be after {0}"
+msgstr ""
+
+msgid "Must be before {0}"
+msgstr ""
+
+msgid "Must be greater than {0}"
+msgstr ""
+
+msgid "Must be lower than {0}"
+msgstr ""
+
+msgid "Must contain at least {0} characters"
+msgstr ""
+
+msgid "Must not contain more than {0} characters"
+msgstr ""
+
+msgid "NOT"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
 msgid "No data available"
+msgstr ""
+
+msgid "No filter selected"
 msgstr ""
 
 msgid "No matching records found"
 msgstr ""
 
+msgid "No value selected"
+msgstr ""
+
+msgid "Not a boolean"
+msgstr ""
+
+msgid "Not a number"
+msgstr ""
+
+msgid "Not a real number"
+msgstr ""
+
+msgid "Not an integer"
+msgstr ""
+
 msgid "Notifications"
+msgstr ""
+
+msgid "OR"
+msgstr ""
+
+msgid "Operator ({1}) cannot accept multiple values"
 msgstr ""
 
 msgid "Option 1"
@@ -140,10 +230,16 @@ msgstr ""
 msgid "Please fill all required fields"
 msgstr ""
 
+msgid "Query Builder"
+msgstr ""
+
 msgid "Quick Guide"
 msgstr ""
 
 msgid "Radio"
+msgstr ""
+
+msgid "Reload"
 msgstr ""
 
 msgid "Required Field"
@@ -165,6 +261,9 @@ msgid "Select 1"
 msgstr ""
 
 msgid "Select 2"
+msgstr ""
+
+msgid "Select Operation"
 msgstr ""
 
 msgid "Select files"
@@ -189,6 +288,9 @@ msgid "Submited Data:"
 msgstr ""
 
 msgid "Textarea"
+msgstr ""
+
+msgid "The group is empty"
 msgstr ""
 
 msgid "Time"
@@ -221,22 +323,88 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
+msgid "Yes"
+msgstr ""
+
 msgid "allowed types"
+msgstr ""
+
+msgid "begins with"
+msgstr ""
+
+msgid "between"
+msgstr ""
+
+msgid "contains"
 msgstr ""
 
 msgid "csv"
 msgstr ""
 
+msgid "does not begin with"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "does not end with"
+msgstr ""
+
+msgid "ends with"
+msgstr ""
+
+msgid "equal"
+msgstr ""
+
 msgid "error"
 msgstr ""
 
+msgid "excel"
+msgstr ""
+
+msgid "greater"
+msgstr ""
+
+msgid "greater or equal"
+msgstr ""
+
+msgid "in"
+msgstr ""
+
 msgid "info"
+msgstr ""
+
+msgid "is empty"
+msgstr ""
+
+msgid "is not empty"
+msgstr ""
+
+msgid "is not null"
+msgstr ""
+
+msgid "is null"
+msgstr ""
+
+msgid "less"
+msgstr ""
+
+msgid "less or equal"
 msgstr ""
 
 msgid "loaded after delay"
 msgstr ""
 
 msgid "message"
+msgstr ""
+
+msgid "not between"
+msgstr ""
+
+msgid "not equal"
+msgstr ""
+
+msgid "not in"
 msgstr ""
 
 msgid "print"
@@ -249,8 +417,5 @@ msgid "success"
 msgstr ""
 
 msgid "warning"
-msgstr ""
-
-msgid "xls"
 msgstr ""
 

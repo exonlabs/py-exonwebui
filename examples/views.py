@@ -333,6 +333,74 @@ class VDatagrid(MenuBoardView):
         return self.notify("Invalid request", 'error')
 
 
+class VQueryBuilder(MenuBoardView):
+    routes = [('/qbuilder', 'qbuilder')]
+
+    @classmethod
+    def initialize(cls, websrv, app):
+        cls.add_menulink(
+            app, 5, lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
+
+    def get(self, **kwargs):
+        from exonwebui.macros.forms import UiQBuilder
+        options = {
+            'form_id': "1234",
+            'filters': [
+                {'id': 'field1', 'label': 'Field 1', 'type': 'string',
+                 'operators': ['equal', 'not_equal', 'contains']},
+                {'id': 'field2', 'label': 'Field Name 2', 'type': 'string',
+                 'input': 'textarea'},
+                {'id': 'field3_1', 'label': 'Integer 1', 'type': 'integer',
+                 'input': 'text'},
+                {'id': 'field3_2', 'label': 'Integer 2', 'type': 'integer',
+                 'input': 'number'},
+                {'id': 'field3_3', 'label': 'Double 1', 'type': 'double',
+                 'input': 'number'},
+                {'id': 'field4', 'label': 'Select', 'type': 'integer',
+                 'input': 'select',
+                 'values': {1: 'Option 1', 2: 'Option 2', 3: 'Option 3'},
+                 'operators': ['equal', 'not_equal', 'in', 'not_in']},
+                {'id': 'field5', 'label': 'Checkbox', 'type': 'integer',
+                 'input': 'radio', 'values': [{1: 'Yes'}, {0: 'No'}],
+                 'operators': ['equal']},
+                {'id': 'field6', 'label': 'Choose', 'type': 'integer',
+                 'input': 'checkbox',
+                 'values': [{1: 'Opt 1'}, {2: 'Opt 2'}, {3: 'Opt 3'},
+                            {4: 'Opt 4'}, {5: 'Opt 5'}]},
+            ],
+            'initial_rules': {
+                'not': True,
+                'condition': 'AND',
+                'rules': [
+                    {'id': 'field1', 'operator': 'equal', 'value': 'value'},
+                    {'id': 'field3_2', 'operator': 'less', 'value': 10},
+                    {
+                        'condition': 'OR',
+                        'rules': [
+                            {'id': 'field1', 'operator': 'equal',
+                             'value': 'value2'},
+                            {'id': 'field6', 'operator': 'equal',
+                             'value': 2},
+                        ],
+                    },
+                    {
+                        'not': True,
+                        'condition': 'OR',
+                        'rules': [
+                            {'id': 'field4', 'operator': 'equal',
+                             'value': 3},
+                            {'id': 'field2', 'operator': 'not_equal',
+                             'value': 'text value'},
+                        ],
+                    },
+
+                ],
+            },
+        }
+        html = tpl('query_builder.tpl', contents=UiQBuilder(options))
+        return self.reply(html, doctitle=gettext('Query Builder'))
+
+
 class VLoader(MenuBoardView):
     routes = [('/loader', 'loader')]
 

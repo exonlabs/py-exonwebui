@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-27 16:57+0200\n"
+"POT-Creation-Date: 2020-07-04 14:33+0200\n"
 "PO-Revision-Date: 2019-11-10 00:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -30,6 +30,15 @@ msgstr "* مثال مع الإدخال المسبق"
 msgid "* help text for field"
 msgstr "* نص المساعدة للحقل"
 
+msgid "AND"
+msgstr "و"
+
+msgid "Add group"
+msgstr "إضافة مجموعة"
+
+msgid "Add rule"
+msgstr "إضافة قاعدة"
+
 msgid "Alerts"
 msgstr "تحذيرات"
 
@@ -48,17 +57,35 @@ msgstr "الأعمدة"
 msgid "Confirm"
 msgstr "تأكيد"
 
+msgid "Datagrid"
+msgstr "جدول بيانات"
+
+msgid "Datagrid Title"
+msgstr "عنوان جدول البيانات"
+
 msgid "Date"
 msgstr "تاريخ"
 
 msgid "Date & Time"
 msgstr "التاريخ و الوقت"
 
+msgid "Delete"
+msgstr "أمسح"
+
+msgid "Empty Result"
+msgstr "نتائج خالية"
+
+msgid "Empty value"
+msgstr "قيمة خالية"
+
 msgid "Export"
 msgstr "تصدير"
 
 msgid "Extra detailed long help for fields"
 msgstr "مساعدة طويلة مفصلة للغاية للحقول"
+
+msgid "Failed loading data"
+msgstr "فشل في تحميل البيانات"
 
 msgid "Got it"
 msgstr "فهمتك"
@@ -75,8 +102,20 @@ msgstr "نموذج الإدخال"
 msgid "Input Form Title"
 msgstr "عنوان نموذج الإدخال"
 
+msgid "Invalid date format ({0})"
+msgstr "تنسيق التاريخ غير صحيح ({0})"
+
+msgid "Invalid format ({0})"
+msgstr "تنسيق غير صحيح ({0})"
+
 msgid "Invalid username or password"
 msgstr "خطأ في اسم المستخدم أو كلمة السر"
+
+msgid "Invalid values, {0} is greater than {1}"
+msgstr "قيمة غير صحيحة {0} أكبر من {1}"
+
+msgid "Invert"
+msgstr "أعكس"
 
 msgid "Load with Progress update"
 msgstr "تحميل مع تحديث التقدم"
@@ -90,14 +129,65 @@ msgstr "صفحه تسجيل الدخول"
 msgid "Loginpage"
 msgstr "صفحه تسجيل الدخول"
 
+msgid "Must be a multiple of {0}"
+msgstr "يجب أن يكون من مضاعفات {0}"
+
+msgid "Must be after {0}"
+msgstr "يجب أن يكون بعد {0}"
+
+msgid "Must be before {0}"
+msgstr "يجب أن يكون قبل {0}"
+
+msgid "Must be greater than {0}"
+msgstr "يجب أن يكون أكبر من {0}"
+
+msgid "Must be lower than {0}"
+msgstr "يجب أن يكون أقل من {0}"
+
+msgid "Must contain at least {0} characters"
+msgstr "يجب أن يحتوي على {0} من الأحرف على الأقل"
+
+msgid "Must not contain more than {0} characters"
+msgstr "يجب ألا يحتوي على أكثر من {0} حرف"
+
+msgid "NOT"
+msgstr "ليس"
+
+msgid "No"
+msgstr "لا"
+
 msgid "No data available"
 msgstr "لا تتوافر بيانات"
+
+msgid "No filter selected"
+msgstr "لم يتم تحديد أي قواعد تصفية"
 
 msgid "No matching records found"
 msgstr "لم يتم العثور على سجلات مطابقة"
 
+msgid "No value selected"
+msgstr "لم يتم تحديد قيمة"
+
+msgid "Not a boolean"
+msgstr "ليست قيمة منطقية"
+
+msgid "Not a number"
+msgstr "ليس رقمًا"
+
+msgid "Not a real number"
+msgstr "ليس رقم حقيقي"
+
+msgid "Not an integer"
+msgstr "ليس عددًا صحيحًا"
+
 msgid "Notifications"
 msgstr "تنبيهات"
+
+msgid "OR"
+msgstr "أو"
+
+msgid "Operator ({1}) cannot accept multiple values"
+msgstr "عامل التشغيل ({1}) لا يمكنه قبول قيم متعددة"
 
 msgid "Option 1"
 msgstr "الخيار 1"
@@ -141,11 +231,17 @@ msgstr "برجاء إدخال أسم المستخدم و كلمة السر"
 msgid "Please fill all required fields"
 msgstr "يرجى تعبئة جميع الحقول المطلوبة"
 
+msgid "Query Builder"
+msgstr "منشئ القواعد"
+
 msgid "Quick Guide"
 msgstr "مرشد سريع"
 
 msgid "Radio"
 msgstr "زر الراديو"
+
+msgid "Reload"
+msgstr "إعادة تحميل"
 
 msgid "Required Field"
 msgstr "حقل مطلوب"
@@ -167,6 +263,9 @@ msgstr "تحديد 1"
 
 msgid "Select 2"
 msgstr "تحديد 2"
+
+msgid "Select Operation"
+msgstr "أختر عملية"
 
 msgid "Select files"
 msgstr "اختر الملفات"
@@ -191,6 +290,9 @@ msgstr "البيانات المقدمة:"
 
 msgid "Textarea"
 msgstr "منطقة النص"
+
+msgid "The group is empty"
+msgstr "المجموعة فارغة"
 
 msgid "Time"
 msgstr "الوقت"
@@ -222,23 +324,89 @@ msgstr "التحقق"
 msgid "Welcome"
 msgstr "أهلا بكم"
 
+msgid "Yes"
+msgstr "نعم"
+
 msgid "allowed types"
 msgstr "الأنواع المسموح بها"
+
+msgid "begins with"
+msgstr "يبدأ ب"
+
+msgid "between"
+msgstr "ما بين"
+
+msgid "contains"
+msgstr "يحتوي على"
 
 msgid "csv"
 msgstr "csv"
 
+msgid "does not begin with"
+msgstr "لا يبدأ بـ"
+
+msgid "does not contain"
+msgstr "لا يحتوي"
+
+msgid "does not end with"
+msgstr "لا ينتهي بـ"
+
+msgid "ends with"
+msgstr "ينتهي بـ"
+
+msgid "equal"
+msgstr "يساوي"
+
 msgid "error"
 msgstr "خطأ"
 
+msgid "excel"
+msgstr "excel"
+
+msgid "greater"
+msgstr "أكبر"
+
+msgid "greater or equal"
+msgstr "أكبر من أو يساوي"
+
+msgid "in"
+msgstr "في"
+
 msgid "info"
 msgstr "معلومه"
+
+msgid "is empty"
+msgstr "فارغ"
+
+msgid "is not empty"
+msgstr "ليس فارغا"
+
+msgid "is not null"
+msgstr "هو ليس لاشيء"
+
+msgid "is null"
+msgstr "هو لاشيء"
+
+msgid "less"
+msgstr "أقل"
+
+msgid "less or equal"
+msgstr "أقل أو متساوي"
 
 msgid "loaded after delay"
 msgstr "تم التحميل بعد فترة تأخير"
 
 msgid "message"
 msgstr "رسالة"
+
+msgid "not between"
+msgstr "ليس بين"
+
+msgid "not equal"
+msgstr "ليس متساوي"
+
+msgid "not in"
+msgstr "ليس في"
 
 msgid "print"
 msgstr "طباعة"
@@ -251,7 +419,4 @@ msgstr "تم بنجاح"
 
 msgid "warning"
 msgstr "تحذير"
-
-msgid "xls"
-msgstr "xls"
 

@@ -4,6 +4,7 @@
     :license: BSD, see LICENSE for more details.
 """
 import os
+import simplejson as json
 from . import UiBaseMacro
 
 __all__ = []
@@ -43,6 +44,37 @@ class UiInputForm(UiFormsMacro):
             'id': options.get('form_id', cls.randint()),
             'submit_url': options.get('submit_url', ''),
             'fields': fields,
+            'styles': styles,
+        })
+
+
+class UiQBuilder(UiFormsMacro):
+    tpl_name = 'qbuilder.tpl'
+
+    def __new__(cls, options, styles=''):
+        filters = []
+        for k in options.get('filters', []):
+            filters.append(json.dumps({
+                'id': k['id'],
+                'label': k['label'],
+                'type': k.get('type', 'string'),
+                'input': k.get('input', 'text'),
+                'operators': k.get('operators', None),
+                'values': k.get('values', None),
+                'default_value': k.get('default', None),
+                'size': k.get('maxsize', None),
+                'rows': k.get('rows', 3),
+                'multiple': k.get('multiple', False),
+                'validation': k.get('validation', None),
+            }))
+        return cls.tpl(**{
+            'id': options.get('form_id', cls.randint()),
+            'filters': ','.join(filters),
+            'rules': json.dumps(options.get('initial_rules', None)),
+            'allow_groups': options.get('allow_groups', '1'),
+            'allow_empty': options.get('allow_empty', 'true'),
+            'default_condition': options.get('default_condition', 'AND'),
+            'inputs_separator': options.get('inputs_separator', ','),
             'styles': styles,
         })
 

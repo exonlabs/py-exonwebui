@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-06-27 16:57+0200\n"
+"POT-Creation-Date: 2020-07-04 14:33+0200\n"
 "PO-Revision-Date: 2019-11-10 00:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -30,6 +30,15 @@ msgstr ""
 msgid "* help text for field"
 msgstr ""
 
+msgid "AND"
+msgstr ""
+
+msgid "Add group"
+msgstr ""
+
+msgid "Add rule"
+msgstr ""
+
 msgid "Alerts"
 msgstr "Les alertes"
 
@@ -48,10 +57,25 @@ msgstr "Colonnes"
 msgid "Confirm"
 msgstr "Confirmer"
 
+msgid "Datagrid"
+msgstr ""
+
+msgid "Datagrid Title"
+msgstr ""
+
 msgid "Date"
 msgstr ""
 
 msgid "Date & Time"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Empty Result"
+msgstr ""
+
+msgid "Empty value"
 msgstr ""
 
 msgid "Export"
@@ -60,14 +84,17 @@ msgstr "Exportation"
 msgid "Extra detailed long help for fields"
 msgstr ""
 
+msgid "Failed loading data"
+msgstr ""
+
 msgid "Got it"
-msgstr "Je l\'ai"
+msgstr "Je l\\'ai"
 
 msgid "Group Label"
 msgstr ""
 
 msgid "Home"
-msgstr "Page d\'accueil"
+msgstr "Page d\\'accueil"
 
 msgid "Input Form"
 msgstr "Formulaire de saisie"
@@ -75,8 +102,20 @@ msgstr "Formulaire de saisie"
 msgid "Input Form Title"
 msgstr "Titre du formulaire de saisie"
 
+msgid "Invalid date format ({0})"
+msgstr ""
+
+msgid "Invalid format ({0})"
+msgstr ""
+
 msgid "Invalid username or password"
-msgstr "Nom d\'utilisateur ou mot de passe invalide"
+msgstr "Nom d\\'utilisateur ou mot de passe invalide"
+
+msgid "Invalid values, {0} is greater than {1}"
+msgstr ""
+
+msgid "Invert"
+msgstr ""
 
 msgid "Load with Progress update"
 msgstr "Charger avec la mise à jour Progress"
@@ -90,14 +129,65 @@ msgstr "Page de Connexion"
 msgid "Loginpage"
 msgstr "Page de Connexion"
 
+msgid "Must be a multiple of {0}"
+msgstr ""
+
+msgid "Must be after {0}"
+msgstr ""
+
+msgid "Must be before {0}"
+msgstr ""
+
+msgid "Must be greater than {0}"
+msgstr ""
+
+msgid "Must be lower than {0}"
+msgstr ""
+
+msgid "Must contain at least {0} characters"
+msgstr ""
+
+msgid "Must not contain more than {0} characters"
+msgstr ""
+
+msgid "NOT"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
 msgid "No data available"
 msgstr "Pas de données disponibles"
+
+msgid "No filter selected"
+msgstr ""
 
 msgid "No matching records found"
 msgstr "Aucun enregistrements correspondants trouvés"
 
+msgid "No value selected"
+msgstr ""
+
+msgid "Not a boolean"
+msgstr ""
+
+msgid "Not a number"
+msgstr ""
+
+msgid "Not a real number"
+msgstr ""
+
+msgid "Not an integer"
+msgstr ""
+
 msgid "Notifications"
 msgstr "Les notifications"
+
+msgid "OR"
+msgstr ""
+
+msgid "Operator ({1}) cannot accept multiple values"
+msgstr ""
 
 msgid "Option 1"
 msgstr ""
@@ -136,15 +226,21 @@ msgid "Please correct invalid fields"
 msgstr "Veuillez corriger les champs incorrects"
 
 msgid "Please enter username and password"
-msgstr "Veuillez saisir votre nom d\'utilisateur et votre mot de passe"
+msgstr "Veuillez saisir votre nom d\\'utilisateur et votre mot de passe"
 
 msgid "Please fill all required fields"
 msgstr "Veuillez remplir tous les champs obligatoires"
+
+msgid "Query Builder"
+msgstr ""
 
 msgid "Quick Guide"
 msgstr ""
 
 msgid "Radio"
+msgstr ""
+
+msgid "Reload"
 msgstr ""
 
 msgid "Required Field"
@@ -166,6 +262,9 @@ msgid "Select 1"
 msgstr ""
 
 msgid "Select 2"
+msgstr ""
+
+msgid "Select Operation"
 msgstr ""
 
 msgid "Select files"
@@ -192,6 +291,9 @@ msgstr ""
 msgid "Textarea"
 msgstr ""
 
+msgid "The group is empty"
+msgstr ""
+
 msgid "Time"
 msgstr ""
 
@@ -202,10 +304,10 @@ msgid "Too Large File"
 msgstr "Fichier trop volumineux"
 
 msgid "Toogle boards"
-msgstr "Basculer l\'interface"
+msgstr "Basculer l\\'interface"
 
 msgid "UI Components"
-msgstr "Composants d\'interface"
+msgstr "Composants d\\'interface"
 
 msgid "Upload File"
 msgstr ""
@@ -214,7 +316,7 @@ msgid "Upload Multiple"
 msgstr ""
 
 msgid "Username"
-msgstr "Nom d\'utilisateur"
+msgstr "Nom d\\'utilisateur"
 
 msgid "Validation"
 msgstr ""
@@ -222,23 +324,89 @@ msgstr ""
 msgid "Welcome"
 msgstr "Bienvenue"
 
+msgid "Yes"
+msgstr ""
+
 msgid "allowed types"
+msgstr ""
+
+msgid "begins with"
+msgstr ""
+
+msgid "between"
+msgstr ""
+
+msgid "contains"
 msgstr ""
 
 msgid "csv"
 msgstr "csv"
 
+msgid "does not begin with"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "does not end with"
+msgstr ""
+
+msgid "ends with"
+msgstr ""
+
+msgid "equal"
+msgstr ""
+
 msgid "error"
 msgstr "Erreur"
 
+msgid "excel"
+msgstr ""
+
+msgid "greater"
+msgstr ""
+
+msgid "greater or equal"
+msgstr ""
+
+msgid "in"
+msgstr ""
+
 msgid "info"
 msgstr "Info"
+
+msgid "is empty"
+msgstr ""
+
+msgid "is not empty"
+msgstr ""
+
+msgid "is not null"
+msgstr ""
+
+msgid "is null"
+msgstr ""
+
+msgid "less"
+msgstr ""
+
+msgid "less or equal"
+msgstr ""
 
 msgid "loaded after delay"
 msgstr "chargé après retard"
 
 msgid "message"
 msgstr "message"
+
+msgid "not between"
+msgstr ""
+
+msgid "not equal"
+msgstr ""
+
+msgid "not in"
+msgstr ""
 
 msgid "print"
 msgstr "imprimer"
@@ -251,7 +419,4 @@ msgstr "Succès"
 
 msgid "warning"
 msgstr "Attention"
-
-msgid "xls"
-msgstr "xls"
 
