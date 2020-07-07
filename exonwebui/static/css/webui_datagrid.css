@@ -57,25 +57,6 @@ div.dataTables_wrapper .dataTables_custombtns > * {box-shadow:-1px 1px 2px #ecec
 .dataTables_wrapper table.dataTable tbody tr.selected,
 .dataTables_wrapper table.dataTable tbody td.selected {background-color:#d6d8db; color:inherit}
 
-.dataTables_wrapper table.dataTable th:nth-child(2),
-.dataTables_wrapper table.dataTable td:nth-child(2) {
-  vertical-align:middle; cursor:pointer}
-.dataTables_wrapper table.dataTable thead th:nth-child(2)::before,
-.dataTables_wrapper table.dataTable thead th:nth-child(2)::after,
-.dataTables_wrapper table.dataTable tbody td.select-checkbox::before,
-.dataTables_wrapper table.dataTable tbody td.select-checkbox::after {
-  display:block; position:relative; width:12px; height:12px; text-align:center;
-  padding:0; margin:0; top:unset; left:unset; right:unset; color:white; text-shadow:none}
-.dataTables_wrapper table.dataTable thead th:nth-child(2)::before,
-.dataTables_wrapper table.dataTable tbody td.select-checkbox::before {
-  content:' '; margin-top:-1px; border:1px solid grey;
-  border-radius:3px; box-shadow:-1px 1px 1px #dcdcdc inset}
-.dataTables_wrapper table.dataTable thead th.selected:nth-child(2)::before,
-.dataTables_wrapper table.dataTable tbody tr.selected td.select-checkbox::before {
-  background-color:#007bff; border-color:#007bff; box-shadow:none}
-.dataTables_wrapper table.dataTable thead th.selected:nth-child(2)::after,
-.dataTables_wrapper table.dataTable tbody tr.selected td.select-checkbox::after {
-  content:'\2713'; margin-top:-12px; line-height:12px; font-size:16px; font-weight:normal}
-[dir=rtl] .dataTables_wrapper table.dataTable thead th.selected:nth-child(2)::after,
-[dir=rtl] .dataTables_wrapper table.dataTable tbody tr.selected td.select-checkbox::after {
-  margin-right:-1px}
+.dataTables_wrapper table.dataTable th:nth-child(2) input[type=checkbox],
+.dataTables_wrapper table.dataTable td:nth-child(2) input[type=checkbox] {
+  cursor:pointer; position:relative; margin-top:2px}

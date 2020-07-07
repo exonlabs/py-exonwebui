@@ -17,10 +17,10 @@
         stateSave:true,
         search:{smart:false,regex:true,caseInsensitive:true},
         lengthMenu:[[{{lenMenu|join(',')}}],[{{lenMenu|join(',')|replace('-1','"'|safe+gettext("All")+'"'|safe)}}]],
-        select:{style:'multi+shift',selector:'td.select-checkbox'},
+        select:{style:'multi+shift',selector:'td.row-select>input[type=checkbox]'},
         columns:[
           {defaultContent:'',searchable:false,orderable:false,className:'dtctrl table-index px-0'},
-          {defaultContent:'',searchable:false,orderable:false,className:'dtctrl select-checkbox px-3'},
+          {defaultContent:'',searchable:false,orderable:false,className:'dtctrl row-select px-3'},
           {{columns|safe}}
         ],
         order:[[2,'asc']],
@@ -65,14 +65,26 @@
         {% endif %}
         '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Columns")}}"><i class="fa fas fa-fw fa-th-list"></i></button><div id="btnDataGridVis_{{id}}" class="dropdown-menu dropdown-menu-right p-0" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Show / Hide")}}</h6></div></div></div>');
       dt.buttons().container().appendTo('#btnDataGridVis_{{id}}');
+      $(dt.column(1).header()).html('<input type="checkbox">');
+      $('input[type=checkbox]',dt.column(1).header()).on("click",function(){
+        if($(this).is(':checked')) dt.rows({search:'applied'}).select(); else dt.rows().deselect();
+      });
+      dt.on('draw',function(){
+        var e=$(".dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_info");
+        if(dt.data().length) e.removeClass("d-none"); else e.addClass("d-none");
+      });
       dt.on('order.dt search.dt',function(){
         dt.column(0,{search:'applied',order:'applied'}).nodes().each(function(cell,i){cell.innerHTML=i+1});
+        dt.rows({search:'removed'}).deselect();
       });
       dt.on('select deselect',function(){
-        var w=$("#DataGrid_Ops_{{id}}"),c=dt.rows({selected:true}).count();
+        var w=$("#DataGrid_Ops_{{id}}"),c=dt.rows({selected:true,search:'applied'}).count();
+        $('input[type=checkbox]',dt.column(1).header()).prop('checked',c>0);
+        dt.column(1).nodes().flatten().to$().each(function(){
+          $(this).find('input[type=checkbox]').prop("checked",$(this).parents('tr').hasClass('selected'));
+        });
+        w.html('');
         if(c>0){
-          $(dt.column(1).header()).addClass('selected');
-          w.html('');
           if(c==1){ {% for o in single_ops %}w.append('<button class="dropdown-item" data-op="{{o.value}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} }
           else{ {% for o in group_ops %}w.append('<button class="dropdown-item" data-op="{{o.value}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} };
           w.wrapInner('<div class="dropdown-menu '+($('body').attr('dir')=='rtl'?'dropdown-menu-right':'')+'"></div>');
@@ -81,7 +93,7 @@
           $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
             var op=$(this).data('op'),confirm=$(this).data('confirm');
             var run_op = function(){WebUI.loader.load(
-              "POST","{{baseurl}}/"+op,{_csrf_token:"{{csrf_token()}}",rows:dt.rows({selected:true}).ids().toArray()},
+              "POST","{{baseurl}}/"+op,{_csrf_token:"{{csrf_token()}}",rows:dt.rows({selected:true,search:'applied'}).ids().toArray()},
               function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
             if(confirm){
               WebUI.pagelock.modal(
@@ -90,12 +102,7 @@
               $('#btnConfirmOp_{{id}}').on('click',function(){WebUI.pagelock.hide();run_op()});
             }else run_op();
           });
-        }else{$(dt.column(1).header()).removeClass('selected');w.html('')};
-      });
-      dt.on('draw',function(){
-        var e=$(".dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_info");
-        if(dt.data().length) e.removeClass("d-none"); else e.addClass("d-none");
-        dt.rows().deselect();
+        };
       });
       $('#btnReload_{{id}}').on("click",function(){
         WebUI.loader.cancel();
@@ -103,7 +110,7 @@
           dt.clear().draw(); $(dt.table().body()).html('<tr><td colspan="100" class="loading"></td></tr>');
         },200);
         WebUI.loader.req_xhr=WebUI.request("POST","{{baseurl}}/loaddata",{_csrf_token:"{{csrf_token()}}"},
-          function(r){dt.clear().rows.add(r.payload).draw()},
+          function(r){dt.clear().rows.add(r.payload).draw().rows().deselect();dt.column(1).nodes().each(function(cell,i){cell.innerHTML='<input type="checkbox">'})},
           function(e){$(dt.table().body()).html('<tr><td colspan="100" class="text-center">{{gettext("Failed loading data")}}</td></tr>');WebUI.request.error(e)},
           function(){WebUI.loader.reset()});
       }).trigger('click');
@@ -111,10 +118,6 @@
       $('#btnExpXLS_{{id}}').on("click",function(){dt.button('.buttons-excel').trigger()});
       $('#btnPRINT_{{id}}').on("click",function(){dt.button('.buttons-print').trigger()});
       $('#btnDataGridVis_{{id}}').on("click",function(e){e.stopPropagation()});
-      $(dt.column(1).header()).on("click",function(){
-        $(this).toggleClass('selected');
-        if($(this).hasClass('selected')) dt.rows().select(); else dt.rows().deselect();
-      });
     });
   });
 </script>
