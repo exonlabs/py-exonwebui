@@ -10,6 +10,7 @@ $PYTHON3 -m virtualenv ../venv3
 . ../venv3/bin/activate
 pip install -U pip setuptools wheel
 pip install -e ./
+pip install -r dev_requirements.txt
 # fix till release flask-seasurf>=0.2.3 on pypi
 python -c 'import flask_seasurf as m; print(m.__version__>="0.2.3")' |grep -iq 'true' || \
     pip install -U git+git://github.com/maxcountryman/flask-seasurf.git@0.2.3#egg=flask_seasurf
@@ -21,6 +22,7 @@ $PYTHON2 -m virtualenv ../venv2
 . ../venv2/bin/activate
 pip install -U pip setuptools wheel
 pip install -e ./
+pip install -r dev_requirements.txt
 # fix till release flask-seasurf>=0.2.3 on pypi
 python -c 'import flask_seasurf as m; print(m.__version__>="0.2.3")' |grep -iq 'true' || \
     pip install -U git+git://github.com/maxcountryman/flask-seasurf.git@0.2.3#egg=flask_seasurf
