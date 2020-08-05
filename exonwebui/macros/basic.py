@@ -3,14 +3,13 @@
     :copyright: 2020, ExonLabs. All rights reserved.
     :license: BSD, see LICENSE for more details.
 """
-import os
 from . import UiBaseMacro
 
 __all__ = []
 
 
 class UiBasicMacro(UiBaseMacro):
-    root_path = os.path.join('webui', 'macros', 'basic')
+    root_path = 'webui/macros/basic'
 
 
 class UiAlert(UiBasicMacro):

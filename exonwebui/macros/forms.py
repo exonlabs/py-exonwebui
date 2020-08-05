@@ -3,7 +3,6 @@
     :copyright: 2020, ExonLabs. All rights reserved.
     :license: BSD, see LICENSE for more details.
 """
-import os
 import simplejson as json
 from . import UiBaseMacro
 
@@ -11,7 +10,7 @@ __all__ = []
 
 
 class UiFormsMacro(UiBaseMacro):
-    root_path = os.path.join('webui', 'macros', 'forms')
+    root_path = 'webui/macros/forms'
 
 
 class UiInputForm(UiFormsMacro):

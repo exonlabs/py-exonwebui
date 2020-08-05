@@ -3,7 +3,6 @@
     :copyright: 2020, ExonLabs. All rights reserved.
     :license: BSD, see LICENSE for more details.
 """
-import os
 import random
 from flask import render_template
 
@@ -13,7 +12,7 @@ __all__ = []
 class UiBaseMacro(str):
 
     # root path for templates
-    root_path = os.path.join('webui', 'macros')
+    root_path = 'webui/macros'
 
     # template file name
     tpl_name = ''
@@ -24,7 +23,7 @@ class UiBaseMacro(str):
     @classmethod
     def tpl(cls, **params):
         return render_template(
-            os.path.join(cls.root_path, cls.tpl_name), **params) + '\n'
+            '%s/%s' % (cls.root_path, cls.tpl_name), **params) + '\n'
 
     @classmethod
     def randint(cls, index=10000):
