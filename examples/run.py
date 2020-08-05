@@ -34,13 +34,24 @@ if __name__ == '__main__':
         if args.debug > 0:
             logging.getLogger().setLevel(logging.DEBUG)
 
+        # adjust resources links
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        for n in ['templates', 'static']:
+            link_path = os.path.join(base_path, n, 'webui')
+            if os.path.exists(link_path):
+                os.unlink(link_path)
+            src_dir = os.path.join(
+                os.path.dirname(base_path), 'exonwebui', n)
+            if os.path.exists(src_dir):
+                os.symlink(src_dir, link_path)
+
         cfg = {
             'secret_key': "0123456789ABCDEF",
             'max_content_length': 10485760,
             'templates_auto_reload': bool(args.debug > 0),
         }
         webapp = BaseWebApp('SampleWebui', options=cfg)
-        webapp.base_path = os.path.dirname(__file__)
+        webapp.base_path = base_path
         webapp.views = MenuBoardView.__subclasses__()
         webapp.create_app().run(
             host='0.0.0.0',
