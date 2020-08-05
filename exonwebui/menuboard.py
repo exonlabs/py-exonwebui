@@ -6,17 +6,16 @@
 import os
 import gzip
 from io import BytesIO
-from flask import current_app, request, session, redirect, jsonify, url_for
-from flask import flash, get_flashed_messages
+from flask import current_app, request, session, redirect, \
+    jsonify, url_for, flash, get_flashed_messages
 from flask_seasurf import SeaSurf
-from flask_babelex import Babel, Domain, get_domain, refresh as lang_refresh
 
-from exonutils.webserver import WebView
+from exonutils.webapp import BaseWebView
 
 __all__ = ['MenuBoardView']
 
 
-class MenuBoardView(WebView):
+class MenuBoardView(BaseWebView):
 
     # enable minimize output html response data
     mindata_enable = True
@@ -35,10 +34,11 @@ class MenuBoardView(WebView):
             if cls.gzip_enable:
                 app.after_request(cls.gzip_response)
 
-            # initialize babel extension
-            domain = Domain(dirname=locale_path)
-            babel = Babel(app, default_domain=domain)
+            # initialize localization with babel extension
             if locale_path and os.path.exists(locale_path):
+                from flask_babelex import Babel, Domain
+                domain = Domain(dirname=locale_path)
+                babel = Babel(app, default_domain=domain)
                 babel.localeselector(lambda: session.get('lang', 'en'))
                 app.config['LOCALE_ENABLED'] = True
                 app.config['LOCALE_PATH'] = locale_path
@@ -197,10 +197,11 @@ class MenuBoardView(WebView):
                 if new_lang != session['lang']:
                     old_lang = session['lang']
                     try:
+                        from flask_babelex import get_domain, refresh
                         session['lang'] = new_lang
                         if get_domain().get_translations().info() \
                            or new_lang == 'en':
-                            lang_refresh()
+                            refresh()
                         else:
                             raise Exception(
                                 "no [%s] translation available" % new_lang)

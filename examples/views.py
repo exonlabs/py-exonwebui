@@ -5,6 +5,7 @@ from random import randint
 from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
+from exonutils.buffers import SharedFileBuffer
 from exonwebui.menuboard import MenuBoardView
 
 
@@ -403,6 +404,7 @@ class VQueryBuilder(MenuBoardView):
 
 class VLoader(MenuBoardView):
     routes = [('/loader', 'loader')]
+    shared_buffer = SharedFileBuffer('SampleWebui_Loader')
 
     @classmethod
     def initialize(cls, websrv, app):
@@ -429,7 +431,10 @@ class VLoader(MenuBoardView):
         # simulate long delay
         t = 5
         for i in range(t):
-            self.shared_buffer.set('loader_progress', int(i * 100 / t))
+            try:
+                self.shared_buffer.set('loader_progress', int(i * 100 / t))
+            except:
+                pass
             time.sleep(1)
 
         flash(gettext('success'), 'success')

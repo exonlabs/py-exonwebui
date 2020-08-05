@@ -37,7 +37,7 @@
       <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=fr">Français</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item btn-sm px-3" href="/loginpage">
-        <i class="fa fa-flip fa-sign-out-alt"></i>
+        <i class="fa fas fa-flip fa-sign-out fa-sign-out-alt"></i>
       </a>
     </div>
   </div>
