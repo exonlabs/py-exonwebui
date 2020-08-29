@@ -7,17 +7,17 @@ import os
 import re
 from setuptools import setup, find_packages
 
-pkg_name = 'exonwebui'
+pkgname = "exonwebui"
 
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
-with open(os.path.join(pkg_name, '__init__.py'), 'rt') as f:
+with open(os.path.join(pkgname, '__init__.py'), 'rt') as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 with open('README.md', 'rt') as f:
     long_description = f.read()
 
 
 setup(
-    name=pkg_name,
+    name=pkgname,
     version=version,
     url='https://bitbucket.org/exonlabs/exonwebui',
     author='ExonLabs',
@@ -33,8 +33,7 @@ setup(
         '!=3.5.*,!=3.6.*',
     install_requires=[
         'future>=0.18',
-        'exonutils>=2.0',
-        'simplejson>=3.17',
+        'exonutils>=2.2',
         'flask>=1.1',
         'Jinja2>=2.11',
         'flask-seasurf>=0.2',
