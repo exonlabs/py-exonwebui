@@ -5,7 +5,7 @@ from random import randint
 from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
-from exonutils.buffers import SharedFileBuffer
+from exonutils.buffers import FileBuffer
 from exonwebui.menuboard import MenuBoardView
 
 
@@ -404,7 +404,7 @@ class VQueryBuilder(MenuBoardView):
 
 class VLoader(MenuBoardView):
     routes = [('/loader', 'loader')]
-    shared_buffer = SharedFileBuffer('SampleWebui_Loader')
+    shared_buffer = FileBuffer('SampleWebui_Loader')
 
     @classmethod
     def initialize(cls, websrv, app):

@@ -3,7 +3,7 @@
     :copyright: 2020, ExonLabs. All rights reserved.
     :license: BSD, see LICENSE for more details.
 """
-import simplejson as json
+import json
 from . import UiBaseMacro
 
 __all__ = []

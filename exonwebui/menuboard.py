@@ -68,8 +68,9 @@ class MenuBoardView(BaseWebView):
             app = current_app
 
         buff = app.config.get('MENUBOARD_MENUBUFFER', [])
-        for index, label, icon, url, parent, loader in buff:
-            if loader and not loader():
+        for index, label, icon, url, parent, load_callback in buff:
+            # check weather to show link/menu or not
+            if load_callback and not load_callback():
                 continue
 
             # standalone link
@@ -92,10 +93,16 @@ class MenuBoardView(BaseWebView):
         return menu
 
     @classmethod
-    def add_menulink(cls, app, index, label, icon=None, url='#', parent=None,
-                     loader=None):
+    def add_menulink(cls, app, index, label, icon=None, url='#',
+                     parent=None, load_callback=None):
+        # index:  number/order of link in menu or submenu
+        # label:  link label to show
+        # icon:   icon to show for links or headers
+        # url:    url for active links and '#' for submenu headers
+        # parent: index of parent menu for submenu links
+        # load_callback:  callback function to show/hide link
         buff = app.config.get('MENUBOARD_MENUBUFFER', [])
-        buff.append([index, label, icon, url, parent, loader])
+        buff.append([index, label, icon, url, parent, load_callback])
         app.config['MENUBOARD_MENUBUFFER'] = buff
 
     # gzip response data
@@ -174,8 +181,8 @@ class MenuBoardView(BaseWebView):
         response = UiAlert(category, message)
         return self.reply(response, **params)
 
-    def notify(self, message, category='error', unique=False, sticky=False,
-               **params):
+    def notify(self, message, category='error', unique=False,
+               sticky=False, **params):
         opts = 'u' if unique else ''
         opts += 's' if sticky else ''
         flash(message, '%s.%s' % (category, opts) if opts else category)

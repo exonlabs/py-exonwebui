@@ -17,7 +17,6 @@ except ImportError:
 logging.basicConfig(
     level=logging.INFO, stream=sys.stdout,
     format='%(asctime)s %(levelname)s %(message)s')
-log = logging.getLogger()
 
 rlog = logging.getLogger('werkzeug')
 rlog.setLevel(logging.INFO)
@@ -25,6 +24,8 @@ rlog.propagate = False
 
 
 if __name__ == '__main__':
+    log = logging.getLogger()
+    log.name = 'SampleWebui'
     try:
         pr = ArgumentParser(prog=None)
         pr.add_argument('-x', dest='debug', action='count', default=0,
@@ -50,9 +51,11 @@ if __name__ == '__main__':
             'max_content_length': 10485760,
             'templates_auto_reload': bool(args.debug > 0),
         }
-        webapp = BaseWebApp('SampleWebui', options=cfg)
+        webapp = BaseWebApp('SampleWebui', options=cfg, logger=log)
         webapp.base_path = base_path
         webapp.views = MenuBoardView.__subclasses__()
+
+        log.info("Initializing")
         webapp.create_app().run(
             host='0.0.0.0',
             port='8000',
