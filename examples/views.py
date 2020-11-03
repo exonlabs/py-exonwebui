@@ -13,7 +13,7 @@ class VIndex(MenuBoardView):
     routes = [('/', 'index')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         # disable strict slash matching
         app.url_map.strict_slashes = False
 
@@ -25,7 +25,7 @@ class VIndex(MenuBoardView):
         app.config['CSRF_DISABLE'] = True
 
         # initialize board
-        locale_path = os.path.join(websrv.base_path, 'locale')
+        locale_path = os.path.join(webapp.base_path, 'locale')
         cls.board_initialize(app, locale_path=locale_path)
 
         # add menu section
@@ -55,7 +55,7 @@ class VHome(MenuBoardView):
     routes = [('/home', 'home')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 0, lazy_gettext('Home'), icon='fa-home', url='#home')
 
@@ -68,7 +68,7 @@ class VNotify(MenuBoardView):
     routes = [('/notify', 'notify')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 1, lazy_gettext('Notifications'), url='#notify', parent=1)
 
@@ -87,7 +87,7 @@ class VAlerts(MenuBoardView):
     routes = [('/alerts', 'alerts')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 2, lazy_gettext('Alerts'), url='#alerts', parent=1)
 
@@ -105,7 +105,7 @@ class VInputForm(MenuBoardView):
     routes = [('/inputform', 'inputform')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 3, lazy_gettext('Input Form'), url='#inputform', parent=1)
 
@@ -240,7 +240,7 @@ class VDatagrid(MenuBoardView):
               ('/datagrid/<action>', 'datagrid_1')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 4, lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
@@ -338,7 +338,7 @@ class VQueryBuilder(MenuBoardView):
     routes = [('/qbuilder', 'qbuilder')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 5, lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
@@ -407,7 +407,7 @@ class VLoader(MenuBoardView):
     shared_buffer = FileBuffer('SampleWebui_Loader')
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 2, lazy_gettext('Page Loader'), url='#loader')
 
@@ -446,7 +446,7 @@ class VLoginpage(MenuBoardView):
               ('/loginpage/<action>', 'loginpage_1')]
 
     @classmethod
-    def initialize(cls, websrv, app):
+    def initialize(cls, webapp, app):
         cls.add_menulink(
             app, 3, lazy_gettext('Login Page'), url='loginpage')
 

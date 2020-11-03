@@ -16,20 +16,19 @@ except ImportError:
 
 logging.basicConfig(
     level=logging.INFO, stream=sys.stdout,
-    format='%(asctime)s %(levelname)s %(message)s')
-
-rlog = logging.getLogger('werkzeug')
-rlog.setLevel(logging.INFO)
-rlog.propagate = False
+    format='%(asctime)s %(levelname)-5.5s [%(name)s] %(message)s')
+logging.addLevelName(logging.WARNING, "WARN")
+logging.addLevelName(logging.CRITICAL, "FATAL")
 
 
 if __name__ == '__main__':
     log = logging.getLogger()
-    log.name = 'SampleWebui'
+    log.name = 'main'
     try:
         pr = ArgumentParser(prog=None)
-        pr.add_argument('-x', dest='debug', action='count', default=0,
-                        help='set debug modes')
+        pr.add_argument(
+            '-x', dest='debug', action='count', default=0,
+            help='set debug modes')
         args = pr.parse_args()
 
         if args.debug > 0:
@@ -51,11 +50,15 @@ if __name__ == '__main__':
             'max_content_length': 10485760,
             'templates_auto_reload': bool(args.debug > 0),
         }
-        webapp = BaseWebApp('SampleWebui', options=cfg, logger=log)
+        webapp = BaseWebApp(
+            'SampleWebui', options=cfg, logger=log, debug=args.debug)
         webapp.base_path = base_path
         webapp.views = MenuBoardView.__subclasses__()
 
-        log.info("Initializing")
+        # adjust request logs
+        logging.getLogger('werkzeug').parent = webapp.reqlog
+
+        webapp.initialize()
         webapp.create_app().run(
             host='0.0.0.0',
             port='8000',

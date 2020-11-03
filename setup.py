@@ -33,7 +33,7 @@ setup(
         '!=3.5.*,!=3.6.*',
     install_requires=[
         'future>=0.18',
-        'exonutils>=2.2',
+        'exonutils>=2.3',
         'flask>=1.1',
         'Jinja2>=2.11',
         'flask-seasurf>=0.2',
