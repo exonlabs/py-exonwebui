@@ -109,7 +109,8 @@ var WebUI = function($, ui) {
 
     setTimeout(function() {
       if(window.location.hash.length <= 1) {
-        window.location.hash = $('#board-menubody a.pagelink').attr("href");
+        var loc = $('#board-menubody a.pagelink').attr("href");
+        if(loc !== undefined) window.location.hash = loc;
       }
       else $(window).trigger("hashchange");
     }, 100);
