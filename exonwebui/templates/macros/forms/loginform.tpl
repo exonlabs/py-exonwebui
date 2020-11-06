@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary float-right font-weight-bold">
+    <button type="submit" class="btn {{btn_style}} float-right font-weight-bold">
       <i class="fa fas fa-ta fa-sign-in fa-sign-in-alt"></i>{{gettext("Login")}}
     </button>
   </div>

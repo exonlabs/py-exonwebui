@@ -86,5 +86,6 @@ class UiLoginForm(UiFormsMacro):
             'id': options.get('form_id', cls.randint()),
             'submit_url': options.get('submit_url', ''),
             'authkey': options.get('authkey', ''),
+            'btn_style': options.get('btn_style', 'btn-primary'),
             'styles': styles,
         })
