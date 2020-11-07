@@ -146,7 +146,7 @@ var WebUI = function($, ui) {
   };
   ui.request.error = function(error, fError) {
     if(typeof fError === "function") fError(error);
-    else ui.notify.error(error,null,true);
+    else ui.notify.error(error,true,true);
   };
   ui.request.complete = function(status, fComplete) {
     if(typeof fComplete === "function") fComplete(status);

@@ -63,7 +63,7 @@ var WebUI = function($, ui) {
           };
         },
         function(error) {
-          ui.notify.error(error);
+          ui.notify.error(error,true,true);
           if(ui.board_content.old_hash) {
             ui.board_content.load_neglect = true;
             window.location.hash = ui.board_content.old_hash;
