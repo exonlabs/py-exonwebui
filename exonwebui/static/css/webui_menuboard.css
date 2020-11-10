@@ -31,7 +31,8 @@ body.MenuToggled #board-menu {box-shadow:0 0 8px #303030}
 #board-pagebody {padding-top:40px}
 
 /* headbar */
-#pagehead-bar {height:40px; background-color:#fff; box-shadow:0 1px 8px #ccc}
+#pagehead-bar {position:relative; height:40px; z-index:10;
+  background-color:#fff; box-shadow:0 1px 8px #ccc}
 [dir=ltr] #pagehead-bar {padding-left:45px}
 [dir=rtl] #pagehead-bar {padding-right:45px}
 #pagehead-title {line-height:40px; min-width:150px; font-size:1em;
