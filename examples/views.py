@@ -249,6 +249,7 @@ class VDatagrid(MenuBoardView):
         options = {
             'grid_id': "1234",
             'base_url': "/datagrid",
+            'load_url': "/datagrid/loaddata",
             'length_menu': [10, 50, 100, 250, -1],
             'columns': [
                 {'id': 'field1', 'title': "Field Name 1",
@@ -274,15 +275,15 @@ class VDatagrid(MenuBoardView):
                 'csv_fieldBoundary': '',
             },
             'single_ops': [
-                {'label': 'Single Operation 1', 'value': "single_op1"},
-                {'label': 'Single Op 2 with confirm', 'value': "single_op2",
+                {'label': 'Single Operation 1', 'action': "single_op1"},
+                {'label': 'Single Op 2 with confirm', 'action': "single_op2",
                  'confirm': 'Are you sure you want to do this operation?'},
             ],
             'group_ops': [
-                {'label': 'Group Operation 1', 'value': "group_op1"},
-                {'label': 'Group Op 2 with confirm', 'value': "group_op2",
+                {'label': 'Group Operation 1', 'action': "group_op1"},
+                {'label': 'Group Op 2 with confirm', 'action': "group_op2",
                  'confirm': 'Are you sure?'},
-                {'label': 'Op 3 with Reload', 'value': "group_op3"},
+                {'label': 'Op 3 with Reload', 'action': "group_op3"},
             ],
         }
         html = tpl('data_grid.tpl', contents=UiStdDataGrid(options))

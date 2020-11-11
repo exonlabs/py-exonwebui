@@ -50,6 +50,7 @@ class UiStdDataGrid(UiDataGridsMacro):
         return cls.tpl(**{
             'id': options.get('grid_id', cls.randint()),
             'baseurl': options.get('base_url', ''),
+            'loadurl': options.get('load_url', ''),
             'lenMenu': options.get('length_menu', [25, 50, 100, -1]),
             'columns': ','.join(columns),
             'single_ops': options.get('single_ops', []),
