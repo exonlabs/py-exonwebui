@@ -77,13 +77,14 @@ var WebUI = function($, ui) {
         ui.redirect($(this).attr("href"));
       });
 
+    $('#board-wrapper').show();
     setTimeout(function() {
       if(window.location.hash.length <= 1) {
         var loc = $('#board-menubody a.pagelink').attr("href");
         if(loc !== undefined) window.location.hash = loc;
       }
       else $(window).trigger("hashchange");
-    }, 100);
+    }, 200);
   });
 
   return ui;

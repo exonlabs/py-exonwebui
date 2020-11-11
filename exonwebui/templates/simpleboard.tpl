@@ -12,7 +12,7 @@
 
 {% block b_html_body %}
   {% block b_board_body %}
-    <div id="board-wrapper" class="ease h-100">
+    <div id="board-wrapper" class="ease h-100" style="display:none">
       <div id="board-menu" class="ease h-100 d-print-none">
         <div id="board-menubody" class="h-100 scroll">
           <div id="board-menuhead">
