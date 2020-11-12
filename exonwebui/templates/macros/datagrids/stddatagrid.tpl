@@ -69,6 +69,17 @@
       $('input[type=checkbox]',dt.column(1).header()).on("click",function(){
         if($(this).is(':checked')) dt.rows({search:'applied'}).select(); else dt.rows().deselect();
       });
+      var serchindxs=[]; dt.settings()[0].aoColumns.forEach(function(col){if(col.bSearchable)serchindxs.push(col.idx)});
+      function draw_rows(){
+        dt.draw().rows().deselect();
+        dt.column(1).nodes().each(function(cell,i){cell.innerHTML='<input type="checkbox">'});
+      };
+      function search_update(){
+        var visindxs=dt.columns(':visible:not(.dtctrl)').indexes().toArray();
+        dt.settings()[0].aoColumns.forEach(function(col){
+          col.bSearchable=(serchindxs.indexOf(col.idx)!=-1 && visindxs.indexOf(col.idx)!=-1)});
+        dt.rows().invalidate(); draw_rows();
+      };
       dt.on('draw',function(){
         var e=$(".dataTables_wrapper .dataTables_paginate, .dataTables_wrapper .dataTables_info");
         if(dt.data().length) e.removeClass("d-none"); else e.addClass("d-none");
@@ -93,24 +104,31 @@
           $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
             var op=$(this).data('op'),confirm=$(this).data('confirm');
             var run_op = function(){WebUI.loader.load(
-              "POST","{{baseurl}}/"+op,{_csrf_token:"{{csrf_token()}}",rows:dt.rows({selected:true,search:'applied'}).ids().toArray()},
+              "POST","{{baseurl}}/"+op,{_csrf_token:"{{csrf_token()}}",items:dt.rows({selected:true,search:'applied'}).ids().toArray()},
               function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
             if(confirm){
               WebUI.pagelock.modal(
                 '<h5 class="m-0 py-2 text-info">{{gettext("Confirm")}}</h5>','<p>'+confirm+'</p>',
-                '<button class="btn btn-secondary" onclick="WebUI.pagelock.hide()">{{gettext("No")}}</button><button id="btnConfirmOp_{{id}}" class="btn btn-primary">{{gettext("Yes")}}</button>');
+                '<button class="btn btn-sm btn-secondary px-3" onclick="WebUI.pagelock.hide()">{{gettext("No")}}</button><button id="btnConfirmOp_{{id}}" class="btn btn-sm btn-primary px-3">{{gettext("Yes")}}</button>');
               $('#btnConfirmOp_{{id}}').on('click',function(){WebUI.pagelock.hide();run_op()});
             }else run_op();
           });
         };
       });
+      dt.on('column-visibility.dt',search_update);
+      search_update();
       $('#btnReload_{{id}}').on("click",function(){
         WebUI.loader.cancel();dt.rows().deselect().clear().draw();
         $(dt.table().body()).html('<tr><td colspan="100" class="loading"></td></tr>');
         WebUI.loader.lock_timer=setTimeout(function(){
           WebUI.loader.req_xhr=WebUI.request("POST","{{loadurl}}",{_csrf_token:"{{csrf_token()}}"},
-            function(r){if(r.payload){dt.clear().rows.add(r.payload).draw().rows().deselect();dt.column(1).nodes().each(function(cell,i){cell.innerHTML='<input type="checkbox">'})}else{dt.clear().draw().rows().deselect()};WebUI.request.success(r)},
-            function(e){$(dt.table().body()).html('<tr><td colspan="100" class="text-center">{{gettext("Failed loading data")}}</td></tr>');WebUI.request.error(e)},
+            function(r){
+              if(r.payload){dt.clear().rows.add(r.payload);draw_rows()}
+              else{dt.clear().draw().rows().deselect()};
+              WebUI.request.success(r)},
+            function(e){
+              $(dt.table().body()).html('<tr><td colspan="100" class="text-center">{{gettext("Failed loading data")}}</td></tr>');
+              WebUI.request.error(e)},
             function(){WebUI.loader.reset()});
         },100);
       }).trigger('click');
