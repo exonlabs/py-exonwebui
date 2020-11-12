@@ -201,7 +201,8 @@
       WebUI.notify.clear();
       WebUI.scrolltop();
       $(this).removeClass('was-validated');
-      $(this).find("input").val('').removeClass('is-valid is-invalid').trigger('change').trigger('keyup');
+      $(this)[0].reset();
+      $(this).find("input").removeClass('is-valid is-invalid').trigger('change').trigger('keyup');
     });
   });
 </script>
