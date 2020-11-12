@@ -29,7 +29,8 @@ class MenuBoardView(BaseWebView):
     def board_initialize(cls, app, locale_path=''):
         if not app.config.get('MENUBOARD_INIT', False):
             # initialize seasurf extension
-            SeaSurf(app)
+            csrf = SeaSurf(app)
+            csrf._exempt_views = app.config.get('CSRF_EXEMPT_VIEWS', [])
 
             if cls.gzip_enable:
                 app.after_request(cls.gzip_response)
