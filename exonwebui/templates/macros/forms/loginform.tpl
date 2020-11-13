@@ -24,7 +24,7 @@
       $("#frmLogin_{{id}}").submit(function(e){
         e.preventDefault(); WebUI.notify.clear();
         var u=$("#frmLogin_{{id}} input[name=username]"),p=$("#frmLogin_{{id}} input[name=password]");
-        WebUI.loader.load("POST","{{submit_url}}",{_csrf_token:"{{csrf_token()}}",username:u.val(),digest:(p.val())?CryptoJS.SHA256("{{authkey}}"+CryptoJS.SHA256(p.val())).toString():''},null,null,function(){p.val('');p.focus()},200);
+        WebUI.loader.load("POST","{{submit_url}}",{_csrf_token:"{{csrf_token()}}",username:u.val(),authkey:"{{authkey}}",digest:(p.val())?CryptoJS.SHA256("{{authkey}}"+CryptoJS.SHA256(p.val())).toString():''},null,null,function(){p.val('');p.focus()},200);
         return false;
       });
     });
