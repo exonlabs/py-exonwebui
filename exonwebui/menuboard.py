@@ -8,6 +8,7 @@ import gzip
 from io import BytesIO
 from flask import current_app, request, session, redirect, \
     jsonify, url_for, flash, get_flashed_messages
+from flask_babelex import Babel, Domain
 from flask_seasurf import SeaSurf
 
 from exonutils.webapp import BaseWebView
@@ -36,16 +37,12 @@ class MenuBoardView(BaseWebView):
                 app.after_request(cls.gzip_response)
 
             # initialize localization with babel extension
-            if locale_path and os.path.exists(locale_path):
-                from flask_babelex import Babel, Domain
-                domain = Domain(dirname=locale_path)
-                babel = Babel(app, default_domain=domain)
-                babel.localeselector(lambda: session.get('lang', 'en'))
-                app.config['LOCALE_ENABLED'] = True
-                app.config['LOCALE_PATH'] = locale_path
-            else:
-                app.config['LOCALE_ENABLED'] = False
-                app.config['LOCALE_PATH'] = ''
+            domain = Domain(dirname=locale_path)
+            babel = Babel(app, default_domain=domain)
+            babel.localeselector(lambda: session.get('lang', 'en'))
+            app.config['LOCALE_ENABLED'] = bool(
+                locale_path and os.path.exists(locale_path))
+            app.config['LOCALE_PATH'] = locale_path
 
             # set jinja global varuables
             app.jinja_env.globals['get_menulinks'] = cls.get_menulinks
