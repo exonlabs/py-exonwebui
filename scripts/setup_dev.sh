@@ -18,9 +18,6 @@ for PYTHON in `cat PYTHON |xargs` ;do
     pip install -U pip setuptools wheel
     echo -e "\n- installing dev requirements ..."
     pip install -Ur dev_requirements.txt
-    # fix till release flask-seasurf>=0.2.3 on pypi
-    python -c 'import flask_seasurf as m; print(m.__version__>="0.2.3")' |grep -iq 'true' || \
-        pip install -U git+git://github.com/maxcountryman/flask-seasurf.git@0.2.3#egg=flask_seasurf
     echo -e "\n- installing in develop mode ..."
     pip install -e ./
     deactivate

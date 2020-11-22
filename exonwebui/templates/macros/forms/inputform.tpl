@@ -16,7 +16,6 @@
   WebUI.loadCss.after("/static/webui/css/webui_inputform.min.css","link[href$='webui.min.css']");
 </script>
 <form id="form_{{id}}" class="form-wrapper {{styles}}" method="POST" action="{{submit_url}}" novalidate>
-  <input type="hidden" name="_csrf_token" value="{{csrf_token()}}">
   {% for f in fields %}
     {% if f.type == 'hidden' %}
       <input type="hidden" name="{{f.name}}" value="{{f.value}}">

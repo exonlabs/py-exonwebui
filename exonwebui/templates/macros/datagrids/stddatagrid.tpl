@@ -104,7 +104,7 @@
           $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
             var op=$(this).data('op'),confirm=$(this).data('confirm');
             var run_op = function(){WebUI.loader.load(
-              "POST","{{baseurl}}/"+op,{_csrf_token:"{{csrf_token()}}",items:dt.rows({selected:true,search:'applied'}).ids().toArray()},
+              "POST","{{baseurl}}/"+op,{items:dt.rows({selected:true,search:'applied'}).ids().toArray()},
               function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
             if(confirm){
               WebUI.pagelock.modal(
@@ -121,7 +121,7 @@
         WebUI.loader.cancel();dt.rows().deselect().clear().draw();
         $(dt.table().body()).html('<tr><td colspan="100" class="loading"></td></tr>');
         WebUI.loader.lock_timer=setTimeout(function(){
-          WebUI.loader.req_xhr=WebUI.request("POST","{{loadurl}}",{_csrf_token:"{{csrf_token()}}"},
+          WebUI.loader.req_xhr=WebUI.request("POST","{{loadurl}}",{},
             function(r){
               if(r.payload){dt.clear().rows.add(r.payload);draw_rows()}
               else{dt.clear().draw().rows().deselect()};

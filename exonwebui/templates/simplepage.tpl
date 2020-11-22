@@ -15,7 +15,6 @@
   <script type="text/javascript" src="/static/webui/vendor/jquery/jquery.i18n.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="/static/webui/vendor/pnotify/pnotify.min.js"></script>
-  <script type="text/javascript" src="/static/webui/vendor/js/cookie.min.js"></script>
   {% block b_page_scripts %}
     <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
   {% endblock %}

@@ -182,7 +182,7 @@ var WebUI = function($, ui) {
         ui.pagelock.progress().off("click").on("click", function(e) {ui.loader.cancel()});
         ui.loader.progress_timer = setInterval(function() {
           if(ui.loader.progress_xhr === null) {
-            ui.loader.progress_xhr = ui.request(verb, url, {_csrf_token:Cookies.get("_csrf_token"),get_progress:1},
+            ui.loader.progress_xhr = ui.request(verb, url, {get_progress:1},
               function(r){ui.pagelock.progress(r.payload)}, function(e){}, function(s){ui.loader.progress_xhr=null});
           };
         }, (interval)?interval:5000);

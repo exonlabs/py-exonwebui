@@ -36,7 +36,7 @@ setup(
         'exonutils>=2.3',
         'flask>=1.1',
         'Jinja2>=2.11',
-        'flask-seasurf>=0.2',
+        'Babel>=2.8',
         'flask-babelex>=0.9',
     ],
     classifiers=[

@@ -9,8 +9,6 @@ from io import BytesIO
 from flask import current_app, request, session, redirect, \
     jsonify, url_for, flash, get_flashed_messages
 from flask_babelex import Babel, Domain
-from flask_seasurf import SeaSurf
-
 from exonutils.webapp import BaseWebView
 
 __all__ = ['MenuBoardView']
@@ -29,10 +27,7 @@ class MenuBoardView(BaseWebView):
     @classmethod
     def board_initialize(cls, app, locale_path=''):
         if not app.config.get('MENUBOARD_INIT', False):
-            # initialize seasurf extension
-            csrf = SeaSurf(app)
-            csrf._exempt_views = app.config.get('CSRF_EXEMPT_VIEWS', [])
-
+            # initialize gzip
             if cls.gzip_enable:
                 app.after_request(cls.gzip_response)
 
