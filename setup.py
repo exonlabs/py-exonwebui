@@ -29,11 +29,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,' +
-        '!=3.5.*,!=3.6.*',
+    python_requires='>=3.7',
     install_requires=[
-        'future>=0.18',
-        'exonutils>=2.3',
+        'exonutils>=3.0',
         'flask>=1.1',
         'Jinja2>=2.11',
         'Babel>=2.8',
@@ -45,7 +43,6 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Topic :: Software Development :: Libraries',
