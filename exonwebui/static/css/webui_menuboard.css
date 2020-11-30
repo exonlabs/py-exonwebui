@@ -5,7 +5,7 @@
 html, body {overflow:hidden !important}
 
 /* board design "Mobile View" (MenuToggled == Menu ON) */
-#board-wrapper {position:relative; background-color:#f8f9fa; color:#343a40}
+#board-wrapper {position:relative; background-color:#fafafa; color:#343a40}
 [dir=ltr] #board-wrapper {padding-left:0}
 [dir=rtl] #board-wrapper {padding-right:0}
 #board-backdrop {position:fixed; top:0; bottom:0; left:0; right:0;

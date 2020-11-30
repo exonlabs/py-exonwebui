@@ -26,18 +26,20 @@
             <ul class="metismenu">
               {% set links = get_menulinks() %}
               {% for i in links.keys()|sort %}
-                <li>
-                  {% if 'menu' in links[i] and links[i].menu.keys() %}
+                {% if 'menu' in links[i] and links[i].menu.keys() %}
+                  <li>
                     <a href="#" class="has-arrow">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
                     <ul>
                       {% for j in links[i].menu.keys()|sort %}
                         <li><a class="pagelink" href="{{links[i].menu[j].url}}">{% if links[i].menu[j].icon %}<i class="fa fas fa-fw fa-ta {{links[i].menu[j].icon}}"></i>{% endif %}{{links[i].menu[j].label|safe}}</a></li>
                       {% endfor %}
                     </ul>
-                  {% elif links[i].url != '#' %}
+                  </li>
+                {% elif links[i].url != '#' %}
+                  <li>
                     <a class="pagelink" href="{{links[i].url}}">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
-                  {% endif %}
-                </li>
+                  </li>
+                {% endif %}
               {% endfor %}
               <li><a></a></li>
             </ul>
