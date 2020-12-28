@@ -36,3 +36,16 @@ class UiAlert(UiBasicMacro):
             'dismissible': dismiss,
             'styles': styles,
         })
+
+
+class UiLinkModal(UiBasicMacro):
+    tpl_name = 'linkmodal.tpl'
+
+    def __new__(cls, caption, title, contents, styles=''):
+        return cls.tpl(**{
+            'id': cls.randint(),
+            'caption': caption,
+            'title': title,
+            'contents': contents,
+            'styles': styles,
+        })

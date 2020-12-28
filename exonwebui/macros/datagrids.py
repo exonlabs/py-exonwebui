@@ -21,6 +21,9 @@ class UiStdDataGrid(UiDataGridsMacro):
     pill_render = {'_': '_', 'display': 'd'}
     icon_render = {'_': '_', 'display': 'd'}
     check_render = {'_': '_', 'display': 'd'}
+    datetime_render = {'_': '_', 'display': 'd'}
+    date_render = {'_': '_', 'display': 'd'}
+    time_render = {'_': '_', 'display': 'd'}
 
     def __new__(cls, options, styles=''):
         columns = []
@@ -109,4 +112,28 @@ class UiStdDataGrid(UiDataGridsMacro):
                 '<span class="%s %s"><i class="fa fas fa-fw %s"></i></span>'
                 % ('text-success' if value else 'text-danger', styles,
                    'fa-check' if value else 'fa-times'),
+        }
+
+    @classmethod
+    def datetime(cls, value, fmt='%Y-%m-%d %H:%M:%S'):
+        return {
+            cls.datetime_render['_']: value,
+            cls.datetime_render['display']:
+                value.strftime(fmt) if value else '-',
+        }
+
+    @classmethod
+    def date(cls, value, fmt='%Y-%m-%d'):
+        return {
+            cls.date_render['_']: value,
+            cls.date_render['display']:
+                value.strftime(fmt) if value else '-',
+        }
+
+    @classmethod
+    def time(cls, value, fmt='%H:%M:%S'):
+        return {
+            cls.time_render['_']: value,
+            cls.time_render['display']:
+                value.strftime(fmt) if value else '-',
         }
