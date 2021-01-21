@@ -16,14 +16,7 @@ class UiDataGridsMacro(UiBaseMacro):
 class UiStdDataGrid(UiDataGridsMacro):
     tpl_name = 'stddatagrid.tpl'
 
-    text_render = {'_': '_', 'display': 'd'}
-    link_render = {'_': '_', 'display': 'd'}
-    pill_render = {'_': '_', 'display': 'd'}
-    icon_render = {'_': '_', 'display': 'd'}
-    check_render = {'_': '_', 'display': 'd'}
-    datetime_render = {'_': '_', 'display': 'd'}
-    date_render = {'_': '_', 'display': 'd'}
-    time_render = {'_': '_', 'display': 'd'}
+    std_render = {'_': '_', 'display': 'd'}
 
     def __new__(cls, options, styles=''):
         columns = []
@@ -32,7 +25,7 @@ class UiStdDataGrid(UiDataGridsMacro):
                 'name': k['id'],
                 'title': k['title'],
                 'data': k.get('data', k['id']),
-                'render': k.get('render', None),
+                'render': k.get('render', cls.std_render),
                 'type': k.get('type', 'string'),
                 'visible': k.get('visible', True),
                 'searchable': k.get('searchable', True),
@@ -63,77 +56,105 @@ class UiStdDataGrid(UiDataGridsMacro):
         })
 
     @classmethod
-    def text(cls, value, default='-', styles=''):
+    def text(cls, value, default='-', styles='', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.text_render['_']: value,
-            cls.text_render['display']:
-                ('<span class="%s">%s</span>' % (styles, value))
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
+                ('<div class="%s">%s</div>' % (styles, value))
                 if value else (
                     '<span class="text-black-50">%s</span>' % default),
         }
 
     @classmethod
-    def link(cls, value, url, label=None, styles=''):
+    def password(cls, has_value, default='-', styles='', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.link_render['_']: value,
-            cls.link_render['display']:
-                '<a class="text-primary %s" href="%s">%s</a>' % (
-                    styles, url, value if label is None else label),
+            render.get('_', '_'): '*****' if has_value else '',
+            render.get('display', 'd'):
+                ('<div class="%s">*****</div>' % (styles))
+                if has_value else (
+                    '<span class="text-black-50">%s</span>' % default),
         }
 
     @classmethod
-    def pill(cls, value, true_chk, styles=''):
+    def link(cls, value, url, label=None, styles='', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.pill_render['_']: value,
-            cls.pill_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
+                '<div class="%s"><a class="text-primary" href="%s">%s</a></div>'  # noqa
+                % (styles, url, value if label is None else label),
+        }
+
+    @classmethod
+    def pill(cls, value, true_chk, styles='', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
+        return {
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 '<span class="badge badge-%s %s">%s</span>' % (
                     'success' if value == true_chk else 'danger',
                     styles, value),
         }
 
     @classmethod
-    def icon(cls, value, icon, styles=''):
+    def icon(cls, value, icon, styles='', render=None):
         if type(icon) is dict:
             _icon = icon.get(value, '')
         else:
             _icon = icon
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.icon_render['_']: value,
-            cls.icon_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 '<span class="%s"><i class="fa fas fa-fw %s"></i></span>'
                 % (styles, _icon),
         }
 
     @classmethod
-    def check(cls, value, styles=''):
+    def check(cls, value, styles='', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.check_render['_']: value,
-            cls.check_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 '<span class="%s %s"><i class="fa fas fa-fw %s"></i></span>'
                 % ('text-success' if value else 'text-danger', styles,
                    'fa-check' if value else 'fa-times'),
         }
 
     @classmethod
-    def datetime(cls, value, fmt='%Y-%m-%d %H:%M:%S'):
+    def datetime(cls, value, fmt='%Y-%m-%d %H:%M:%S', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.datetime_render['_']: value,
-            cls.datetime_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 value.strftime(fmt) if value else '-',
         }
 
     @classmethod
-    def date(cls, value, fmt='%Y-%m-%d'):
+    def date(cls, value, fmt='%Y-%m-%d', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.date_render['_']: value,
-            cls.date_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 value.strftime(fmt) if value else '-',
         }
 
     @classmethod
-    def time(cls, value, fmt='%H:%M:%S'):
+    def time(cls, value, fmt='%H:%M:%S', render=None):
+        if not render or type(render) is not dict:
+            render = cls.std_render
         return {
-            cls.time_render['_']: value,
-            cls.time_render['display']:
+            render.get('_', '_'): value,
+            render.get('display', 'd'):
                 value.strftime(fmt) if value else '-',
         }

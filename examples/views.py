@@ -252,20 +252,21 @@ class VDatagrid(MenuBoardView):
             'load_url': "/datagrid/loaddata",
             'length_menu': [10, 50, 100, 250, -1],
             'columns': [
-                {'id': 'field1', 'title': "Field Name 1",
-                 'render': UiStdDataGrid.link_render},
+                {'id': 'field1', 'title': "Field Name 1"},
                 {'id': 'field2', 'title': "Field Name 2"},
-                {'id': 'field3.item1', 'title': "Field3_1",
-                 'render': UiStdDataGrid.text_render},
+                {'id': 'field3.item1', 'title': "Field3_1"},
                 {'id': 'field3.item2', 'title': "Field3_2"},
-                {'id': 'field4', 'title': "Other Field 4",
-                 'render': UiStdDataGrid.pill_render},
-                {'id': 'field5', 'title': "Extra Field 5", 'visible': False,
-                 'render': UiStdDataGrid.check_render},
-                {'id': 'field6', 'title': "Data Field 6", 'visible': False},
-                {'id': 'field7', 'title': "Field Header 7", 'visible': False},
-                {'id': 'field8', 'title': "Field8", 'visible': False},
-                {'id': 'field9', 'title': "Field Number 9", 'visible': False},
+                {'id': 'field4', 'title': "Other Field 4"},
+                {'id': 'field5', 'title': "Extra Field 5",
+                 'visible': False},
+                {'id': 'field6', 'title': "Data Field 6",
+                 'visible': False},
+                {'id': 'field7', 'title': "Field Header 7",
+                 'visible': False},
+                {'id': 'field8', 'title': "Field8",
+                 'visible': False},
+                {'id': 'field9', 'title': "Field Number 9",
+                 'visible': False},
             ],
             'export': {
                 'types': ['csv', 'xls', 'print'],
@@ -299,19 +300,26 @@ class VDatagrid(MenuBoardView):
                     'DT_RowId': 'rowid_%s' % _k,
                     'field1': UiStdDataGrid.link(
                         'master_%s' % _k, '#datagrid'),
-                    'field2': 'field2 %s' % _k,
+                    'field2': UiStdDataGrid.text(
+                        'field2 %s' % _k),
                     'field3': {
                         'item1': UiStdDataGrid.text(
                             'field3.1 %s' % _k if randint(0, 2) else ''),
-                        'item2': 'field3.2 %s' % _k if randint(0, 3) else '',
+                        'item2': UiStdDataGrid.text(
+                            'field3.2 %s' % _k if randint(0, 3) else ''),
                     },
                     'field4': UiStdDataGrid.pill(
                         'Yes' if randint(0, 1) else 'No', 'Yes'),
-                    'field5': UiStdDataGrid.check(bool(randint(0, 1))),
-                    'field6': 'field6 %s' % _k if randint(0, 1) else '',
-                    'field7': 'field7 %s' % _k if randint(0, 1) else '',
-                    'field8': 'field8 %s' % _k if randint(0, 1) else '',
-                    'field9': 'field9 %s' % _k if randint(0, 1) else '',
+                    'field5': UiStdDataGrid.check(
+                        bool(randint(0, 1))),
+                    'field6': UiStdDataGrid.text(
+                        'field6 %s' % _k if randint(0, 1) else ''),
+                    'field7': UiStdDataGrid.text(
+                        'field7 %s' % _k if randint(0, 1) else ''),
+                    'field8': UiStdDataGrid.text(
+                        'field8 %s' % _k if randint(0, 1) else ''),
+                    'field9': UiStdDataGrid.text(
+                        'field9 %s' % _k if randint(0, 1) else ''),
                 })
             return self.reply(data)
 
