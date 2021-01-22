@@ -23,8 +23,8 @@
       <div class="form-title text-muted py-2">{{f.label|safe}}</div>
     {% else %}
       <div class="form-row form-group">
-        <label class="col-11 col-sm-3 col-form-label text-nowrap {{'required' if f.required else ''}}">{{f.label|safe}}</label>
-        {% if f.helpguide %}
+        <label class="col-11 col-sm-3 col-form-label text-nowrap {{'required' if f.required and f.type != 'static' else ''}}">{{f.label|safe}}</label>
+        {% if f.helpguide and f.type != 'static' %}
           <div class="col-1 col-sm-1 order-sm-12 mt-2 text-left text-info">
             <a class="btn_helpguide" data-helpguide="{{f.helpguide|safe}}"><i class="fa fas fa-fw fa-lg fa-question-circle"></i></a>
           </div>
@@ -100,7 +100,7 @@
               {% if f.append %}<div class="input-group-append">{{_group_items(f.append)}}</div>{% endif %}
             </div>
           {% endif %}
-          {% if f.help %}<i class="form-text text-muted">{{f.help|safe}}</i>{% endif %}
+          {% if f.help and f.type != 'static' %}<i class="form-text text-muted">{{f.help|safe}}</i>{% endif %}
         </div>
       </div>
     {% endif %}
