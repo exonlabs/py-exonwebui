@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    :copyright: 2020, ExonLabs. All rights reserved.
+    :copyright: 2021, ExonLabs. All rights reserved.
     :license: BSD, see LICENSE for more details.
 """
 import os
@@ -31,10 +31,10 @@ setup(
     platforms='any',
     python_requires='>=3.7',
     install_requires=[
-        'exonutils>=3.0',
-        'flask>=1.1',
-        'Jinja2>=2.11',
-        'Babel>=2.8',
+        'exonutils>=4.2',
+        'flask>=2.0',
+        'Jinja2>=3.0',
+        'Babel>=2.9',
         'flask-babelex>=0.9',
     ],
     classifiers=[
@@ -45,6 +45,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
