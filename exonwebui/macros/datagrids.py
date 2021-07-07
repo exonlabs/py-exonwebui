@@ -63,7 +63,7 @@ class UiStdDataGrid(UiDataGridsMacro):
             render.get('_', '_'): value,
             render.get('display', 'd'):
                 ('<div class="%s">%s</div>' % (styles, value))
-                if value else (
+                if value is not None else (
                     '<span class="text-black-50">%s</span>' % default),
         }
 

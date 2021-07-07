@@ -8,12 +8,6 @@ from traceback import format_exc
 from exonutils.webapp import BaseWebApp
 from views import *  # noqa
 
-try:
-    import colorama
-    colorama.init()
-except ImportError:
-    pass
-
 logging.basicConfig(
     level=logging.INFO, stream=sys.stdout,
     format='%(asctime)s %(levelname)-5.5s [%(name)s] %(message)s')
@@ -54,16 +48,8 @@ if __name__ == '__main__':
             'SampleWebui', options=cfg, logger=log, debug=args.debug)
         webapp.base_path = base_path
         webapp.views = MenuBoardView.__subclasses__()
-
-        # adjust request logs
-        logging.getLogger('werkzeug').parent = webapp.reqlog
-
         webapp.initialize()
-        webapp.create_app().run(
-            host='0.0.0.0',
-            port='8000',
-            debug=bool(args.debug >= 1),
-            use_reloader=bool(args.debug >= 3))
+        webapp.start('0.0.0.0', 8000)
 
     except Exception:
         log.fatal(format_exc())
