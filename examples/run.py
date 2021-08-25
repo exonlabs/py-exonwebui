@@ -5,6 +5,7 @@ import logging
 from argparse import ArgumentParser
 from traceback import format_exc
 
+import exonwebui
 from exonutils.webapp import BaseWebApp
 from views import *  # noqa
 
@@ -16,8 +17,13 @@ logging.addLevelName(logging.CRITICAL, "FATAL")
 
 
 if __name__ == '__main__':
-    log = logging.getLogger()
-    log.name = 'main'
+    logger = logging.getLogger()
+    logger.name = 'main'
+
+    # web requests logger
+    reqlog = logging.getLogger('%s.requests' % logger.name)
+    reqlog.handlers = [logging.StreamHandler(sys.stdout)]
+
     try:
         pr = ArgumentParser(prog=None)
         pr.add_argument(
@@ -35,7 +41,7 @@ if __name__ == '__main__':
             if os.path.exists(link_path):
                 os.unlink(link_path)
             src_dir = os.path.join(
-                os.path.dirname(base_path), 'exonwebui', n)
+                os.path.dirname(exonwebui.__file__), n)
             if os.path.exists(src_dir):
                 os.symlink(src_dir, link_path)
 
@@ -45,12 +51,12 @@ if __name__ == '__main__':
             'templates_auto_reload': bool(args.debug > 0),
         }
         webapp = BaseWebApp(
-            'SampleWebui', options=cfg, logger=log, debug=args.debug)
+            'SampleWebui', options=cfg, logger=logger, debug=args.debug)
         webapp.base_path = base_path
         webapp.views = MenuBoardView.__subclasses__()
         webapp.initialize()
         webapp.start('0.0.0.0', 8000)
 
     except Exception:
-        log.fatal(format_exc())
+        logger.fatal(format_exc())
         sys.exit(1)
