@@ -32,7 +32,7 @@ setup(
     python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*',
     install_requires=[
         'future>=0.18',
-        'exonutils>=4.4',
+        'exonutils>=4.5',
         'flask>=1.1 ;python_version<"3.0"',
         'flask>=2.0 ;python_version>"3.0"',
         'Jinja2>=2.11 ;python_version<"3.0"',

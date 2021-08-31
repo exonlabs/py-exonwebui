@@ -7,7 +7,7 @@ from traceback import format_exc
 
 import exonwebui
 from exonutils.webapp import BaseWebApp
-from views import *  # noqa
+from views import MenuBoardView
 
 logging.basicConfig(
     level=logging.INFO, stream=sys.stdout,
@@ -53,8 +53,8 @@ if __name__ == '__main__':
         webapp = BaseWebApp(
             'SampleWebui', options=cfg, logger=logger, debug=args.debug)
         webapp.base_path = base_path
-        webapp.views = MenuBoardView.__subclasses__()
         webapp.initialize()
+        webapp.load_views(MenuBoardView.__subclasses__())
         webapp.start('0.0.0.0', 8000)
 
     except Exception:

@@ -7,14 +7,19 @@ import os
 import gzip
 from io import BytesIO
 from flask import current_app, request, session, redirect, \
-    jsonify, url_for, flash, get_flashed_messages
-from flask_babelex import Babel, Domain
+    jsonify, flash, get_flashed_messages
+from flask_babelex import Babel, Domain, get_domain, refresh
 from exonutils.webapp import BaseWebView
+
+from .macros.basic import UiAlert
 
 __all__ = ['MenuBoardView']
 
 
 class MenuBoardView(BaseWebView):
+
+    # index page url
+    index_url = '/'
 
     # enable minimize output html response data
     mindata_enable = True
@@ -39,7 +44,7 @@ class MenuBoardView(BaseWebView):
                 locale_path and os.path.exists(locale_path))
             app.config['LOCALE_PATH'] = locale_path
 
-            # set jinja global varuables
+            # set jinja global variables
             app.jinja_env.globals['get_menulinks'] = cls.get_menulinks
 
             # set board init flag
@@ -125,33 +130,35 @@ class MenuBoardView(BaseWebView):
         return response
 
     # xhr request validation
-    def request_xhr(self):
+    @classmethod
+    def request_xhr(cls):
         if 'X-Requested-With' in request.headers and \
            request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return True
         return False
 
-    # minimize html by removing line breaks and extra white spaces
-    def minimize_data(self, data):
+    # minimize data by removing line breaks and extra white spaces
+    @classmethod
+    def minimize_data(cls, data):
         if type(data) is str:
             return ''.join([l.strip() for l in data.split('\n')])
-        else:
-            return data
+        return data
 
     # redirect methods ###############
 
-    def redirect(self, url, blank=False):
-        if self.request_xhr():
+    @classmethod
+    def redirect(cls, url, blank=False):
+        if cls.request_xhr():
             return jsonify(redirect=url, blank=blank)
-        else:
-            return redirect(url)
+        return redirect(url)
 
     # reply methods ###############
 
-    def reply(self, response, **params):
-        if self.mindata_enable:
-            response = self.minimize_data(response)
-        if self.request_xhr():
+    @classmethod
+    def reply(cls, response, **params):
+        if cls.mindata_enable:
+            response = cls.minimize_data(response)
+        if cls.request_xhr():
             if response is not None:
                 params['payload'] = response
             notifications = get_flashed_messages(with_categories=True)
@@ -169,21 +176,23 @@ class MenuBoardView(BaseWebView):
         else:
             return response.encode('utf8') if response is not None else ''
 
-    def alert(self, message, category='error', **params):
-        from .macros.basic import UiAlert
+    @classmethod
+    def alert(cls, message, category='error', **params):
         response = UiAlert(category, message)
-        return self.reply(response, **params)
+        return cls.reply(response, **params)
 
-    def notify(self, message, category='error', unique=False,
+    @classmethod
+    def notify(cls, message, category='error', unique=False,
                sticky=False, **params):
         opts = 'u' if unique else ''
         opts += 's' if sticky else ''
         flash(message, '%s.%s' % (category, opts) if opts else category)
-        return self.reply(None, **params)
+        return cls.reply(None, **params)
 
     # request handling ###############
 
-    def _before_request(self):
+    @classmethod
+    def before_request(cls):
         # locale handling
         if current_app.config.get('LOCALE_ENABLED', False):
             # check session lang
@@ -197,7 +206,6 @@ class MenuBoardView(BaseWebView):
                 if new_lang != session['lang']:
                     old_lang = session['lang']
                     try:
-                        from flask_babelex import get_domain, refresh
                         session['lang'] = new_lang
                         if get_domain().get_translations().info() \
                            or new_lang == 'en':
@@ -215,9 +223,10 @@ class MenuBoardView(BaseWebView):
                     else:
                         session['lang_dir'] = 'ltr'
 
-                return self.redirect(url_for('index'))
+                return cls.redirect(cls.index_url)
 
-        return self.before_request()
+        return None
 
-    def _after_request(self, response):
-        return self.after_request(response)
+    # @classmethod
+    # def after_request(cls, response):
+    #     return response

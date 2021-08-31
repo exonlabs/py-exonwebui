@@ -9,30 +9,30 @@ from exonutils.buffers import FileBuffer
 from exonwebui.menuboard import MenuBoardView
 
 
-class VIndex(MenuBoardView):
+class Index(MenuBoardView):
     routes = [('/', 'index')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
+    def initialize(self):
         # disable strict slash matching
-        app.url_map.strict_slashes = False
+        self.app.url_map.strict_slashes = False
 
         # adjust session and csrf cookies attrs
-        app.config['SESSION_COOKIE_HTTPONLY'] = True
-        app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-        app.config['CSRF_COOKIE_HTTPONLY'] = True
-        app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
-        app.config['CSRF_DISABLE'] = True
+        self.app.config['SESSION_COOKIE_HTTPONLY'] = True
+        self.app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+        self.app.config['CSRF_COOKIE_HTTPONLY'] = True
+        self.app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
+        self.app.config['CSRF_DISABLE'] = True
 
         # initialize board
-        locale_path = os.path.join(webapp.base_path, 'locale')
-        cls.board_initialize(app, locale_path=locale_path)
+        locale_path = os.path.join(self.webapp.base_path, 'locale')
+        self.board_initialize(self.app, locale_path=locale_path)
 
         # add menu section
-        cls.add_menulink(
-            app, 1, lazy_gettext('UI Components'), icon='fa-cubes')
+        self.add_menulink(
+            self.app, 1,
+            lazy_gettext('UI Components'), icon='fa-cubes')
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         params = {
             'doc_lang': session.get('lang', ''),
             'doc_langdir': session.get('lang_dir', ''),
@@ -51,28 +51,28 @@ class VIndex(MenuBoardView):
             return self.reply(tpl('mainboard.tpl', **params))
 
 
-class VHome(MenuBoardView):
+class Home(MenuBoardView):
     routes = [('/home', 'home')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 0, lazy_gettext('Home'), icon='fa-home', url='#home')
+    def initialize(self):
+        self.add_menulink(
+            self.app, 0,
+            lazy_gettext('Home'), icon='fa-home', url='#home')
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         html = tpl('option_panel.tpl', message=gettext("Welcome"))
         return self.reply(html, doctitle=gettext('Home'))
 
 
-class VNotify(MenuBoardView):
+class Notify(MenuBoardView):
     routes = [('/notify', 'notify')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 1, lazy_gettext('Notifications'), url='#notify', parent=1)
+    def initialize(self):
+        self.add_menulink(
+            self.app, 1,
+            lazy_gettext('Notifications'), url='#notify', parent=1)
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.basic import UiAlert
         flash(gettext('error') + " STICKY_MSG", 'error.us')
         flash(gettext('warning'), 'warn')
@@ -83,15 +83,15 @@ class VNotify(MenuBoardView):
         return self.reply(html, doctitle=gettext('Notifications'))
 
 
-class VAlerts(MenuBoardView):
+class Alerts(MenuBoardView):
     routes = [('/alerts', 'alerts')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 2, lazy_gettext('Alerts'), url='#alerts', parent=1)
+    def initialize(self):
+        self.add_menulink(
+            self.app, 2,
+            lazy_gettext('Alerts'), url='#alerts', parent=1)
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.basic import UiAlert
         html = UiAlert('info', gettext('info'), styles='px-3 pt-3')
         html += UiAlert('warn', gettext('warning'), styles='px-3')
@@ -101,15 +101,15 @@ class VAlerts(MenuBoardView):
         return self.reply(html, doctitle=gettext('Alerts'))
 
 
-class VInputForm(MenuBoardView):
+class InputForm(MenuBoardView):
     routes = [('/inputform', 'inputform')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 3, lazy_gettext('Input Form'), url='#inputform', parent=1)
+    def initialize(self):
+        self.add_menulink(
+            self.app, 3,
+            lazy_gettext('Input Form'), url='#inputform', parent=1)
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.forms import UiInputForm
         options = {
             'form_id': "1234",
@@ -210,7 +210,7 @@ class VInputForm(MenuBoardView):
         html = tpl('input_form.tpl', contents=UiInputForm(options))
         return self.reply(html, doctitle=gettext('Input Form'))
 
-    def post(self, **kwargs):
+    def post(self, *args, **kwargs):
         validation = request.form.get('validation', '')
         if validation == '1':
             params = {
@@ -235,16 +235,16 @@ class VInputForm(MenuBoardView):
         return self.notify(msg, 'success', sticky=True)
 
 
-class VDatagrid(MenuBoardView):
+class Datagrid(MenuBoardView):
     routes = [('/datagrid', 'datagrid'),
               ('/datagrid/<action>', 'datagrid_1')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 4, lazy_gettext('Datagrid'), url='#datagrid', parent=1)
+    def initialize(self):
+        self.add_menulink(
+            self.app, 4,
+            lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
         options = {
             'grid_id': "1234",
@@ -343,15 +343,15 @@ class VDatagrid(MenuBoardView):
         return self.notify("Invalid request", 'error')
 
 
-class VQueryBuilder(MenuBoardView):
+class QueryBuilder(MenuBoardView):
     routes = [('/qbuilder', 'qbuilder')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 5, lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
+    def initialize(self):
+        self.add_menulink(
+            self.app, 5,
+            lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.forms import UiQBuilder
         options = {
             'form_id': "1234",
@@ -411,16 +411,16 @@ class VQueryBuilder(MenuBoardView):
         return self.reply(html, doctitle=gettext('Query Builder'))
 
 
-class VLoader(MenuBoardView):
+class Loader(MenuBoardView):
     routes = [('/loader', 'loader')]
     shared_buffer = FileBuffer('SampleWebui_Loader')
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 2, lazy_gettext('Page Loader'), url='#loader')
+    def initialize(self):
+        self.add_menulink(
+            self.app, 2,
+            lazy_gettext('Page Loader'), url='#loader')
 
-    def get(self, **kwargs):
+    def get(self, *args, **kwargs):
         from exonwebui.macros.basic import UiAlert
         html = UiAlert('message', gettext('loaded after delay'),
                        styles='p-3', dismiss=False)
@@ -431,7 +431,7 @@ class VLoader(MenuBoardView):
 
         return self.reply(html, doctitle=gettext('Page Loader'))
 
-    def post(self, **kwargs):
+    def post(self, *args, **kwargs):
         # get loading progress status
         if request.form.get('get_progress', ''):
             res = self.shared_buffer.get('loader_progress', 0)
@@ -450,14 +450,14 @@ class VLoader(MenuBoardView):
         return self.reply(None)
 
 
-class VLoginpage(MenuBoardView):
+class Loginpage(MenuBoardView):
     routes = [('/loginpage', 'loginpage'),
               ('/loginpage/<action>', 'loginpage_1')]
 
-    @classmethod
-    def initialize(cls, webapp, app):
-        cls.add_menulink(
-            app, 3, lazy_gettext('Login Page'), url='loginpage')
+    def initialize(self):
+        self.add_menulink(
+            self.app, 3,
+            lazy_gettext('Login Page'), url='loginpage')
 
     def get(self, action='', **kwargs):
         from exonwebui.macros.forms import UiLoginForm
