@@ -124,7 +124,7 @@ var WebUI = function($, ui) {
       },
       error: function(xhr, status, error) {
         if(error == 'abort') error = "request cancelled";
-        else if(!xhr.status) error = "service unavailable";
+        else if(!xhr.status) error = "no connection";
         else if(!error) error = "request failed";
         ui.request.error($.i18n._(error), fError);
       },
