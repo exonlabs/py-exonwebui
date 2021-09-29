@@ -123,7 +123,7 @@ var WebUI = function($, ui) {
         ui.request.success(result, fSuccess);
       },
       error: function(xhr, status, error) {
-        if(error == 'abort') error = "request cancelled";
+        if(error == 'abort') return null;
         else if(!xhr.status) error = "no connection";
         else if(!error) error = "request failed";
         ui.request.error($.i18n._(error), fError);
@@ -146,7 +146,7 @@ var WebUI = function($, ui) {
   };
   ui.request.error = function(error, fError) {
     if(typeof fError === "function") fError(error);
-    else ui.notify.error(error,true,true);
+    else ui.notify.error(error,true,false);
   };
   ui.request.complete = function(status, fComplete) {
     if(typeof fComplete === "function") fComplete(status);
