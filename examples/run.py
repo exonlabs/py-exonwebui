@@ -38,7 +38,7 @@ if __name__ == '__main__':
         base_path = os.path.abspath(os.path.dirname(__file__))
         for n in ['templates', 'static']:
             link_path = os.path.join(base_path, n, 'webui')
-            if os.path.exists(link_path):
+            if os.path.isfile(link_path) or os.path.islink(link_path):
                 os.unlink(link_path)
             src_dir = os.path.join(
                 os.path.dirname(exonwebui.__file__), n)
