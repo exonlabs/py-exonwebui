@@ -44,6 +44,7 @@ class UiInputForm(UiFormsMacro):
             'submit_url': options.get('submit_url', ''),
             'fields': fields,
             'styles': styles,
+            'form_script': options.get('form_script', ''),
         })
 
 

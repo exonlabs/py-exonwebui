@@ -44,7 +44,7 @@
           {% elif f.type == 'password' %}
             <div class="input-group">
               {% if f.prepend %}<div class="input-group-prepend">{{_group_items(f.prepend)}}</div>{% endif %}
-              <input type="password" class="form-control" name="{{f.name}}" value="" placeholder="{{f.placeholder}}" {% if f.strength %}data-plugin="passStrengthify"{% endif %} {% if f.confirm %}data-confirm="{{f.name}}"{% endif %} {{'required' if f.required else ''}}>
+              <input type="password" class="form-control" name="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {% if f.strength %}data-plugin="passStrengthify"{% endif %} {% if f.confirm %}data-confirm="{{f.name}}"{% endif %} {{'required' if f.required else ''}}>
               <div class="input-group-append">
                 {% if f.append %}{{_group_items(f.append)}}{% endif %}
                 <span class="input-group-text" data-pwdview="{{f.name}}"><i class="fa fas fa-eye-slash"></i></span>
@@ -55,7 +55,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">{{gettext('Confirm')}}</span>
                 </div>
-                <input type="password" class="form-control" name="{{f.name}}_confirm" data-confirm="{{f.name}}" value="" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
+                <input type="password" class="form-control" name="{{f.name}}_confirm" data-confirm="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
                 <div class="input-group-append">
                   <span class="input-group-text" data-pwdview="{{f.name}}_confirm"><i class="fa fas fa-eye-slash"></i></span>
                 </div>
@@ -205,3 +205,10 @@
     });
   });
 </script>
+{% if form_script %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      {{form_script|safe}}
+    });
+  </script>
+{% endif %}

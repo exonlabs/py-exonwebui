@@ -1,6 +1,6 @@
 <div class="container-fluid pt-3 pb-5">
   <div class="row">
-    <div class="col-xs-12 col-md-10">
+    <div class="col-xs-12 col-xl-10">
       <div class="card">
         <div class="card-header">
           {{gettext('Input Form Title')}}
