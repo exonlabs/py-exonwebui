@@ -174,7 +174,7 @@ class MenuBoardView(BaseWebView):
                             [cat, msg, False, False])
             return jsonify(**params)
         else:
-            return response.encode('utf8') if response is not None else ''
+            return response if response is not None else ''
 
     @classmethod
     def alert(cls, message, category='error', **params):

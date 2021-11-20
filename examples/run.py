@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from traceback import format_exc
 
 import exonwebui
-from exonutils.webapp import BaseWebApp
+from exonutils.webapp import BaseWebSrv
 from views import MenuBoardView
 
 logging.basicConfig(
@@ -50,7 +50,8 @@ if __name__ == '__main__':
             'max_content_length': 10485760,
             'templates_auto_reload': bool(args.debug > 0),
         }
-        webapp = BaseWebApp(
+
+        webapp = BaseWebSrv(
             'SampleWebui', options=cfg, logger=logger, debug=args.debug)
         webapp.base_path = base_path
         webapp.initialize()
