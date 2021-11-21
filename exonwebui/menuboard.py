@@ -54,6 +54,14 @@ class MenuBoardView(BaseWebView):
 
     @classmethod
     def get_menulinks(cls, app=None):
+        if not app:
+            app = current_app
+
+        return cls.format_menulinks(
+            app.config.get('MENUBOARD_MENUBUFFER', []))
+
+    @classmethod
+    def format_menulinks(cls, buffer):
         # BOARD_SIDEMENU dict structure:
         # {0: {'label': ..., 'icon': ..., 'url': ...},
         #  1: {'label': ..., 'icon': ..., 'url': '#',
@@ -62,15 +70,7 @@ class MenuBoardView(BaseWebView):
         # }
         menu = {}
 
-        if not app:
-            app = current_app
-
-        buff = app.config.get('MENUBOARD_MENUBUFFER', [])
-        for index, label, icon, url, parent, load_callback in buff:
-            # check weather to show link/menu or not
-            if load_callback and not load_callback():
-                continue
-
+        for index, label, icon, url, parent in buffer:
             # standalone link
             if parent is None:
                 if index in menu:
@@ -92,15 +92,14 @@ class MenuBoardView(BaseWebView):
 
     @classmethod
     def add_menulink(cls, app, index, label, icon=None, url='#',
-                     parent=None, load_callback=None):
+                     parent=None):
         # index:  number/order of link in menu or submenu
         # label:  link label to show
         # icon:   icon to show for links or headers
         # url:    url for active links and '#' for submenu headers
         # parent: index of parent menu for submenu links
-        # load_callback:  callback function to show/hide link
         buff = app.config.get('MENUBOARD_MENUBUFFER', [])
-        buff.append([index, label, icon, url, parent, load_callback])
+        buff.append([index, label, icon, url, parent])
         app.config['MENUBOARD_MENUBUFFER'] = buff
 
     # gzip response data
