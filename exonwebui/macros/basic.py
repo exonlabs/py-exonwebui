@@ -38,6 +38,17 @@ class UiAlert(UiBasicMacro):
         })
 
 
+class UiAsyncModal(UiBasicMacro):
+    tpl_name = 'asyncmodal.tpl'
+
+    def __new__(cls, container, selector, styles=''):
+        return cls.tpl(**{
+            'container': container,
+            'selector': selector,
+            'styles': styles,
+        })
+
+
 class UiLinkModal(UiBasicMacro):
     tpl_name = 'linkmodal.tpl'
 
