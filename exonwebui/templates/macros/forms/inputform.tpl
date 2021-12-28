@@ -205,10 +205,4 @@
     });
   });
 </script>
-{% if form_script %}
-  <script type="text/javascript">
-    $(document).ready(function(){
-      {{form_script|safe}}
-    });
-  </script>
-{% endif %}
+{{jscript|safe}}

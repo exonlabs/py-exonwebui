@@ -53,6 +53,7 @@ class UiStdDataGrid(UiDataGridsMacro):
             'group_ops': options.get('group_ops', []),
             'export': export,
             'styles': styles,
+            'jscript': options.get('jscript', ''),
         })
 
     @classmethod
