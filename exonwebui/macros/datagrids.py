@@ -49,6 +49,7 @@ class UiStdDataGrid(UiDataGridsMacro):
             'loadurl': options.get('load_url', ''),
             'lenMenu': options.get('length_menu', [25, 50, 100, -1]),
             'columns': ','.join(columns),
+            'order': json.dumps(options.get('order', [2, 'asc'])),
             'single_ops': options.get('single_ops', []),
             'group_ops': options.get('group_ops', []),
             'export': export,

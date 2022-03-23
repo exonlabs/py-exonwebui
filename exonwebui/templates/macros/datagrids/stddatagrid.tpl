@@ -23,7 +23,7 @@
           {defaultContent:'',searchable:false,orderable:false,className:'dtctrl row-select px-3'},
           {{columns|safe}}
         ],
-        order:[[2,'asc']],
+        order:[{{order|safe}}],
         buttons:{
           dom:{button:{className:'dropdown-item pl-3 pr-4 py-0 text-left tick-select'}},
           buttons:[
