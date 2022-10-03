@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    :copyright: 2021, ExonLabs. All rights reserved.
-    :license: BSD, see LICENSE for more details.
-"""
 from . import UiBaseMacro
 
 __all__ = []

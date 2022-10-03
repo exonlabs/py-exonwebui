@@ -1,23 +1,11 @@
 /*
-  :copyright: 2021, ExonLabs. All rights reserved.
+  :copyright: ExonLabs. All rights reserved.
   :license: BSD, see LICENSE for more details.
 */
 var WebUI = function($, ui) {
 
   ui.scrolltop = function(interval) {
     $("#board-page").animate({scrollTop:0},(interval)?interval:300);
-  };
-
-  ui.board_menu = {
-    show: function() {
-      $("body").addClass("MenuToggled");
-    },
-    hide: function() {
-      $("body").removeClass("MenuToggled");
-    },
-    toggle: function() {
-      $("body").toggleClass("MenuToggled");
-    }
   };
 
   ui.board_content = {
@@ -63,28 +51,22 @@ var WebUI = function($, ui) {
           };
         },
         function(error) {
-          if(error !== null) ui.notify.error(error,true,false);
+          ui.notify.error(error,true,false);
           if(ui.board_content.old_hash) {
             ui.board_content.load_neglect = true;
             window.location.hash = ui.board_content.old_hash;
           };
-        }
-      );
+        });
     }
   };
 
   $(document).ready(function() {
     $(window)
-      .on("resize", function() {
-        if(window.innerWidth < 992) ui.board_menu.hide();
-      })
       .on("hashchange", function(e) {
         e.preventDefault();
-        if(window.innerWidth < 992) ui.board_menu.hide();
         ui.board_content.load("GET", window.location.hash, null);
       });
 
-    $("#board-menubody>ul.metismenu").metisMenu();
     $('#board-menubody a.pagelink[href="' +
         window.location.hash.replace(/[\/?].*$/,"") + '"]')
       .parents('ul').prev('a').click();
@@ -93,18 +75,6 @@ var WebUI = function($, ui) {
       .on("click", "a.pagelink", function(e) {
         e.preventDefault();
         ui.redirect($(this).attr("href"));
-      });
-
-    $("#board-menutoggle>a")
-      .bind("click", function(e) {
-        e.preventDefault();
-        ui.board_menu.toggle();
-      });
-
-    $("#board-backdrop")
-      .bind('click', function(e) {
-        e.preventDefault();
-        ui.board_menu.hide();
       });
 
     $('#board-wrapper').show();

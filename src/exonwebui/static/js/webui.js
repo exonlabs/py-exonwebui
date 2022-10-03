@@ -1,5 +1,5 @@
 /*
-  :copyright: 2021, ExonLabs. All rights reserved.
+  :copyright: ExonLabs. All rights reserved.
   :license: BSD, see LICENSE for more details.
 */
 var WebUI = function($, ui) {
