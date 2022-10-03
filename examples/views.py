@@ -5,7 +5,7 @@ from random import randint
 from flask import session, flash, request, url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
-from exonutils.buffers import FileBuffer
+from exonutils.buffers.filebuffer import SimpleFileBuffer
 from exonwebui.menuboard import MenuBoardView
 
 
@@ -14,22 +14,22 @@ class Index(MenuBoardView):
 
     def initialize(self):
         # disable strict slash matching
-        self.websrv.app.url_map.strict_slashes = False
+        self.parent.app.url_map.strict_slashes = False
 
         # adjust session and csrf cookies attrs
-        self.websrv.app.config['SESSION_COOKIE_HTTPONLY'] = True
-        self.websrv.app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-        self.websrv.app.config['CSRF_COOKIE_HTTPONLY'] = True
-        self.websrv.app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
-        self.websrv.app.config['CSRF_DISABLE'] = True
+        self.parent.app.config['SESSION_COOKIE_HTTPONLY'] = True
+        self.parent.app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+        self.parent.app.config['CSRF_COOKIE_HTTPONLY'] = True
+        self.parent.app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
+        self.parent.app.config['CSRF_DISABLE'] = True
 
         # initialize board
-        locale_path = os.path.join(self.websrv.base_path, 'locale')
-        self.board_initialize(self.websrv.app, locale_path=locale_path)
+        locale_path = os.path.join(self.parent.base_path, 'locale')
+        self.board_initialize(self.parent.app, locale_path=locale_path)
 
         # add menu section
         self.add_menulink(
-            self.websrv.app, 1,
+            self.parent.app, 1,
             lazy_gettext('UI Components'), icon='fa-cubes')
 
     def get(self, *args, **kwargs):
@@ -56,7 +56,7 @@ class Home(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 0,
+            self.parent.app, 0,
             lazy_gettext('Home'), icon='fa-home', url='#home')
 
     def get(self, *args, **kwargs):
@@ -69,7 +69,7 @@ class Notify(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 1,
+            self.parent.app, 1,
             lazy_gettext('Notifications'), url='#notify', parent=1)
 
     def get(self, *args, **kwargs):
@@ -88,7 +88,7 @@ class Alerts(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 2,
+            self.parent.app, 2,
             lazy_gettext('Alerts'), url='#alerts', parent=1)
 
     def get(self, *args, **kwargs):
@@ -106,7 +106,7 @@ class InputForm(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 3,
+            self.parent.app, 3,
             lazy_gettext('Input Form'), url='#inputform', parent=1)
 
     def get(self, *args, **kwargs):
@@ -241,7 +241,7 @@ class Datagrid(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 4,
+            self.parent.app, 4,
             lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
     def get(self, *args, **kwargs):
@@ -348,7 +348,7 @@ class QueryBuilder(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 5,
+            self.parent.app, 5,
             lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
     def get(self, *args, **kwargs):
@@ -413,11 +413,11 @@ class QueryBuilder(MenuBoardView):
 
 class Loader(MenuBoardView):
     routes = [('/loader', 'loader')]
-    shared_buffer = FileBuffer('SampleWebui_Loader')
+    shared_buffer = SimpleFileBuffer('SampleWebui_Loader')
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 2,
+            self.parent.app, 2,
             lazy_gettext('Page Loader'), url='#loader')
 
     def get(self, *args, **kwargs):
@@ -456,7 +456,7 @@ class Loginpage(MenuBoardView):
 
     def initialize(self):
         self.add_menulink(
-            self.websrv.app, 3,
+            self.parent.app, 3,
             lazy_gettext('Login Page'), url='loginpage')
 
     def get(self, action='', **kwargs):

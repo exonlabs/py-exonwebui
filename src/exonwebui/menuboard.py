@@ -5,11 +5,12 @@ from io import BytesIO
 from flask import current_app, request, session, redirect, \
     jsonify, flash, get_flashed_messages
 from flask_babelex import Babel, Domain, get_domain, refresh
-from exonutils.webapp import BaseWebView
+
+from exonutils.webapp.view import BaseWebView
 
 from .macros.basic import UiAlert
 
-__all__ = ['MenuBoardView']
+__all__ = []
 
 
 class MenuBoardView(BaseWebView):
@@ -186,8 +187,7 @@ class MenuBoardView(BaseWebView):
 
     # request handling ###############
 
-    @classmethod
-    def before_request(cls):
+    def before_request(self, *args, **kwargs):
         # locale handling
         if current_app.config.get('LOCALE_ENABLED', False):
             # check session lang
@@ -218,10 +218,6 @@ class MenuBoardView(BaseWebView):
                     else:
                         session['lang_dir'] = 'ltr'
 
-                return cls.redirect(cls.index_url)
+                return self.redirect(self.index_url)
 
         return None
-
-    # @classmethod
-    # def after_request(cls, response):
-    #     return response

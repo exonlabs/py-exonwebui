@@ -88,13 +88,13 @@ msgid "Failed loading data"
 msgstr ""
 
 msgid "Got it"
-msgstr "Je l\\'ai"
+msgstr "Je l'ai"
 
 msgid "Group Label"
 msgstr ""
 
 msgid "Home"
-msgstr "Page d\\'accueil"
+msgstr "Page d'accueil"
 
 msgid "Input Form"
 msgstr "Formulaire de saisie"
@@ -109,7 +109,7 @@ msgid "Invalid format ({0})"
 msgstr ""
 
 msgid "Invalid username or password"
-msgstr "Nom d\\'utilisateur ou mot de passe invalide"
+msgstr "Nom d'utilisateur ou mot de passe invalide"
 
 msgid "Invalid values, {0} is greater than {1}"
 msgstr ""
@@ -226,7 +226,7 @@ msgid "Please correct invalid fields"
 msgstr "Veuillez corriger les champs incorrects"
 
 msgid "Please enter username and password"
-msgstr "Veuillez saisir votre nom d\\'utilisateur et votre mot de passe"
+msgstr "Veuillez saisir votre nom d'utilisateur et votre mot de passe"
 
 msgid "Please fill all required fields"
 msgstr "Veuillez remplir tous les champs obligatoires"
@@ -304,10 +304,10 @@ msgid "Too Large File"
 msgstr "Fichier trop volumineux"
 
 msgid "Toogle boards"
-msgstr "Basculer l\\'interface"
+msgstr "Basculer l'interface"
 
 msgid "UI Components"
-msgstr "Composants d\\'interface"
+msgstr "Composants d'interface"
 
 msgid "Upload File"
 msgstr ""
@@ -316,7 +316,7 @@ msgid "Upload Multiple"
 msgstr ""
 
 msgid "Username"
-msgstr "Nom d\\'utilisateur"
+msgstr "Nom d'utilisateur"
 
 msgid "Validation"
 msgstr ""
