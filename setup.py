@@ -32,7 +32,7 @@ setup(
     platforms='any',
     python_requires='>=3.6',
     install_requires=[
-        'exonutils>=5.0',
+        'exonutils>=5.0,<6.0',
         'flask>=2.0',
         'Jinja2>=3.0',
         'Babel>=2.9',
