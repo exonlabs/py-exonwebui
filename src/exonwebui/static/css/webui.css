@@ -2,7 +2,7 @@
   :copyright: ExonLabs. All rights reserved.
   :license: BSD, see LICENSE for more details.
 */
-body, html {width:100%; height:100%; min-width:300px; font-size:14px}
+body, html {width:100%; height:100%; min-width:300px; font-size:1rem}
 a, a:hover, a:focus, button:focus {
   color:inherit; cursor:pointer; outline:none !important}
 
@@ -26,7 +26,7 @@ a, a:hover, a:focus, button:focus {
   background-color:rgba(50,50,50,0.7); z-index:900000}
 .page-loading {background:rgba(50,50,50,0.7) url('../images/loader.gif') center 45% no-repeat}
 .page-lock .cancel {padding:10px 20px; line-height:20px; margin-bottom:-40px;
-  color:#ccc; font-size:18px; font-weight:bold}
+  color:#ccc; font-size:1.1em; font-weight:bold}
 [dir=ltr] .page-lock .cancel {text-align:right}
 [dir=rtl] .page-lock .cancel {text-align:left}
 

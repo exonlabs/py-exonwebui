@@ -2,7 +2,7 @@
   :copyright: ExonLabs. All rights reserved.
   :license: BSD, see LICENSE for more details.
 */
-div.dataTables_wrapper {font-size:13px}
+div.dataTables_wrapper {font-size:0.9em}
 
 [dir=ltr] div.dataTables_wrapper div.dataTables_filter input {margin-left:0.5em; margin-right:1px}
 [dir=rtl] div.dataTables_wrapper div.dataTables_filter input {margin-left:1px; margin-right:0.5em}
@@ -53,7 +53,7 @@ table.dataTable thead>tr>th.dtctrl {width:20px; max-width:20px}
 .dataTables_wrapper tbody .loading {
   height:50px; background:url('../images/loader.gif') center no-repeat}
 
-.dataTables_wrapper .table-index {font-size:12px; color:#9c9c9c; vertical-align:top}
+.dataTables_wrapper .table-index {font-size:0.9em; color:#9c9c9c; vertical-align:top}
 
 .dataTables_wrapper table.dataTable tbody tr.selected,
 .dataTables_wrapper table.dataTable tbody td.selected {background-color:#d6d8db; color:inherit}
