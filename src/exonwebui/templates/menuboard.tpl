@@ -24,20 +24,19 @@
           </div>
           {% block board_menubody %}
             <ul class="metismenu">
-              {% set links = get_menulinks() %}
-              {% for i in links.keys()|sort %}
-                {% if 'menu' in links[i] and links[i].menu.keys() %}
+              {% for i in menu.keys()|sort %}
+                {% if 'submenu' in menu[i] and menu[i].submenu.keys() %}
                   <li>
-                    <a href="#" class="has-arrow">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
+                    <a href="#" class="has-arrow">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</a>
                     <ul>
-                      {% for j in links[i].menu.keys()|sort %}
-                        <li><a class="pagelink" href="{{links[i].menu[j].url}}">{% if links[i].menu[j].icon %}<i class="fa fas fa-fw fa-ta {{links[i].menu[j].icon}}"></i>{% endif %}{{links[i].menu[j].label|safe}}</a></li>
+                      {% for j in menu[i].submenu.keys()|sort %}
+                        <li><a class="pagelink" href="{{menu[i].submenu[j].url}}">{% if menu[i].submenu[j].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].submenu[j].icon}}"></i>{% endif %}{{menu[i].submenu[j].label|safe}}</a></li>
                       {% endfor %}
                     </ul>
                   </li>
-                {% elif links[i].url != '#' %}
+                {% elif menu[i].url != '#' %}
                   <li>
-                    <a class="pagelink" href="{{links[i].url}}">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
+                    <a class="pagelink" href="{{menu[i].url}}">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</a>
                   </li>
                 {% endif %}
               {% endfor %}

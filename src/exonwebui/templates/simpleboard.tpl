@@ -19,16 +19,15 @@
             {% block b_board_menuhead %}{% endblock %}
           </div>
           {% block board_menubody %}
-            {% set links = get_menulinks() %}
-            {% for i in links.keys()|sort %}
+            {% for i in menu.keys()|sort %}
               <div class="list-group pb-2">
-                {% if 'menu' in links[i] and links[i].menu.keys() %}
-                  <div class="list-group-item list-group-item-secondary py-2">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</div>
-                  {% for j in links[i].menu.keys()|sort %}
-                    <a class="pagelink list-group-item list-group-item-action" href="{{links[i].menu[j].url}}">{% if links[i].menu[j].icon %}<i class="fa fas fa-fw fa-ta {{links[i].menu[j].icon}}"></i>{% endif %}{{links[i].menu[j].label|safe}}</a>
+                {% if 'submenu' in menu[i] and menu[i].submenu.keys() %}
+                  <div class="list-group-item list-group-item-secondary py-2">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</div>
+                  {% for j in menu[i].submenu.keys()|sort %}
+                    <a class="pagelink list-group-item list-group-item-action" href="{{menu[i].submenu[j].url}}">{% if menu[i].submenu[j].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].submenu[j].icon}}"></i>{% endif %}{{menu[i].submenu[j].label|safe}}</a>
                   {% endfor %}
-                {% elif links[i].url != '#' %}
-                  <a class="pagelink list-group-item list-group-item-action" href="{{links[i].url}}">{% if links[i].icon %}<i class="fa fas fa-fw fa-ta {{links[i].icon}}"></i>{% endif %}{{links[i].label|safe}}</a>
+                {% elif menu[i].url != '#' %}
+                  <a class="pagelink list-group-item list-group-item-action" href="{{menu[i].url}}">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</a>
                 {% endif %}
               </div>
             {% endfor %}

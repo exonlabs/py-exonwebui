@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 import time
 from random import randint
 from flask import session, flash, request, url_for, render_template as tpl
@@ -8,35 +7,27 @@ from flask_babelex import gettext, lazy_gettext
 from exonutils.buffers.filebuffer import SimpleFileBuffer
 from exonwebui.menuboard import MenuBoardView
 
+# board menu buffer
+MENU_BUFFER = {}
+
 
 class Index(MenuBoardView):
     routes = [('/', 'index')]
 
     def initialize(self):
-        # disable strict slash matching
-        self.parent.app.url_map.strict_slashes = False
-
-        # adjust session and csrf cookies attrs
-        self.parent.app.config['SESSION_COOKIE_HTTPONLY'] = True
-        self.parent.app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-        self.parent.app.config['CSRF_COOKIE_HTTPONLY'] = True
-        self.parent.app.config['CSRF_COOKIE_SAMESITE'] = 'Lax'
-        self.parent.app.config['CSRF_DISABLE'] = True
-
-        # initialize board
-        locale_path = os.path.join(self.parent.base_path, 'locale')
-        self.board_initialize(self.parent.app, locale_path=locale_path)
-
-        # add menu section
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 1,
+            MENU_BUFFER, 1,
             lazy_gettext('UI Components'), icon='fa-cubes')
 
     def get(self, *args, **kwargs):
+        global MENU_BUFFER
+
         params = {
             'doc_lang': session.get('lang', ''),
             'doc_langdir': session.get('lang_dir', ''),
             'doc_title': "WebUI",
+            'menu': MENU_BUFFER,
         }
 
         if not session.get('simpleboard', None):
@@ -55,8 +46,9 @@ class Home(MenuBoardView):
     routes = [('/home', 'home')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 0,
+            MENU_BUFFER, 0,
             lazy_gettext('Home'), icon='fa-home', url='#home')
 
     def get(self, *args, **kwargs):
@@ -68,8 +60,9 @@ class Notify(MenuBoardView):
     routes = [('/notify', 'notify')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 1,
+            MENU_BUFFER, 1,
             lazy_gettext('Notifications'), url='#notify', parent=1)
 
     def get(self, *args, **kwargs):
@@ -87,8 +80,9 @@ class Alerts(MenuBoardView):
     routes = [('/alerts', 'alerts')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 2,
+            MENU_BUFFER, 2,
             lazy_gettext('Alerts'), url='#alerts', parent=1)
 
     def get(self, *args, **kwargs):
@@ -105,8 +99,9 @@ class InputForm(MenuBoardView):
     routes = [('/inputform', 'inputform')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 3,
+            MENU_BUFFER, 3,
             lazy_gettext('Input Form'), url='#inputform', parent=1)
 
     def get(self, *args, **kwargs):
@@ -240,8 +235,9 @@ class Datagrid(MenuBoardView):
               ('/datagrid/<action>', 'datagrid_1')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 4,
+            MENU_BUFFER, 4,
             lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
     def get(self, *args, **kwargs):
@@ -347,8 +343,9 @@ class QueryBuilder(MenuBoardView):
     routes = [('/qbuilder', 'qbuilder')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 5,
+            MENU_BUFFER, 5,
             lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
     def get(self, *args, **kwargs):
@@ -416,8 +413,9 @@ class Loader(MenuBoardView):
     shared_buffer = SimpleFileBuffer('SampleWebui_Loader')
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 2,
+            MENU_BUFFER, 2,
             lazy_gettext('Page Loader'), url='#loader')
 
     def get(self, *args, **kwargs):
@@ -455,8 +453,9 @@ class Loginpage(MenuBoardView):
               ('/loginpage/<action>', 'loginpage_1')]
 
     def initialize(self):
+        global MENU_BUFFER
         self.add_menulink(
-            self.parent.app, 3,
+            MENU_BUFFER, 3,
             lazy_gettext('Login Page'), url='loginpage')
 
     def get(self, action='', **kwargs):
