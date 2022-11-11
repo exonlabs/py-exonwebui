@@ -7,10 +7,10 @@ html, body {min-width:768px}
 
 /* board design */
 #board-wrapper {position:relative; background-color:#f8f9fa; color:#343a40}
-[dir=ltr] #board-wrapper {padding-left:200px}
-[dir=rtl] #board-wrapper {padding-right:200px}
+[dir=ltr] #board-wrapper {padding-left:240px}
+[dir=rtl] #board-wrapper {padding-right:240px}
 
-#board-menu {position:fixed; top:0; bottom:0; width:200px}
+#board-menu {position:fixed; top:0; bottom:0; width:240px}
 [dir=ltr] #board-menu {left:0}
 [dir=rtl] #board-menu {right:0}
 #board-page {overflow:auto}
