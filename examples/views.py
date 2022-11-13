@@ -20,7 +20,7 @@ class Index(MenuBoardView):
             MENU_BUFFER, 1,
             lazy_gettext('UI Components'), icon='fa-cubes')
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         global MENU_BUFFER
 
         params = {
@@ -51,7 +51,7 @@ class Home(MenuBoardView):
             MENU_BUFFER, 0,
             lazy_gettext('Home'), icon='fa-home', url='#home')
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         html = tpl('option_panel.tpl', message=gettext("Welcome"))
         return self.reply(html, doctitle=gettext('Home'))
 
@@ -65,7 +65,7 @@ class Notify(MenuBoardView):
             MENU_BUFFER, 1,
             lazy_gettext('Notifications'), url='#notify', parent=1)
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
         flash(gettext('error') + " STICKY_MSG", 'error.us')
         flash(gettext('warning'), 'warn')
@@ -85,7 +85,7 @@ class Alerts(MenuBoardView):
             MENU_BUFFER, 2,
             lazy_gettext('Alerts'), url='#alerts', parent=1)
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
         html = UiAlert('info', gettext('info'), styles='px-3 pt-3')
         html += UiAlert('warn', gettext('warning'), styles='px-3')
@@ -104,7 +104,7 @@ class InputForm(MenuBoardView):
             MENU_BUFFER, 3,
             lazy_gettext('Input Form'), url='#inputform', parent=1)
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.forms import UiInputForm
         options = {
             'form_id': "1234",
@@ -205,7 +205,7 @@ class InputForm(MenuBoardView):
         html = tpl('input_form.tpl', contents=UiInputForm(options))
         return self.reply(html, doctitle=gettext('Input Form'))
 
-    def post(self, *args, **kwargs):
+    def post(self, **kwargs):
         validation = request.form.get('validation', '')
         if validation == '1':
             params = {
@@ -240,7 +240,7 @@ class Datagrid(MenuBoardView):
             MENU_BUFFER, 4,
             lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
         options = {
             'grid_id': "1234",
@@ -286,8 +286,11 @@ class Datagrid(MenuBoardView):
         html = tpl('data_grid.tpl', contents=UiStdDataGrid(options))
         return self.reply(html, doctitle=gettext('Datagrid'))
 
-    def post(self, action='', **kwargs):
+    def post(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
+
+        action = kwargs.get('action') or ''
+
         if action == 'loaddata':
             data = []
             for k in range(228):
@@ -348,7 +351,7 @@ class QueryBuilder(MenuBoardView):
             MENU_BUFFER, 5,
             lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.forms import UiQBuilder
         options = {
             'form_id': "1234",
@@ -418,7 +421,7 @@ class Loader(MenuBoardView):
             MENU_BUFFER, 2,
             lazy_gettext('Page Loader'), url='#loader')
 
-    def get(self, *args, **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
         html = UiAlert('message', gettext('loaded after delay'),
                        styles='p-3', dismiss=False)
@@ -429,7 +432,7 @@ class Loader(MenuBoardView):
 
         return self.reply(html, doctitle=gettext('Page Loader'))
 
-    def post(self, *args, **kwargs):
+    def post(self, **kwargs):
         # get loading progress status
         if request.form.get('get_progress', ''):
             res = self.shared_buffer.get('loader_progress', 0)
@@ -458,8 +461,10 @@ class Loginpage(MenuBoardView):
             MENU_BUFFER, 3,
             lazy_gettext('Login Page'), url='loginpage')
 
-    def get(self, action='', **kwargs):
+    def get(self, **kwargs):
         from exonwebui.macros.forms import UiLoginForm
+
+        action = kwargs.get('action') or ''
 
         if action == 'load':
             html = UiLoginForm(
@@ -475,7 +480,7 @@ class Loginpage(MenuBoardView):
             }
             return self.reply(tpl('loginpage.tpl', **params))
 
-    def post(self):
+    def post(self, **kwargs):
         username = request.form.get('username', '')
         authdigest = request.form.get('digest', '')
 
