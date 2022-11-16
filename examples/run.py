@@ -5,6 +5,7 @@ import logging
 from argparse import ArgumentParser
 
 from exonutils.webapp.server import SimpleWebServer
+from exonutils.webapp.extserver import ExtWebServer, WebArbiter
 
 from exonwebui import __file__ as exonwebui_path
 from exonwebui.utils.locale import init_locale
@@ -24,6 +25,14 @@ APP_OPTIONS = {
     'secret_key': "0123456789ABCDEF",
     'max_content_length': 10485760,  # 10MiB
     'templates_auto_reload': False,
+}
+
+EXT_OPTIONS = {
+    'bind': '%s:%s' % (HOST, PORT),
+    'workers': 2,
+    'threads': 1,
+    'max_requests': 0,
+    'timeout': 0,
 }
 
 
@@ -61,6 +70,9 @@ def main():
             '-x', dest='debug', action='count', default=0,
             help='set debug modes')
         pr.add_argument(
+            '--ext-websrv', dest='ext_websrv', action='store_true',
+            help="use extended gunicorn web server")
+        pr.add_argument(
             '--ext-gzip', dest='ext_gzip', action='store_true',
             help="use extended gzip compression module")
         args = pr.parse_args()
@@ -93,10 +105,14 @@ def main():
         for view_cls in MenuBoardView.__subclasses__():
             websrv.add_view(view_cls())
 
-        websrv.start(
-            HOST, PORT,
-            debug=bool(args.debug >= 1),
-            use_reloader=bool(args.debug >= 3))
+        if args.ext_websrv:
+            ext_websrv = ExtWebServer(websrv, options=EXT_OPTIONS)
+            WebArbiter(ext_websrv).run()
+        else:
+            websrv.start(
+                HOST, PORT,
+                debug=bool(args.debug >= 1),
+                use_reloader=bool(args.debug >= 3))
 
     except Exception as e:
         logger.fatal(str(e), exc_info=args.debug)

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, redirect, jsonify, \
-    flash, get_flashed_messages
+from flask import redirect, jsonify, flash, get_flashed_messages
 from exonutils.webapp.view import BaseWebView
 
 from .macros.basic import UiAlert
@@ -42,23 +41,15 @@ class MenuBoardView(BaseWebView):
 
         return menu_buffer
 
-    # xhr request validation
-    @classmethod
-    def request_xhr(cls):
-        if 'X-Requested-With' in request.headers and \
-           request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return True
-        return False
-
     @classmethod
     def redirect(cls, url, blank=False):
-        if cls.request_xhr():
+        if cls.is_xhrequest():
             return jsonify(redirect=url, blank=blank)
         return redirect(url)
 
     @classmethod
     def reply(cls, response, **params):
-        if cls.request_xhr():
+        if cls.is_xhrequest():
             if response is not None:
                 params['payload'] = response
 
