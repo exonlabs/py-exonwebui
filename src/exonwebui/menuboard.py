@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import redirect, jsonify, flash, get_flashed_messages
+from flask import jsonify, flash, get_flashed_messages
 from exonutils.webapp.view import BaseWebView
 
 from .macros.basic import UiAlert
@@ -43,31 +43,26 @@ class MenuBoardView(BaseWebView):
 
     @classmethod
     def redirect(cls, url, blank=False):
-        if cls.is_xhrequest():
-            return jsonify(redirect=url, blank=blank)
-        return redirect(url)
+        return jsonify(redirect=url, blank=blank)
 
     @classmethod
     def reply(cls, response, **params):
-        if cls.is_xhrequest():
-            if response is not None:
-                params['payload'] = response
+        if response is not None:
+            params['payload'] = response
 
-            notifications = get_flashed_messages(with_categories=True)
-            if notifications:
-                params['notifications'] = []
-                for cat, msg in notifications:
-                    if '.' in cat:
-                        _cat, opts = cat.split('.', 1)
-                        params['notifications'].append(
-                            [_cat, msg, 'u' in opts, 's' in opts])
-                    else:
-                        params['notifications'].append(
-                            [cat, msg, False, False])
+        notifications = get_flashed_messages(with_categories=True)
+        if notifications:
+            params['notifications'] = []
+            for cat, msg in notifications:
+                if '.' in cat:
+                    _cat, opts = cat.split('.', 1)
+                    params['notifications'].append(
+                        [_cat, msg, 'u' in opts, 's' in opts])
+                else:
+                    params['notifications'].append(
+                        [cat, msg, False, False])
 
-            return jsonify(**params)
-
-        return response if response is not None else ''
+        return jsonify(**params)
 
     @classmethod
     def alert(cls, message, category='error', **params):
@@ -81,10 +76,3 @@ class MenuBoardView(BaseWebView):
         opts += 's' if sticky else ''
         flash(message, '%s.%s' % (category, opts) if opts else category)
         return cls.reply(None, **params)
-
-    # minimize data by removing line breaks and extra white spaces
-    @classmethod
-    def minimize_data(cls, data):
-        if type(data) is str:
-            return ''.join([l.strip() for l in data.split('\n')])
-        return data

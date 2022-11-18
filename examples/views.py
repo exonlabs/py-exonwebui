@@ -37,9 +37,9 @@ class Index(MenuBoardView):
             return self.redirect(url_for('index'))
 
         if session.get('simpleboard', False):
-            return self.reply(tpl('simpleboard.min.tpl', **params))
+            return tpl('simpleboard.min.tpl', **params)
         else:
-            return self.reply(tpl('mainboard.min.tpl', **params))
+            return tpl('mainboard.min.tpl', **params)
 
 
 class Home(MenuBoardView):
@@ -443,7 +443,7 @@ class Loader(MenuBoardView):
         for i in range(t):
             try:
                 self.shared_buffer.set('loader_progress', int(i * 100 / t))
-            except:
+            except Exception:
                 pass
             time.sleep(1)
 
@@ -478,7 +478,7 @@ class Loginpage(MenuBoardView):
                 'doc_title': "WebUI",
                 'load_url': "%s/load" % url_for('loginpage'),
             }
-            return self.reply(tpl('loginpage.min.tpl', **params))
+            return tpl('loginpage.min.tpl', **params)
 
     def post(self, **kwargs):
         username = request.form.get('username', '')
