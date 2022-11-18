@@ -1,4 +1,4 @@
-{% extends "webui/menuboard.tpl" %}
+{% extends "webui/menuboard.min.tpl" %}
 
 {% block b_board_head %}
   {{super()}}

@@ -1,4 +1,4 @@
-{% extends "webui/simpleboard.tpl" %}
+{% extends "webui/simpleboard.min.tpl" %}
 
 {% block b_board_head %}
   {{super()}}

@@ -10,7 +10,7 @@ class UiFormsMacro(UiBaseMacro):
 
 
 class UiInputForm(UiFormsMacro):
-    tpl_name = 'inputform.tpl'
+    tpl_name = 'inputform.min.tpl'
 
     def __new__(cls, options, styles=''):
         fields = []
@@ -45,7 +45,7 @@ class UiInputForm(UiFormsMacro):
 
 
 class UiQBuilder(UiFormsMacro):
-    tpl_name = 'qbuilder.tpl'
+    tpl_name = 'qbuilder.min.tpl'
 
     def __new__(cls, options, styles=''):
         filters = []
@@ -76,7 +76,7 @@ class UiQBuilder(UiFormsMacro):
 
 
 class UiLoginForm(UiFormsMacro):
-    tpl_name = 'loginform.tpl'
+    tpl_name = 'loginform.min.tpl'
 
     def __new__(cls, options, styles=''):
         return cls.tpl(**{

@@ -1,4 +1,4 @@
-{% extends "webui/html.tpl" %}
+{% extends "webui/html.min.tpl" %}
 
 {% block b_html_head %}
   <link rel="stylesheet" type="text/css" href="/static/webui/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css">

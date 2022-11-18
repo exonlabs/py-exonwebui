@@ -19,7 +19,7 @@ class UiBaseMacro(str):
     @classmethod
     def tpl(cls, **params):
         return render_template(
-            '%s/%s' % (cls.root_path, cls.tpl_name), **params) + '\n'
+            '%s/%s' % (cls.root_path, cls.tpl_name), **params)
 
     @classmethod
     def randint(cls, index=10000):

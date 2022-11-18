@@ -1,4 +1,4 @@
-{% extends "webui/simplepage.tpl" %}
+{% extends "webui/simplepage.min.tpl" %}
 
 {% block b_page_head %}
   {{super()}}
