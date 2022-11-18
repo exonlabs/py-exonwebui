@@ -36,7 +36,10 @@
   {{super()}}
   <script type="text/javascript">
     $(document).ready(function(){
-      WebUI.loader.load("GET","{{load_url}}",null,function(r){$("#formbody").html(r.payload)});
+      WebUI.loader.load("GET","{{load_url}}",null,function(r){
+        WebUI.doctitle.update(r.doctitle);
+        $("#formbody").html(r.payload);
+      });
     });
   </script>
 {% endblock %}
