@@ -7,7 +7,8 @@ from argparse import ArgumentParser
 from exonutils.webapp.server import SimpleWebServer
 from exonutils.webapp.extserver import ExtWebServer, WebArbiter
 
-from exonwebui import __file__ as exonwebui_path
+from exonwebui import __path__ as exonwebui_path
+from exonwebui_static import __path__ as exonwebui_static_path
 from exonwebui.utils.locale import init_locale
 from exonwebui.utils.gzip import init_gzip
 
@@ -56,6 +57,20 @@ def init_app(websrv, args):
         init_gzip(websrv.app)
 
 
+def cleanup():
+    base_path = os.path.abspath(os.path.dirname(__file__))
+
+    link_path = os.path.join(base_path, 'static', 'webui', 'vendor')
+    if os.path.isfile(link_path) or os.path.islink(link_path):
+        os.unlink(link_path)
+
+    # clean exonwebui resources links
+    for n in ['templates', 'static']:
+        link_path = os.path.join(base_path, n, 'webui')
+        if os.path.isfile(link_path) or os.path.islink(link_path):
+            os.unlink(link_path)
+
+
 def main():
     logger = logging.getLogger()
     logger.name = 'main'
@@ -82,16 +97,24 @@ def main():
         if args.debug >= 3:
             APP_OPTIONS['templates_auto_reload'] = True
 
-        # adjust resources links
+        cleanup()
+
         base_path = os.path.abspath(os.path.dirname(__file__))
+
+        # adjust exonwebui resources links
         for n in ['templates', 'static']:
             link_path = os.path.join(base_path, n, 'webui')
-            if os.path.isfile(link_path) or os.path.islink(link_path):
-                os.unlink(link_path)
-            src_dir = os.path.join(
-                os.path.dirname(exonwebui_path), n)
+            src_dir = os.path.join(exonwebui_path[0], n)
             if os.path.exists(src_dir):
                 os.symlink(src_dir, link_path)
+
+        # adjust exonwebui_static vendor resources links
+        link_path = os.path.join(base_path, 'static', 'webui', 'vendor')
+        if os.path.isfile(link_path) or os.path.islink(link_path):
+            os.unlink(link_path)
+        src_dir = exonwebui_static_path[0]
+        if os.path.exists(src_dir):
+            os.symlink(src_dir, link_path)
 
         websrv = SimpleWebServer(
             name='WebUiPortal', options=APP_OPTIONS,
@@ -117,6 +140,8 @@ def main():
     except Exception as e:
         logger.fatal(str(e), exc_info=args.debug)
         sys.exit(1)
+    finally:
+        cleanup()
 
 
 if __name__ == '__main__':
