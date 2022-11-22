@@ -1,13 +1,13 @@
 <script type="text/javascript">
-  WebUI.loadCss.after("/static/webui/vendor/querybuilder/custom-query-builder.min.css","link[href$='webui.min.css']");
+  WebUI.loadCss.after("/static/vendor/querybuilder/custom-query-builder.min.css","link[href$='webui.min.css']");
 </script>
 <div id="qbuilder_{{id}}" class="qbuilder qbuilder-wrapper {{styles}}"></div>
 <script type="text/javascript">
   $(document).ready(function(){
-    WebUI.loadScript("/static/webui/vendor/js/extendext.min.js",function(){
-    WebUI.loadScript("/static/webui/vendor/js/doT.min.js",function(){
-    WebUI.loadScript("/static/webui/vendor/js/moment.min.js",function(){
-    WebUI.loadScript("/static/webui/vendor/querybuilder/custom-query-builder.min.js",function(){
+    WebUI.loadScript("/static/vendor/js/extendext.min.js",function(){
+    WebUI.loadScript("/static/vendor/js/doT.min.js",function(){
+    WebUI.loadScript("/static/vendor/js/moment.min.js",function(){
+    WebUI.loadScript("/static/vendor/querybuilder/custom-query-builder.min.js",function(){
       $('#qbuilder_{{id}}').queryBuilder({
         plugins:['invert','not-group'],
         filters:[{{filters|safe}}],

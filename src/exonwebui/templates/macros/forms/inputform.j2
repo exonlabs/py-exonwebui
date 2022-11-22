@@ -109,21 +109,21 @@
 <script type="text/javascript">
   $(document).ready(function(){
     if($("#form_{{id}} input[data-plugin='passStrengthify']").length){
-      WebUI.loadScript("/static/webui/vendor/js/passstrength.min.js",function(){
+      WebUI.loadScript("/static/vendor/js/passstrength.min.js",function(){
         $("#form_{{id}} input[data-plugin='passStrengthify']").each(function(){
           $(this).passStrengthify({minimum:1,security:1})});
       });
     };
     if($("#form_{{id}} input[data-plugin='datetimepicker']").length){
-      WebUI.loadCss.before("/static/webui/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui_inputform.min.css']");
-      WebUI.loadScript("/static/webui/vendor/js/moment.min.js",function(){
-      WebUI.loadScript("/static/webui/vendor/datetimepicker/datetimepicker.min.js",function(){
+      WebUI.loadCss.before("/static/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui_inputform.min.css']");
+      WebUI.loadScript("/static/vendor/js/moment.min.js",function(){
+      WebUI.loadScript("/static/vendor/datetimepicker/datetimepicker.min.js",function(){
         $("#form_{{id}} input[data-plugin='datetimepicker']").each(function(){
           $(this).datetimepicker({format:$(this).data('format'),useCurrent:true,showClear:true,showClose:true})});
       })});
     };
     if($("#form_{{id}} input[data-plugin='bsCustomFileInput']").length){
-      WebUI.loadScript("/static/webui/vendor/js/bs-custom-file-input.min.js",function(){
+      WebUI.loadScript("/static/vendor/js/bs-custom-file-input.min.js",function(){
         bsCustomFileInput.init("#form_{{id}} input[data-plugin='bsCustomFileInput']");
         $("#form_{{id}} input[data-plugin='bsCustomFileInput']").on("change",function(e){
           var m=parseInt($(this).data('maxsize')),fsizechk=true;
