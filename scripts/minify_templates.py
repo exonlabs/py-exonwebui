@@ -13,9 +13,9 @@ def minify_tpl(src_path, dst_path):
 def find_templates(target):
     for root, dirs, files in os.walk(target):
         for fname in files:
-            if fname[-4:] == '.tpl' and fname[-8:] != '.min.tpl':
+            if fname[-3:] == '.j2' and fname[-7:] != '.min.j2':
                 src_path = os.path.join(root, fname)
-                dst_path = os.path.join(root, "%s.min.tpl" % fname[:-4])
+                dst_path = os.path.join(root, "%s.min.j2" % fname[:-3])
                 yield (src_path, dst_path)
 
 

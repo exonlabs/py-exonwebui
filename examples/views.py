@@ -37,9 +37,9 @@ class Index(MenuBoardView):
             return self.redirect(url_for('index'))
 
         if session.get('simpleboard', False):
-            return tpl('simpleboard.min.tpl', **params)
+            return tpl('simpleboard.min.j2', **params)
         else:
-            return tpl('mainboard.min.tpl', **params)
+            return tpl('mainboard.min.j2', **params)
 
 
 class Home(MenuBoardView):
@@ -52,7 +52,7 @@ class Home(MenuBoardView):
             lazy_gettext('Home'), icon='fa-home', url='#home')
 
     def get(self, **kwargs):
-        html = tpl('option_panel.min.tpl', message=gettext("Welcome"))
+        html = tpl('option_panel.min.j2', message=gettext("Welcome"))
         return self.reply(html, doctitle=gettext('Home'))
 
 
@@ -202,7 +202,7 @@ class InputForm(MenuBoardView):
                  'helpguide': gettext("Extra detailed long help for fields")},
             ]
         }
-        html = tpl('input_form.min.tpl', contents=UiInputForm(options))
+        html = tpl('input_form.min.j2', contents=UiInputForm(options))
         return self.reply(html, doctitle=gettext('Input Form'))
 
     def post(self, **kwargs):
@@ -283,7 +283,7 @@ class Datagrid(MenuBoardView):
                 {'label': 'Op 3 with Reload', 'action': "group_op3"},
             ],
         }
-        html = tpl('data_grid.min.tpl', contents=UiStdDataGrid(options))
+        html = tpl('data_grid.min.j2', contents=UiStdDataGrid(options))
         return self.reply(html, doctitle=gettext('Datagrid'))
 
     def post(self, **kwargs):
@@ -407,7 +407,7 @@ class QueryBuilder(MenuBoardView):
                 ],
             },
         }
-        html = tpl('query_builder.min.tpl', contents=UiQBuilder(options))
+        html = tpl('query_builder.min.j2', contents=UiQBuilder(options))
         return self.reply(html, doctitle=gettext('Query Builder'))
 
 
@@ -425,7 +425,7 @@ class Loader(MenuBoardView):
         from exonwebui.macros.basic import UiAlert
         html = UiAlert('message', gettext('loaded after delay'),
                        styles='p-3', dismiss=False)
-        html += tpl('progress_loader.min.tpl')
+        html += tpl('progress_loader.min.j2')
 
         # simulate delay
         time.sleep(3)
@@ -478,7 +478,7 @@ class Loginpage(MenuBoardView):
                 'doc_title': "WebUI",
                 'load_url': "%s/load" % url_for('loginpage'),
             }
-            return tpl('loginpage.min.tpl', **params)
+            return tpl('loginpage.min.j2', **params)
 
     def post(self, **kwargs):
         username = request.form.get('username', '')
