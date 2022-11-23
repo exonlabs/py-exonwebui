@@ -1,10 +1,14 @@
 {% extends "webui/html.min.j2" %}
 
 {% block b_html_head %}
-  <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/vendor/fontawesome/css/fa4.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/vendor/pnotify/pnotify.min.css">
-  <link rel="stylesheet" type="text/css" href="/static/vendor/metismenu/metisMenu.min.css">
+  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css"
+   onerror="this.onerror=null;this.href='/static/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css';">
+  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/fontawesome/css/fa4.min.css" 
+    onerror="this.onerror=null;this.href='/static/vendor/fontawesome/css/fa4.min.css';">
+  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/pnotify/pnotify.min.css" 
+    onerror="this.onerror=null;this.href='/static/vendor/pnotify/pnotify.min.css';">
+  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/metismenu/metisMenu.min.css"
+   onerror="this.onerror=null;this.href='/static/vendor/metismenu/metisMenu.min.css';">
   {% block b_board_head %}
     <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
     <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_menuboard.min.css">
@@ -67,11 +71,16 @@
     </div>
     <div id="board-backdrop" class="d-print-none"></div>
   {% endblock %}
-  <script type="text/javascript" src="/static/vendor/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/vendor/jquery/jquery.i18n.min.js"></script>
-  <script type="text/javascript" src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="/static/vendor/pnotify/pnotify.min.js"></script>
-  <script type="text/javascript" src="/static/vendor/metismenu/metisMenu.min.js"></script>
+  <script type="text/javascript" src="{{cdn_url}}/pool/jquery/jquery.min.js"
+   onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/jquery/jquery.min.js></script>');"></script>
+  <script type="text/javascript" src="{{cdn_url}}/pool/jquery/jquery.i18n.min.js"
+   onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/jquery/jquery.i18n.min.js></script>');"></script>
+  <script type="text/javascript" src="{{cdn_url}}/pool/bootstrap/bootstrap.bundle.min.js" 
+    onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/bootstrap/bootstrap.bundle.min.js></script>');"></script>
+  <script type="text/javascript" src="{{cdn_url}}/pool/pnotify/pnotify.min.js" 
+    onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/pnotify/pnotify.min.js></script>');"></script>
+  <script type="text/javascript" src="{{cdn_url}}/pool/metismenu/metisMenu.min.js" 
+    onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/metismenu/metisMenu.min.js></script>');"></script>
   {% block b_board_scripts %}
     <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
     <script type="text/javascript" src="/static/webui/js/webui_menuboard.min.js"></script>

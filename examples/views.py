@@ -9,7 +9,7 @@ from exonwebui.menuboard import MenuBoardView
 
 # board menu buffer
 MENU_BUFFER = {}
-
+cdn_url = 'https://cdn.jsdelivr.net/gh/exonlabs/exonwebui-static@1.0'
 
 class Index(MenuBoardView):
     routes = [('/', 'index')]
@@ -24,6 +24,7 @@ class Index(MenuBoardView):
         global MENU_BUFFER
 
         params = {
+            'cdn_url': cdn_url,
             'doc_lang': session.get('lang', ''),
             'doc_langdir': session.get('lang_dir', ''),
             'doc_title': "WebUI",
@@ -473,6 +474,7 @@ class Loginpage(MenuBoardView):
             return self.reply(html, doctitle=gettext('Loginpage'))
         else:
             params = {
+                'cdn_url': cdn_url,
                 'doc_lang': session.get('lang', ''),
                 'doc_langdir': session.get('lang_dir', ''),
                 'doc_title': "WebUI",
