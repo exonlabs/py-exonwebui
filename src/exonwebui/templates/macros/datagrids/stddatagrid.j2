@@ -1,11 +1,14 @@
 <script type="text/javascript">
-  WebUI.loadCss.after("/static/vendor/datatables/datatables.min.css","link[href$='webui.min.css']");
-  WebUI.loadCss.after("/static/webui/css/webui_datagrid.min.css","link[href$='datatables.min.css']");
+  WebUI.loadCss.after("{{cdn_url}}/pool/datatables/datatables.min.css", 
+    "/static/vendor/datatables/datatables.min.css","link[href$='webui.min.css']");
+  WebUI.loadCss.after("/static/webui/css/webui_datagrid.min.css",
+    "/static/webui/css/webui_datagrid.min.css","link[href$='datatables.min.css']");
 </script>
 <table id="tblDataGrid_{{id}}" class="table table-sm table-hover text-nowrap w-100 {{styles}}"></table>
 <script type="text/javascript">
   $(document).ready(function(){
-    WebUI.loadScript("/static/vendor/datatables/datatables.min.js",function(){
+    WebUI.loadScript("{{cdn_url}}/pool/datatables/datatables.min.js",
+      "/static/vendor/datatables/datatables.min.js",function(){
       function dataTables_expfname(){var tz=(new Date()).getTimezoneOffset()*60000,ts=(new Date(Date.now()-tz)).toISOString().slice(0,19).replace(/T/g,'').replace(/-/g,'').replace(/:/g,'');return '{{export.file_prefix}}_'+ts};
       $.fn.dataTable.ext.errMode='none';
       $.fn.DataTable.ext.pager.numbers_length=5;

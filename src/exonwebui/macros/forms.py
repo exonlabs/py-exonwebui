@@ -36,6 +36,7 @@ class UiInputForm(UiFormsMacro):
                 'append': k.get('append', []),
             })
         return cls.tpl(**{
+            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
             'submit_url': options.get('submit_url', ''),
             'fields': fields,
@@ -64,6 +65,7 @@ class UiQBuilder(UiFormsMacro):
                 'validation': k.get('validation', None),
             }))
         return cls.tpl(**{
+            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
             'filters': ','.join(filters),
             'rules': json.dumps(options.get('initial_rules', None)),
@@ -80,6 +82,7 @@ class UiLoginForm(UiFormsMacro):
 
     def __new__(cls, options, styles=''):
         return cls.tpl(**{
+            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
             'submit_url': options.get('submit_url', ''),
             'authkey': options.get('authkey', ''),

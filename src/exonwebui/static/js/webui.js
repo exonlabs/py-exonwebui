@@ -250,31 +250,38 @@ var WebUI = function($, ui) {
   };
 
   ui.loadCss = {
-    after: function(url, selector) {
-      if(!$("head link[href='"+url+"']").length) {
-        if(selector !== undefined) $(selector).after('<link rel="stylesheet" type="text/css" href="'+url+'">');
-        else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
+    after: function(cdnurl, localurl, selector) {
+      if(!$("head link[href='"+cdnurl+"']").length) {
+        if(selector !== undefined) $(selector).after('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
+        else $('head').append('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
       };
     },
-    before: function(url, selector) {
-      if(!$("head link[href='"+url+"']").length) {
-        if(selector !== undefined) $(selector).before('<link rel="stylesheet" type="text/css" href="'+url+'">');
-        else $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'">');
+    before: function(cdnurl, localurl, selector) {
+      if(!$("head link[href='"+cdnurl+"']").length) {
+        if(selector !== undefined) $(selector).before('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
+        else $('head').append('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
       };
     }
   };
 
-  ui.loadScript = function(url, fSuccess) {
-    if(!$("body script[_src='"+url+"']").length) {
-      $.getScript(url)
+  ui.loadScript = function(cdnurl, localurl, fSuccess) {
+    if(!$("body script[_src='"+cdnurl+"']").length) {
+      $.getScript(cdnurl)
         .done(function(script, status){
-          $('body').append('<script type="text/javascript" _src="'+url+'"></script>');
+          $('body').append('<script type="text/javascript" _src="'+cdnurl+'"></script>');
           if(typeof fSuccess === "function") fSuccess();
         })
         .fail(function(xhr, status, error) {
-          ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
-            $.i18n._('Please reload page and try again.'),null,true);
-          console.error('failed loading '+url+' ['+error+']');
+          $.getScript(localurl)
+            .done(function(script, status){
+              $('body').append('<script type="text/javascript" _src="'+cdnurl+'"></script>');
+              if(typeof fSuccess === "function") fSuccess();
+            })
+            .fail(function(){
+              ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
+              $.i18n._('Please reload page and try again.'),null,true);
+              console.error('failed loading '+url+' ['+error+']');
+            })
         });
     }
     else if(typeof fSuccess === "function") fSuccess();

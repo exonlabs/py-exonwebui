@@ -108,6 +108,7 @@ class InputForm(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiInputForm
         options = {
+            'cdn_url': cdn_url,
             'form_id': "1234",
             'submit_url': "/inputform",
             'fields': [
@@ -244,6 +245,7 @@ class Datagrid(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
         options = {
+            'cdn_url': cdn_url,
             'grid_id': "1234",
             'base_url': "/datagrid",
             'load_url': "/datagrid/loaddata",
@@ -355,6 +357,7 @@ class QueryBuilder(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiQBuilder
         options = {
+            'cdn_url': cdn_url,
             'form_id': "1234",
             'filters': [
                 {'id': 'field1', 'label': 'Field 1', 'type': 'string',
@@ -469,7 +472,7 @@ class Loginpage(MenuBoardView):
 
         if action == 'load':
             html = UiLoginForm(
-                {'submit_url': url_for('loginpage'), 'authkey': '123456'},
+                {'cdn_url': cdn_url, 'submit_url': url_for('loginpage'), 'authkey': '123456'},
                 styles="text-white bg-secondary")
             return self.reply(html, doctitle=gettext('Loginpage'))
         else:
