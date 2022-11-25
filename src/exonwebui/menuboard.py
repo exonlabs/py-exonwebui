@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import jsonify, flash, get_flashed_messages
+from flask import redirect, jsonify, flash, get_flashed_messages
 from exonutils.webapp.view import BaseWebView
 
 from .macros.basic import UiAlert
@@ -42,17 +42,24 @@ class MenuBoardView(BaseWebView):
         return menu_buffer
 
     @classmethod
-    def redirect(cls, url, blank=False):
+    def redirect(cls, url, blank=False, dyn_jsonify=True):
+        if dyn_jsonify and not cls.is_jsrequest():
+            return redirect(url)
+
         return jsonify(redirect=url, blank=blank)
 
     @classmethod
-    def reply(cls, response, **params):
+    def reply(cls, response, dyn_jsonify=True, **params):
+        if dyn_jsonify and not cls.is_jsrequest():
+            return response
+
         if response is not None:
             params['payload'] = response
 
         notifications = get_flashed_messages(with_categories=True)
         if notifications:
-            params['notifications'] = []
+            if type(params.get('notifications')) is not list:
+                params['notifications'] = []
             for cat, msg in notifications:
                 if '.' in cat:
                     _cat, opts = cat.split('.', 1)
