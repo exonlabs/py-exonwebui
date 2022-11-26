@@ -21,6 +21,8 @@ logging.addLevelName(logging.CRITICAL, "FATAL")
 HOST = "0.0.0.0"
 PORT = 8000
 
+CDN_URL = 'https://cdn.jsdelivr.net/gh/exonlabs/exonwebui-static@1.0/pool'
+
 APP_OPTIONS = {
     'secret_key': "0123456789ABCDEF",
     'max_content_length': 10485760,  # 10MiB
@@ -90,12 +92,19 @@ def main():
         pr.add_argument(
             '--ext-gzip', dest='ext_gzip', action='store_true',
             help="use extended gzip compression module")
+        pr.add_argument(
+            '--use-cdn', dest='use_cdn', action='store_true',
+            help="enable use of cdn for static contents")
         args = pr.parse_args()
 
         if args.debug > 0:
             logger.setLevel(logging.DEBUG)
         if args.debug >= 3:
             APP_OPTIONS['templates_auto_reload'] = True
+
+        # set templates CDN url
+        if args.use_cdn:
+            APP_OPTIONS['TPL_CDN_URL'] = CDN_URL
 
         cleanup()
 

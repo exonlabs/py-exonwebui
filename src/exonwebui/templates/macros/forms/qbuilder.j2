@@ -1,15 +1,13 @@
 <script type="text/javascript">
-  WebUI.loadCss.after("{{cdn_url}}/pool/querybuilder/custom-query-builder.min.css",
-    "/static/vendor/querybuilder/custom-query-builder.min.css","link[href$='webui.min.css']");
+  WebUI.loadCssCdn("{{cdn_url}}","querybuilder/custom-query-builder.min.css");
 </script>
 <div id="qbuilder_{{id}}" class="qbuilder qbuilder-wrapper {{styles}}"></div>
 <script type="text/javascript">
   $(document).ready(function(){
-    WebUI.loadScript("{{cdn_url}}/pool/js/extendext.min.js","/static/vendor/js/extendext.min.js",function(){
-    WebUI.loadScript("{{cdn_url}}/pool/js/doT.min.js","/static/vendor/js/doT.min.js",function(){
-    WebUI.loadScript("{{cdn_url}}/pool/js/moment.min.js","/static/vendor/js/moment.min.js",function(){
-    WebUI.loadScript("{{cdn_url}}/pool/querybuilder/custom-query-builder.min.js",
-      "/static/vendor/querybuilder/custom-query-builder.min.js",function(){
+    WebUI.loadScriptCdn("{{cdn_url}}","js/extendext.min.js",function(){
+    WebUI.loadScriptCdn("{{cdn_url}}","js/doT.min.js",function(){
+    WebUI.loadScriptCdn("{{cdn_url}}","js/moment.min.js",function(){
+    WebUI.loadScriptCdn("{{cdn_url}}","querybuilder/custom-query-builder.min.js",function(){
       $('#qbuilder_{{id}}').queryBuilder({
         plugins:['invert','not-group'],
         filters:[{{filters|safe}}],

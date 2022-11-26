@@ -20,7 +20,7 @@
 </form>
 <script type="text/javascript">
   $(document).ready(function(){
-    WebUI.loadScript("{{cdn_url}}/pool/cryptojs/crypto-js.min.js","/static/vendor/cryptojs/crypto-js.min.js",function(){
+    WebUI.loadScriptCdn("{{cdn_url}}","cryptojs/crypto-js.min.js",function(){
       $("#frmLogin_{{id}}").submit(function(e){
         e.preventDefault(); WebUI.notify.clear();
         var u=$("#frmLogin_{{id}} input[name=username]"),p=$("#frmLogin_{{id}} input[name=password]");

@@ -40,10 +40,10 @@ class UiStdDataGrid(UiDataGridsMacro):
         }
         export.update(options.get('export', {}))
         return cls.tpl(**{
-            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('grid_id', cls.randint()),
             'baseurl': options.get('base_url', ''),
             'loadurl': options.get('load_url', ''),
+            'cdn_url': options.get('cdn_url') or '',
             'lenMenu': options.get('length_menu', [25, 50, 100, -1]),
             'columns': ','.join(columns),
             'order': json.dumps(options.get('order', [2, 'asc'])),

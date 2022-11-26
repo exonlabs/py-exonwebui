@@ -1,12 +1,10 @@
 {% extends "webui/html.min.j2" %}
+{% import "webui/macros/cdn.min.j2" as cdn %}
 
 {% block b_html_head %}
-  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css"
-   onerror="this.onerror=null;this.href='/static/vendor/bootstrap/bootstrap{% if doc_langdir == 'rtl' %}-rtl{% endif %}.min.css';">
-  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/fontawesome/css/fa4.min.css" 
-    onerror="this.onerror=null;this.href='/static/vendor/fontawesome/css/fa4.min.css';">
-  <link rel="stylesheet" type="text/css" href="{{cdn_url}}/pool/pnotify/pnotify.min.css" 
-    onerror="this.onerror=null;this.href='/static/vendor/pnotify/pnotify.min.css';">
+  {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+("-rtl" if doc_langdir=='rtl' else "")+".min.css")}}
+  {{cdn.css_link(cdn_url,"fontawesome/css/fa4.min.css")}}
+  {{cdn.css_link(cdn_url,"pnotify/pnotify.min.css")}}
   {% block b_board_head %}
     <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
     <link rel="stylesheet" type="text/css" href="/static/webui/css/webui_simpleboard.min.css">
@@ -55,14 +53,10 @@
       </div>
     </div>
   {% endblock %}
-  <script type="text/javascript" src="{{cdn_url}}/pool/jquery/jquery.min.js"
-   onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/jquery/jquery.min.js></script>');"></script>
-  <script type="text/javascript" src="{{cdn_url}}/pool/jquery/jquery.i18n.min.js"
-   onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/jquery/jquery.i18n.min.js></script>');"></script>
-  <script type="text/javascript" src="{{cdn_url}}/pool/bootstrap/bootstrap.bundle.min.js" 
-    onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/bootstrap/bootstrap.bundle.min.js></script>');"></script>
-  <script type="text/javascript" src="{{cdn_url}}/pool/pnotify/pnotify.min.js" 
-    onerror="this.onerror=null;document.write('<script type=text/javascript src=/static/vendor/pnotify/pnotify.min.js></script>');"></script>
+  {{cdn.js_script(cdn_url,"jquery/jquery.min.js")}}
+  {{cdn.js_script(cdn_url,"jquery/jquery.i18n.min.js")}}
+  {{cdn.js_script(cdn_url,"bootstrap/bootstrap.bundle.min.js")}}
+  {{cdn.js_script(cdn_url,"pnotify/pnotify.min.js")}}
   {% block b_board_scripts %}
     <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
     <script type="text/javascript" src="/static/webui/js/webui_simpleboard.min.js"></script>

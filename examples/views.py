@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import time
 from random import randint
-from flask import session, flash, request, url_for, render_template as tpl
+from flask import current_app, session, flash, request, \
+    url_for, render_template as tpl
 from flask_babelex import gettext, lazy_gettext
 
 from exonutils.buffers.filebuffer import SimpleFileBuffer
@@ -9,7 +10,7 @@ from exonwebui.menuboard import MenuBoardView
 
 # board menu buffer
 MENU_BUFFER = {}
-cdn_url = 'https://cdn.jsdelivr.net/gh/exonlabs/exonwebui-static@1.0'
+
 
 class Index(MenuBoardView):
     routes = [('/', 'index')]
@@ -24,10 +25,10 @@ class Index(MenuBoardView):
         global MENU_BUFFER
 
         params = {
-            'cdn_url': cdn_url,
             'doc_lang': session.get('lang', ''),
             'doc_langdir': session.get('lang_dir', ''),
             'doc_title': "WebUI",
+            'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'menu': MENU_BUFFER,
         }
 
@@ -108,9 +109,9 @@ class InputForm(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiInputForm
         options = {
-            'cdn_url': cdn_url,
             'form_id': "1234",
             'submit_url': "/inputform",
+            'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'fields': [
                 {'type': 'checkbox', 'label': gettext('Validation'),
                  'options': [{'label': gettext('Server side validation'),
@@ -245,10 +246,10 @@ class Datagrid(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
         options = {
-            'cdn_url': cdn_url,
             'grid_id': "1234",
             'base_url': "/datagrid",
             'load_url': "/datagrid/loaddata",
+            'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'length_menu': [10, 50, 100, 250, -1],
             'columns': [
                 {'id': 'field1', 'title': "Field Name 1"},
@@ -327,7 +328,7 @@ class Datagrid(MenuBoardView):
 
         if action in ['single_op1', 'single_op2',
                       'group_op1', 'group_op2', 'group_op3']:
-            rows = request.form.getlist('rows[]')
+            rows = request.form.getlist('items[]')
             if len(rows) > 20:
                 rows = rows[:21]
                 rows[20] = '...'
@@ -357,8 +358,8 @@ class QueryBuilder(MenuBoardView):
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiQBuilder
         options = {
-            'cdn_url': cdn_url,
             'form_id': "1234",
+            'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'filters': [
                 {'id': 'field1', 'label': 'Field 1', 'type': 'string',
                  'operators': ['equal', 'not_equal', 'contains']},
@@ -471,16 +472,18 @@ class Loginpage(MenuBoardView):
         action = kwargs.get('action') or ''
 
         if action == 'load':
-            html = UiLoginForm(
-                {'cdn_url': cdn_url, 'submit_url': url_for('loginpage'), 'authkey': '123456'},
-                styles="text-white bg-secondary")
+            html = UiLoginForm({
+                'cdn_url': current_app.config.get('TPL_CDN_URL'),
+                'submit_url': url_for('loginpage'),
+                'authkey': '123456',
+            }, styles="text-white bg-secondary")
             return self.reply(html, doctitle=gettext('Loginpage'))
         else:
             params = {
-                'cdn_url': cdn_url,
                 'doc_lang': session.get('lang', ''),
                 'doc_langdir': session.get('lang_dir', ''),
                 'doc_title': "WebUI",
+                'cdn_url': current_app.config.get('TPL_CDN_URL'),
                 'load_url': "%s/load" % url_for('loginpage'),
             }
             return tpl('loginpage.min.j2', **params)

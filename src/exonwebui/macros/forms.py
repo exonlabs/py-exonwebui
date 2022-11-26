@@ -30,18 +30,18 @@ class UiInputForm(UiFormsMacro):
                 'required': k.get('required', False),
                 'confirm': k.get('confirm', False),
                 'strength': k.get('strength', False),
-                'help': k.get('help', ''),
-                'helpguide': k.get('helpguide', ''),
+                'help': k.get('help') or '',
+                'helpguide': k.get('helpguide') or '',
                 'prepend': k.get('prepend', []),
                 'append': k.get('append', []),
             })
         return cls.tpl(**{
-            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
-            'submit_url': options.get('submit_url', ''),
+            'submit_url': options.get('submit_url') or '',
+            'cdn_url': options.get('cdn_url') or '',
             'fields': fields,
             'styles': styles,
-            'jscript': options.get('jscript', ''),
+            'jscript': options.get('jscript') or '',
         })
 
 
@@ -65,8 +65,8 @@ class UiQBuilder(UiFormsMacro):
                 'validation': k.get('validation', None),
             }))
         return cls.tpl(**{
-            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
+            'cdn_url': options.get('cdn_url') or '',
             'filters': ','.join(filters),
             'rules': json.dumps(options.get('initial_rules', None)),
             'allow_groups': options.get('allow_groups', '1'),
@@ -82,10 +82,10 @@ class UiLoginForm(UiFormsMacro):
 
     def __new__(cls, options, styles=''):
         return cls.tpl(**{
-            'cdn_url': options.get('cdn_url', ''),
             'id': options.get('form_id', cls.randint()),
-            'submit_url': options.get('submit_url', ''),
-            'authkey': options.get('authkey', ''),
+            'submit_url': options.get('submit_url') or '',
+            'cdn_url': options.get('cdn_url') or '',
+            'authkey': options.get('authkey') or '',
             'btn_style': options.get('btn_style', 'btn-primary'),
             'styles': styles,
         })

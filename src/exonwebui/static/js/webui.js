@@ -249,42 +249,36 @@ var WebUI = function($, ui) {
     }
   };
 
-  ui.loadCss = {
-    after: function(cdnurl, localurl, selector) {
-      if(!$("head link[href='"+cdnurl+"']").length) {
-        if(selector !== undefined) $(selector).after('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
-        else $('head').append('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
-      };
-    },
-    before: function(cdnurl, localurl, selector) {
-      if(!$("head link[href='"+cdnurl+"']").length) {
-        if(selector !== undefined) $(selector).before('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
-        else $('head').append('<link rel="stylesheet" type="text/css" href="'+cdnurl+'" onerror="this.onerror=null;this.href=\''+localurl+'\';">');
-      };
-    }
+  ui.static_local_url_prefix = "/static/vendor";
+
+  ui.loadCss = function(url, altUrl) {
+    if(!$("head link[href='"+url+"']").length) {
+      $('head').append('<link rel="stylesheet" type="text/css" href="'+url+'" '+(altUrl?'onerror="this.onerror=null;this.href=\''+altUrl+'\'"':'')+'>');
+    };
+  };
+  ui.loadCssCdn = function(cdnUrl, resourcePath) {
+    if(!cdnUrl) ui.loadCss(ui.static_local_url_prefix+'/'+resourcePath);
+    else ui.loadCss(cdnUrl+'/'+resourcePath,ui.static_local_url_prefix+'/'+resourcePath);
   };
 
-  ui.loadScript = function(cdnurl, localurl, fSuccess) {
-    if(!$("body script[_src='"+cdnurl+"']").length) {
-      $.getScript(cdnurl)
-        .done(function(script, status){
-          $('body').append('<script type="text/javascript" _src="'+cdnurl+'"></script>');
-          if(typeof fSuccess === "function") fSuccess();
-        })
-        .fail(function(xhr, status, error) {
-          $.getScript(localurl)
-            .done(function(script, status){
-              $('body').append('<script type="text/javascript" _src="'+cdnurl+'"></script>');
-              if(typeof fSuccess === "function") fSuccess();
-            })
-            .fail(function(){
-              ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' +
-              $.i18n._('Please reload page and try again.'),null,true);
-              console.error('failed loading '+url+' ['+error+']');
-            })
-        });
-    }
-    else if(typeof fSuccess === "function") fSuccess();
+  ui.loadScript = function(url, fSuccess, fError) {
+    if($("body script[_src='"+url+"']").length) {
+      if(typeof fSuccess === "function") return fSuccess()};
+    $.getScript(url)
+      .done(function(script, status){
+        $('body').append('<script type="text/javascript" _src="'+url+'"></script>');
+        if(typeof fSuccess === "function") fSuccess();
+      })
+      .fail(function(xhr, status, error) {
+        if(typeof fError === "function") fError();
+        else ui.notify.warn($.i18n._('Failed to load all page contents !!') + '<br>' + $.i18n._('Please reload page and try again.'),null,true);
+      });
+  };
+  ui.loadScriptCdn = function(cdnUrl, resourcePath, fSuccess, fError) {
+    if(!cdnUrl) return ui.loadScript(ui.static_local_url_prefix+'/'+resourcePath, fSuccess, fError);
+    ui.loadScript(cdnUrl+'/'+resourcePath, fSuccess, function(){
+      ui.loadScript(ui.static_local_url_prefix+'/'+resourcePath, fSuccess, fError);
+    });
   };
 
   $(document).ready(function() {

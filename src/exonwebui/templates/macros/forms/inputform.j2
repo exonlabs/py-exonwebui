@@ -13,8 +13,8 @@
 {% endmacro %}
 
 <script type="text/javascript">
-  WebUI.loadCss.after("/static/webui/css/webui_inputform.min.css",
-    "/static/webui/css/webui_inputform.min.css","link[href$='webui.min.css']");
+  WebUI.loadCssCdn("{{cdn_url}}","datetimepicker/datetimepicker.min.css");
+  WebUI.loadCss("/static/webui/css/webui_inputform.min.css");
 </script>
 <form id="form_{{id}}" class="form-wrapper {{styles}}" method="POST" action="{{submit_url}}" novalidate>
   {% for f in fields %}
@@ -110,24 +110,20 @@
 <script type="text/javascript">
   $(document).ready(function(){
     if($("#form_{{id}} input[data-plugin='passStrengthify']").length){
-      WebUI.loadScript("{{cdn_url}}/pool/js/passstrength.min.js","/static/vendor/js/passstrength.min.js",function(){
+      WebUI.loadScriptCdn("{{cdn_url}}","js/passstrength.min.js",function(){
         $("#form_{{id}} input[data-plugin='passStrengthify']").each(function(){
           $(this).passStrengthify({minimum:1,security:1})});
       });
     };
     if($("#form_{{id}} input[data-plugin='datetimepicker']").length){
-      WebUI.loadCss.before("{{cdn_url}}/pool/datetimepicker/datetimepicker.min.css",
-        "/static/vendor/datetimepicker/datetimepicker.min.css","link[href$='webui_inputform.min.css']");
-      WebUI.loadScript("{{cdn_url}}/pool/js/moment.min.js","/static/vendor/js/moment.min.js",function(){
-      WebUI.loadScript("{{cdn_url}}/pool/datetimepicker/datetimepicker.min.js",
-        "/static/vendor/datetimepicker/datetimepicker.min.js",function(){
+      WebUI.loadScriptCdn("{{cdn_url}}","js/moment.min.js",function(){
+      WebUI.loadScriptCdn("{{cdn_url}}","datetimepicker/datetimepicker.min.js",function(){
         $("#form_{{id}} input[data-plugin='datetimepicker']").each(function(){
           $(this).datetimepicker({format:$(this).data('format'),useCurrent:true,showClear:true,showClose:true})});
       })});
     };
     if($("#form_{{id}} input[data-plugin='bsCustomFileInput']").length){
-      WebUI.loadScript("{{cdn_url}}/pool/js/bs-custom-file-input.min.js",
-        "/static/vendor/js/bs-custom-file-input.min.js",function(){
+      WebUI.loadScriptCdn("{{cdn_url}}","js/bs-custom-file-input.min.js",function(){
         bsCustomFileInput.init("#form_{{id}} input[data-plugin='bsCustomFileInput']");
         $("#form_{{id}} input[data-plugin='bsCustomFileInput']").on("change",function(e){
           var m=parseInt($(this).data('maxsize')),fsizechk=true;
