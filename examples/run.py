@@ -59,8 +59,6 @@ def init_app(websrv, args):
 
 
 def cleanup():
-    global BASE_PATH
-
     # clean exonwebui resources links
     for n in ['templates', 'static']:
         link_path = os.path.join(BASE_PATH, n, 'webui')
@@ -74,8 +72,6 @@ def cleanup():
 
 
 def main():
-    global BASE_PATH
-
     logger = logging.getLogger()
     logger.name = 'main'
 
