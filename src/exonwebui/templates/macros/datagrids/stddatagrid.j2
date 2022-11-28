@@ -98,21 +98,23 @@
         if(c>0){
           if(c==1){ {% for o in single_ops %}w.append('<button class="dropdown-item" data-op="{{o.action}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} }
           else{ {% for o in group_ops %}w.append('<button class="dropdown-item" data-op="{{o.action}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} };
-          w.wrapInner('<div class="dropdown-menu '+($('body').attr('dir')=='rtl'?'dropdown-menu-right':'')+'"></div>');
-          w.prepend('<button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown"><span class="title">{{gettext("Select Operation")}}</span></button>');
-          w.wrapInner('<div class="dropdown dataTables_opbtns"></div>');
-          $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
-            var op=$(this).data('op'),confirm=$(this).data('confirm');
-            var run_op = function(){WebUI.loader.load(
-              "POST","{{baseurl}}/"+op,{items:dt.rows({selected:true,search:'applied'}).ids().toArray()},
-              function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
-            if(confirm){
-              WebUI.pagelock.modal(
-                '<h5 class="m-0 py-2 text-info">{{gettext("Confirm")}}</h5>','<p>'+confirm+'</p>',
-                '<button class="btn btn-sm btn-secondary px-3" onclick="WebUI.pagelock.hide()">{{gettext("No")}}</button><button id="btnConfirmOp_{{id}}" class="btn btn-sm btn-primary px-3">{{gettext("Yes")}}</button>');
-              $('#btnConfirmOp_{{id}}').on('click',function(){WebUI.pagelock.hide();run_op()});
-            }else run_op();
-          });
+          if(w.children().length){
+            w.wrapInner('<div class="dropdown-menu '+($('body').attr('dir')=='rtl'?'dropdown-menu-right':'')+'"></div>');
+            w.prepend('<button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown"><span class="title">{{gettext("Select Operation")}}</span></button>');
+            w.wrapInner('<div class="dropdown dataTables_opbtns"></div>');
+            $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
+              var op=$(this).data('op'),confirm=$(this).data('confirm');
+              var run_op = function(){WebUI.loader.load(
+                "POST","{{baseurl}}/"+op,{items:dt.rows({selected:true,search:'applied'}).ids().toArray()},
+                function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
+              if(confirm){
+                WebUI.pagelock.modal(
+                  '<h5 class="m-0 py-2 text-info">{{gettext("Confirm")}}</h5>','<p>'+confirm+'</p>',
+                  '<button class="btn btn-sm btn-secondary px-3" onclick="WebUI.pagelock.hide()">{{gettext("No")}}</button><button id="btnConfirmOp_{{id}}" class="btn btn-sm btn-primary px-3">{{gettext("Yes")}}</button>');
+                $('#btnConfirmOp_{{id}}').on('click',function(){WebUI.pagelock.hide();run_op()});
+              }else run_op();
+            });
+          };
         };
       });
       dt.on('column-visibility.dt',search_update);
