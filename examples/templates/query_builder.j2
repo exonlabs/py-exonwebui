@@ -15,8 +15,12 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $("#btn_submit").on("click", function(){
-      var result = $("#QBuilderForm .qbuilder").queryBuilder('getRules');
-      $("#Results").html(result?JSON.stringify(result,null,2):"{{gettext('Empty Result')}}").show();
+      var result = "";
+      var res=$("#QBuilderForm .qbuilder").queryBuilder('getRules');
+      result += res?("JSON Rules:<br>"+JSON.stringify(res,null,2)):"";
+      var res=$("#QBuilderForm .qbuilder").queryBuilder('getSQL');
+      result += res?("<hr>SQL Rules:<br>"+JSON.stringify(res,null,2)):"";
+      $("#Results").html(result?result:"{{gettext('Empty Result')}}").show();
     });
     $("#btn_reset").on("click", function(){
       $("#QBuilderForm .qbuilder").queryBuilder('reset');

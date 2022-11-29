@@ -69,11 +69,11 @@ class Notify(MenuBoardView):
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        flash(gettext('error') + " STICKY_MSG", 'error.us')
-        flash(gettext('warning'), 'warn')
-        flash(gettext('info'), 'info')
-        flash(gettext('success'), 'success')
-        html = UiAlert('message', gettext('showing notifications'),
+        flash(gettext('error message') + " STICKY_MSG", 'error.us')
+        flash(gettext('warning message'), 'warn')
+        flash(gettext('info message'), 'info')
+        flash(gettext('success message'), 'success')
+        html = UiAlert('general message', gettext('showing notifications'),
                        styles='p-3', dismiss=False)
         return self.reply(html, doctitle=gettext('Notifications'))
 
@@ -89,11 +89,11 @@ class Alerts(MenuBoardView):
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        html = UiAlert('info', gettext('info'), styles='px-3 pt-3')
-        html += UiAlert('warn', gettext('warning'), styles='px-3')
-        html += UiAlert('error', gettext('error'), styles='px-3')
-        html += UiAlert('success', gettext('success'), styles='px-3')
-        html += UiAlert('message', gettext('message'), styles='px-3')
+        html = UiAlert('info', gettext('info message'), styles='px-3 pt-3')
+        html += UiAlert('warn', gettext('warning message'), styles='px-3')
+        html += UiAlert('error', gettext('error message'), styles='px-3')
+        html += UiAlert('success', gettext('success message'), styles='px-3')
+        html += UiAlert('message', gettext('general message'), styles='px-3')
         return self.reply(html, doctitle=gettext('Alerts'))
 
 

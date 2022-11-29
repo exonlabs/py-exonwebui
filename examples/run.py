@@ -8,9 +8,6 @@ from argparse import ArgumentParser
 from exonutils.webapp.server import SimpleWebServer
 from exonutils.webapp.extserver import ExtWebServer, WebArbiter
 
-from exonwebui.utils.locale import init_locale
-from exonwebui.utils.gzip import init_gzip
-
 logging.basicConfig(
     level=logging.INFO, stream=sys.stdout,
     format='%(asctime)s %(levelname)-5.5s [%(name)s] %(message)s')
@@ -52,11 +49,13 @@ def init_app(websrv, args):
     websrv.app.config['CSRF_DISABLE'] = True
 
     # adjust locale
+    from exonwebui.utils.locale import init_locale
     locale_path = os.path.join(websrv.base_path, 'locale')
     init_locale(websrv.app, locale_path=locale_path)
 
     # adjust gzip
     if args.ext_gzip:
+        from exonwebui.utils.gzip import init_gzip
         init_gzip(websrv.app)
 
 

@@ -1,21 +1,21 @@
 # Translations template for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2022 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-04 14:33+0200\n"
+"POT-Creation-Date: 2022-11-29 17:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.11.0\n"
 
 msgid "* all types allowed, max file size: 1MB"
 msgstr ""
@@ -48,6 +48,9 @@ msgid "Browse"
 msgstr ""
 
 msgid "Checkbox"
+msgstr ""
+
+msgid "Close"
 msgstr ""
 
 msgid "Columns"
@@ -126,6 +129,9 @@ msgid "Login Page"
 msgstr ""
 
 msgid "Loginpage"
+msgstr ""
+
+msgid "Logout"
 msgstr ""
 
 msgid "Must be a multiple of {0}"
@@ -356,10 +362,13 @@ msgstr ""
 msgid "equal"
 msgstr ""
 
-msgid "error"
+msgid "error message"
 msgstr ""
 
 msgid "excel"
+msgstr ""
+
+msgid "general message"
 msgstr ""
 
 msgid "greater"
@@ -371,7 +380,7 @@ msgstr ""
 msgid "in"
 msgstr ""
 
-msgid "info"
+msgid "info message"
 msgstr ""
 
 msgid "is empty"
@@ -395,9 +404,6 @@ msgstr ""
 msgid "loaded after delay"
 msgstr ""
 
-msgid "message"
-msgstr ""
-
 msgid "not between"
 msgstr ""
 
@@ -416,6 +422,9 @@ msgstr ""
 msgid "success"
 msgstr ""
 
-msgid "warning"
+msgid "success message"
+msgstr ""
+
+msgid "warning message"
 msgstr ""
 

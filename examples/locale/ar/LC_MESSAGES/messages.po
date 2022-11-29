@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-04 14:33+0200\n"
+"POT-Creation-Date: 2022-11-29 17:32+0200\n"
 "PO-Revision-Date: 2019-11-10 00:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
 "Language-Team: ar <LL@li.org>\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5)\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.8.0\n"
+"Generated-By: Babel 2.11.0\n"
 
 msgid "* all types allowed, max file size: 1MB"
 msgstr "* يسمح بجميع الأنواع ، الحد الأقصى لحجم الملف: 1MB"
@@ -50,6 +50,9 @@ msgstr "تصفح"
 
 msgid "Checkbox"
 msgstr "خانة اختيار"
+
+msgid "Close"
+msgstr "إغلاق"
 
 msgid "Columns"
 msgstr "الأعمدة"
@@ -128,6 +131,9 @@ msgstr "صفحه تسجيل الدخول"
 
 msgid "Loginpage"
 msgstr "صفحه تسجيل الدخول"
+
+msgid "Logout"
+msgstr "تسجيل خروج"
 
 msgid "Must be a multiple of {0}"
 msgstr "يجب أن يكون من مضاعفات {0}"
@@ -357,11 +363,14 @@ msgstr "ينتهي بـ"
 msgid "equal"
 msgstr "يساوي"
 
-msgid "error"
-msgstr "خطأ"
+msgid "error message"
+msgstr "رسالة خطأ"
 
 msgid "excel"
 msgstr "excel"
+
+msgid "general message"
+msgstr "رسالة عامه"
 
 msgid "greater"
 msgstr "أكبر"
@@ -372,8 +381,8 @@ msgstr "أكبر من أو يساوي"
 msgid "in"
 msgstr "في"
 
-msgid "info"
-msgstr "معلومه"
+msgid "info message"
+msgstr "رسالة معلومه"
 
 msgid "is empty"
 msgstr "فارغ"
@@ -396,9 +405,6 @@ msgstr "أقل أو متساوي"
 msgid "loaded after delay"
 msgstr "تم التحميل بعد فترة تأخير"
 
-msgid "message"
-msgstr "رسالة"
-
 msgid "not between"
 msgstr "ليس بين"
 
@@ -417,6 +423,9 @@ msgstr "إظهار التنبيهات"
 msgid "success"
 msgstr "تم بنجاح"
 
-msgid "warning"
-msgstr "تحذير"
+msgid "success message"
+msgstr "رسالة تم بنجاح"
+
+msgid "warning message"
+msgstr "رسالة تحذير"
 

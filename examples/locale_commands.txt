@@ -1,21 +1,20 @@
 
 * Generating PO template
 -------------------------
-pybabel extract -F locale/babel.cfg -k lazy_gettext --no-location --no-wrap \
-    --sort-output -o locale/messages.pot ./ templates/webui/
+pybabel extract -F examples/locale/babel.cfg -k lazy_gettext --no-location --no-wrap --sort-output -o examples/locale/messages.pot examples/ src/exonwebui/templates/
 
 
 
 * Initialize message catalogs
 ------------------------------
-pybabel init --no-wrap -i locale/messages.pot -d locale -l ar
-pybabel init --no-wrap -i locale/messages.pot -d locale -l fr
+pybabel init --no-wrap -i examples/locale/messages.pot -d examples/locale -l ar
+pybabel init --no-wrap -i examples/locale/messages.pot -d examples/locale -l fr
 
 
 
 * Update message catalogs
 ------------------------------
-pybabel update --no-wrap -i locale/messages.pot -d locale
+pybabel update --no-wrap -i examples/locale/messages.pot -d examples/locale
 
 ** NOTE: AUTO UPDATE DROP CUSTOM CATALOG HEADERS
 
@@ -23,5 +22,5 @@ pybabel update --no-wrap -i locale/messages.pot -d locale
 
 * Compile message catalogs
 ------------------------------
-pybabel compile -d locale
+pybabel compile -d examples/locale
 
