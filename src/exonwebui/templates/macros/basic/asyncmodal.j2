@@ -9,7 +9,7 @@
             if(result.notifications) WebUI.notify.load(result.notifications);
             if(result.contents) WebUI.pagelock.modal(
               result.title, result.contents,
-              result.footer?result.footer:'<button class="btn btn-primary" onclick="WebUI.pagelock.hide()">{{gettext("Close")}}</button>',
+              result.footer?result.footer:'<button class="btn btn-primary" onclick="WebUI.pagelock.hide()">Close</button>',
               '{{styles}}');
           };
         });

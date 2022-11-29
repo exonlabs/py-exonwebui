@@ -16,7 +16,7 @@
         pagingType:"full_numbers",
         stateSave:true,
         search:{smart:false,regex:true,caseInsensitive:true},
-        lengthMenu:[[{{lenMenu|join(',')}}],[{{lenMenu|join(',')|replace('-1','"'|safe+gettext("All")+'"'|safe)}}]],
+        lengthMenu:[[{{lenMenu|join(',')}}],[{{lenMenu|join(',')|replace('-1','"'|safe+"All"+'"'|safe)}}]],
         select:{style:'multi+shift',selector:'td.row-select>input[type=checkbox]'},
         columns:[
           {defaultContent:'',searchable:false,orderable:false,className:'dtctrl table-index px-0'},
@@ -40,13 +40,13 @@
           ]
         },
         language:{
-          search:'<i title="{{gettext("Search")}}" class="fa fas fa-search"></i>',
+          search:'<i title="Search" class="fa fas fa-search"></i>',
           lengthMenu:'_MENU_',
-          info:"{{gettext('Showing _START_-_END_ of _TOTAL_')}}",
+          info:"Showing _START_-_END_ of _TOTAL_",
           infoEmpty:"",
           infoFiltered:"",
-          emptyTable:"{{gettext('No data available')}}",
-          zeroRecords:"{{gettext('No matching records found')}}",
+          emptyTable:"No data available",
+          zeroRecords:"No matching records found",
           paginate:{
             first:'<i class="fa fas fa-angle-double-left"></i>',
             last:'<i class="fa fas fa-angle-double-right"></i>',
@@ -55,15 +55,15 @@
           select:{rows:'',columns:'',cells:''},
         }
       });
-      $("#tblDataGrid_{{id}}_length").prepend('<div class="dataTables_custombtns mb-2"><button id="btnReload_{{id}}" class="btn btn-sm border px-3" title="{{gettext("Reload")}}"><i class="fa fas fa-fw fa-refresh fa-sync-alt"></i></button>'+
+      $("#tblDataGrid_{{id}}_length").prepend('<div class="dataTables_custombtns mb-2"><button id="btnReload_{{id}}" class="btn btn-sm border px-3" title="Reload"><i class="fa fas fa-fw fa-refresh fa-sync-alt"></i></button>'+
         {% if export.types|length >0 %}
-          '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Export")}}"><i class="fa fas fa-fw fa-download fa-file-export"></i></button><div class="dropdown-menu dropdown-menu-right p-0 pb-1" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Export")}}</h6>'+
-          {% if 'csv' in export.types %}'<button id="btnExpCSV_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-text-o fa-file-csv"></i> {{gettext("csv")}}</button>'+{% endif %}
-          {% if 'xls' in export.types %}'<button id="btnExpXLS_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-excel-o fa-file-excel"></i> {{gettext("excel")}}</button>'+{% endif %}
-          {% if 'print' in export.types %}'<button id="btnPRINT_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-print"></i> {{gettext("print")}}</button>'+{% endif %}
+          '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="Export"><i class="fa fas fa-fw fa-download fa-file-export"></i></button><div class="dropdown-menu dropdown-menu-right p-0 pb-1" style="min-width:100px"><h6 class="dropdown-header px-3">Export</h6>'+
+          {% if 'csv' in export.types %}'<button id="btnExpCSV_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-text-o fa-file-csv"></i> csv</button>'+{% endif %}
+          {% if 'xls' in export.types %}'<button id="btnExpXLS_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-excel-o fa-file-excel"></i> excel</button>'+{% endif %}
+          {% if 'print' in export.types %}'<button id="btnPRINT_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-print"></i> print</button>'+{% endif %}
           '</div></div>'+
         {% endif %}
-        '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Columns")}}"><i class="fa fas fa-fw fa-th-list"></i></button><div id="btnDataGridVis_{{id}}" class="dropdown-menu dropdown-menu-right p-0" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Show / Hide")}}</h6></div></div></div>');
+        '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="Columns"><i class="fa fas fa-fw fa-th-list"></i></button><div id="btnDataGridVis_{{id}}" class="dropdown-menu dropdown-menu-right p-0" style="min-width:100px"><h6 class="dropdown-header px-3">Show / Hide</h6></div></div></div>');
       dt.buttons().container().appendTo('#btnDataGridVis_{{id}}');
       $(dt.column(1).header()).html('<input type="checkbox">');
       $('input[type=checkbox]',dt.column(1).header()).on("click",function(){
@@ -100,7 +100,7 @@
           else{ {% for o in group_ops %}w.append('<button class="dropdown-item" data-op="{{o.action}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} };
           if(w.children().length){
             w.wrapInner('<div class="dropdown-menu '+($('body').attr('dir')=='rtl'?'dropdown-menu-right':'')+'"></div>');
-            w.prepend('<button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown"><span class="title">{{gettext("Select Operation")}}</span></button>');
+            w.prepend('<button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown"><span class="title">Select Operation</span></button>');
             w.wrapInner('<div class="dropdown dataTables_opbtns"></div>');
             $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
               var op=$(this).data('op'),confirm=$(this).data('confirm');
@@ -109,8 +109,8 @@
                 function(r){if(r.reload)$('#btnReload_{{id}}').trigger('click');WebUI.request.success(r)},null,null,200)};
               if(confirm){
                 WebUI.pagelock.modal(
-                  '<h5 class="m-0 py-2 text-info">{{gettext("Confirm")}}</h5>','<p>'+confirm+'</p>',
-                  '<button class="btn btn-sm btn-secondary px-3" onclick="WebUI.pagelock.hide()">{{gettext("No")}}</button><button id="btnConfirmOp_{{id}}" class="btn btn-sm btn-primary px-3">{{gettext("Yes")}}</button>');
+                  '<h5 class="m-0 py-2 text-info">Confirm</h5>','<p>'+confirm+'</p>',
+                  '<button class="btn btn-sm btn-secondary px-3" onclick="WebUI.pagelock.hide()">No</button><button id="btnConfirmOp_{{id}}" class="btn btn-sm btn-primary px-3">Yes</button>');
                 $('#btnConfirmOp_{{id}}').on('click',function(){WebUI.pagelock.hide();run_op()});
               }else run_op();
             });
@@ -129,7 +129,7 @@
               else{dt.clear().draw().rows().deselect()};
               WebUI.request.success(r)},
             function(e){
-              $(dt.table().body()).html('<tr><td colspan="100" class="text-center">{{gettext("Failed loading data")}}</td></tr>');
+              $(dt.table().body()).html('<tr><td colspan="100" class="text-center">Failed loading data</td></tr>');
               WebUI.request.error(e)},
             function(){WebUI.loader.reset()});
         },100);

@@ -1,0 +1,22 @@
+{% extends "webui/i18n/html.min.j2" %}
+{% import "webui/i18n/macros/cdn.min.j2" as cdn %}
+
+{% block b_html_head %}
+  {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+("-rtl" if doc_langdir=='rtl' else "")+".min.css")}}
+  {{cdn.css_link(cdn_url,"fontawesome/css/fa4.min.css")}}
+  {{cdn.css_link(cdn_url,"pnotify/pnotify.min.css")}}
+  {% block b_page_head %}
+    <link rel="stylesheet" type="text/css" href="/static/webui/css/webui.min.css">
+  {% endblock %}
+{% endblock %}
+
+{% block b_html_body %}
+  {% block b_page_body %}{% endblock %}
+  {{cdn.js_script(cdn_url,"jquery/jquery.min.js")}}
+  {{cdn.js_script(cdn_url,"jquery/jquery.i18n.min.js")}}
+  {{cdn.js_script(cdn_url,"bootstrap/bootstrap.bundle.min.js")}}
+  {{cdn.js_script(cdn_url,"pnotify/pnotify.min.js")}}
+  {% block b_page_scripts %}
+    <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
+  {% endblock %}
+{% endblock %}

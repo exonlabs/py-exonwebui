@@ -54,7 +54,7 @@
             {% if f.confirm %}
               <div class="input-group pt-1">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">{{gettext('Confirm')}}</span>
+                  <span class="input-group-text">Confirm</span>
                 </div>
                 <input type="password" class="form-control" name="{{f.name}}_confirm" data-confirm="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
                 <div class="input-group-append">
@@ -75,12 +75,12 @@
             <div class="input-group">
               {% if f.prepend %}<div class="input-group-prepend">{{_group_items(f.prepend)}}</div>{% endif %}
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="{{f.name}}" {% if f.format %}accept="{{f.format}}"{% endif %} placeholder="{{f.placeholder if f.placeholder else gettext('Select files')}}" data-plugin="bsCustomFileInput" data-maxsize="{{f.maxsize}}" {{'multiple' if f.multiple else ''}} {{'required' if f.required else ''}}>
-                <label class="custom-file-label text-truncate empty">{{f.placeholder if f.placeholder else gettext('Select files')}}</label>
+                <input type="file" class="custom-file-input" name="{{f.name}}" {% if f.format %}accept="{{f.format}}"{% endif %} placeholder="{{f.placeholder if f.placeholder else 'Select files'}}" data-plugin="bsCustomFileInput" data-maxsize="{{f.maxsize}}" {{'multiple' if f.multiple else ''}} {{'required' if f.required else ''}}>
+                <label class="custom-file-label text-truncate empty">{{f.placeholder if f.placeholder else 'Select files'}}</label>
               </div>
               <div class="input-group-append">
                 <span class="input-group-text text-danger d-none" data-fileerror="{{f.name}}"></span>
-                <button class="input-group-text" data-fileselect="{{f.name}}">{{gettext('Browse')}}</button>
+                <button class="input-group-text" data-fileselect="{{f.name}}">Browse</button>
                 {% if f.append %}{{_group_items(f.append)}}{% endif %}
               </div>
             </div>
@@ -135,7 +135,7 @@
             $(this).next(".custom-file-label").addClass('empty').html($(this).attr("placeholder"));
           };
           $("#form_{{id}} button[data-fileselect="+$(this).attr('name')+"]")
-            .html($(this).val()?'<b>&times;</b>':'{{gettext("Browse")}}');
+            .html($(this).val()?'<b>&times;</b>':'Browse');
           if(fsizechk) {
             $(this).get(0).setCustomValidity('');
             $("#form_{{id}} span[data-fileerror="+$(this).attr('name')+"]")
@@ -143,7 +143,7 @@
           }else{
             $(this).get(0).setCustomValidity('Invalid');
             $("#form_{{id}} span[data-fileerror="+$(this).attr('name')+"]")
-              .html('{{gettext("Too Large File")}}').removeClass('d-none');
+              .html('Too Large File').removeClass('d-none');
           };
         });
         $("#form_{{id}} button[data-fileselect]").on("click",function(e){
@@ -172,9 +172,9 @@
     $("#form_{{id}} a.btn_helpguide").on("click",function(e){
       e.preventDefault();
       WebUI.pagelock.modal(
-        '<h5 class="m-0 py-2 text-info"><i class="fa fas fa-fw fa-question-circle"></i> {{gettext("Quick Guide")}}</h5>',
+        '<h5 class="m-0 py-2 text-info"><i class="fa fas fa-fw fa-question-circle"></i> Quick Guide</h5>',
         '<p class="">'+$(this).data('helpguide')+'</p>',
-        '<button class="btn btn-primary" onclick="WebUI.pagelock.hide()">{{gettext("Got it")}}</button>');
+        '<button class="btn btn-primary" onclick="WebUI.pagelock.hide()">Got it</button>');
       return false;
     });
     $("#form_{{id}}").on('submit',function(e){
@@ -184,7 +184,7 @@
       $(this).removeClass('was-validated').find("input").removeClass('is-invalid');
       if(this.checkValidity()===false){
         $(this).addClass('was-validated');
-        WebUI.notify.error('{{gettext("Please fill all required fields")}}');
+        WebUI.notify.error('Please fill all required fields');
       }else{
         WebUI.loader.formsubmit($(this),function(result){
           if(result.validation){

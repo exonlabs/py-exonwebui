@@ -3,7 +3,6 @@ import time
 from random import randint
 from flask import current_app, session, flash, request, \
     url_for, render_template as tpl
-from flask_babelex import gettext, lazy_gettext
 
 from exonutils.buffers.filebuffer import SimpleFileBuffer
 from exonwebui.menuboard import MenuBoardView
@@ -18,8 +17,7 @@ class Index(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 1,
-            lazy_gettext('UI Components'), icon='fa-cubes')
+            MENU_BUFFER, 1, 'UI Components', icon='fa-cubes')
 
     def get(self, **kwargs):
         global MENU_BUFFER
@@ -50,12 +48,11 @@ class Home(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 0,
-            lazy_gettext('Home'), icon='fa-home', url='#home')
+            MENU_BUFFER, 0, 'Home', icon='fa-home', url='#home')
 
     def get(self, **kwargs):
-        html = tpl('option_panel.min.j2', message=gettext("Welcome"))
-        return self.reply(html, doctitle=gettext('Home'))
+        html = tpl('option_panel.min.j2', message="Welcome")
+        return self.reply(html, doctitle='Home')
 
 
 class Notify(MenuBoardView):
@@ -64,18 +61,17 @@ class Notify(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 1,
-            lazy_gettext('Notifications'), url='#notify', parent=1)
+            MENU_BUFFER, 1, 'Notifications', url='#notify', parent=1)
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        flash(gettext('error message') + " STICKY_MSG", 'error.us')
-        flash(gettext('warning message'), 'warn')
-        flash(gettext('info message'), 'info')
-        flash(gettext('success message'), 'success')
-        html = UiAlert('general message', gettext('showing notifications'),
+        flash("error STICKY_MSG", 'error.us')
+        flash("warning message", 'warn')
+        flash("info message", 'info')
+        flash("success message", 'success')
+        html = UiAlert('message', 'showing notifications',
                        styles='p-3', dismiss=False)
-        return self.reply(html, doctitle=gettext('Notifications'))
+        return self.reply(html, doctitle='Notifications')
 
 
 class Alerts(MenuBoardView):
@@ -84,17 +80,16 @@ class Alerts(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 2,
-            lazy_gettext('Alerts'), url='#alerts', parent=1)
+            MENU_BUFFER, 2, 'Alerts', url='#alerts', parent=1)
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        html = UiAlert('info', gettext('info message'), styles='px-3 pt-3')
-        html += UiAlert('warn', gettext('warning message'), styles='px-3')
-        html += UiAlert('error', gettext('error message'), styles='px-3')
-        html += UiAlert('success', gettext('success message'), styles='px-3')
-        html += UiAlert('message', gettext('general message'), styles='px-3')
-        return self.reply(html, doctitle=gettext('Alerts'))
+        html = UiAlert('info', 'info message', styles='px-3 pt-3')
+        html += UiAlert('warn', 'warning message', styles='px-3')
+        html += UiAlert('error', 'error message', styles='px-3')
+        html += UiAlert('success', 'success message', styles='px-3')
+        html += UiAlert('message', 'general message', styles='px-3')
+        return self.reply(html, doctitle='Alerts')
 
 
 class InputForm(MenuBoardView):
@@ -103,8 +98,7 @@ class InputForm(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 3,
-            lazy_gettext('Input Form'), url='#inputform', parent=1)
+            MENU_BUFFER, 3, 'Input Form', url='#inputform', parent=1)
 
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiInputForm
@@ -113,100 +107,100 @@ class InputForm(MenuBoardView):
             'submit_url': "/inputform",
             'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'fields': [
-                {'type': 'checkbox', 'label': gettext('Validation'),
-                 'options': [{'label': gettext('Server side validation'),
+                {'type': 'checkbox', 'label': 'Validation',
+                 'options': [{'label': 'Server side validation',
                               'name': 'validation'}]},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'text', 'label': gettext('Required Field'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'text', 'label': 'Required Field',
                  'name': 'field1', 'required': True,
-                 'help': gettext("* example with input append"),
-                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'help': "* example with input append",
+                 'helpguide': "Extra detailed long help for fields",
                  'append': [{'type': 'text', 'value': '.00'},
                             {'type': 'text', 'value': '$'}]},
-                {'type': 'text', 'label': gettext('Optional Field'),
+                {'type': 'text', 'label': 'Optional Field',
                  'name': 'field2', 'required': False,
-                 'help': gettext("* example with input prepend"),
-                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'help': "* example with input prepend",
+                 'helpguide': "Extra detailed long help for fields",
                  'prepend': [{'type': 'icon', 'value': 'fa-phone'},
                              {'type': 'text', 'value': '+00'}]},
-                {'type': 'text', 'label': gettext('Optional Field'),
+                {'type': 'text', 'label': 'Optional Field',
                  'name': 'field3', 'required': False,
-                 'help': gettext("* help text for field"),
-                 'helpguide': gettext("Extra detailed long help for fields"),
+                 'help': "* help text for field",
+                 'helpguide': "Extra detailed long help for fields",
                  'append': [{'type': 'select', 'options': [
                             {'label': '.com', 'value': '.com'},
                             {'label': '.net', 'value': '.net',
                              'selected': True},
                             {'label': '.org', 'value': '.org'}]}]},
-                {'type': 'textarea', 'label': gettext('Textarea'),
+                {'type': 'textarea', 'label': 'Textarea',
                  'name': 'field4',
-                 'help': gettext("* help text for field"),
-                 'helpguide': gettext("Extra detailed long help for fields")},
+                 'help': "* help text for field",
+                 'helpguide': "Extra detailed long help for fields"},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'password', 'label': gettext('Password 1'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'password', 'label': 'Password 1',
                  'name': 'pass1', 'required': True, 'strength': True},
-                {'type': 'password', 'label': gettext('Password 2'),
+                {'type': 'password', 'label': 'Password 2',
                  'name': 'pass2', 'required': True, 'confirm': True},
-                {'type': 'password', 'label': gettext('Password 3'),
+                {'type': 'password', 'label': 'Password 3',
                  'name': 'pass3', 'required': True, 'strength': True,
                  'confirm': True},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'select', 'label': gettext('Select'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'select', 'label': 'Select',
                  'name': 'select1', 'required': True,
-                 'options': [{'label': gettext('Select'), 'value': None},
-                             {'label': gettext('Option 1'), 'value': '01'},
-                             {'label': gettext('Option 2'), 'value': '02'},
-                             {'label': gettext('Option 3'), 'value': '03'},
-                             {'label': gettext('Option 4'), 'value': '04'},
-                             {'label': gettext('Option 5'), 'value': '05'}]},
-                {'type': 'select', 'label': gettext('Select multiple'),
+                 'options': [{'label': 'Select', 'value': None},
+                             {'label': 'Option 1', 'value': '01'},
+                             {'label': 'Option 2', 'value': '02'},
+                             {'label': 'Option 3', 'value': '03'},
+                             {'label': 'Option 4', 'value': '04'},
+                             {'label': 'Option 5', 'value': '05'}]},
+                {'type': 'select', 'label': 'Select multiple',
                  'name': 'select2', 'required': True, 'multiple': True,
-                 'options': [{'label': gettext('Option 1'), 'value': '01',
+                 'options': [{'label': 'Option 1', 'value': '01',
                               'selected': True},
-                             {'label': gettext('Option 2'), 'value': '02',
+                             {'label': 'Option 2', 'value': '02',
                               'selected': True},
-                             {'label': gettext('Option 3'), 'value': '03'},
-                             {'label': gettext('Option 4'), 'value': '04'},
-                             {'label': gettext('Option 5'), 'value': '05'}]},
+                             {'label': 'Option 3', 'value': '03'},
+                             {'label': 'Option 4', 'value': '04'},
+                             {'label': 'Option 5', 'value': '05'}]},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'checkbox', 'label': gettext('Checkbox'),
-                 'helpguide': gettext("Extra detailed long help for fields"),
-                 'options': [{'label': gettext('Select 1'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'checkbox', 'label': 'Checkbox',
+                 'helpguide': "Extra detailed long help for fields",
+                 'options': [{'label': 'Select 1',
                               'name': 'check1', 'selected': True},
-                             {'label': gettext('Select 2'),
+                             {'label': 'Select 2',
                               'name': 'check2'}]},
-                {'type': 'radio', 'label': gettext('Radio'),
+                {'type': 'radio', 'label': 'Radio',
                  'name': 'radio1', 'required': True,
-                 'helpguide': gettext("Extra detailed long help for fields"),
-                 'options': [{'label': gettext('Option 1'), 'value': '1'},
-                             {'label': gettext('Option 2'), 'value': '2'},
-                             {'label': gettext('Option 3'), 'value': '3'}]},
+                 'helpguide': "Extra detailed long help for fields",
+                 'options': [{'label': 'Option 1', 'value': '1'},
+                             {'label': 'Option 2', 'value': '2'},
+                             {'label': 'Option 3', 'value': '3'}]},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'datetime', 'label': gettext('Date & Time'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'datetime', 'label': 'Date & Time',
                  'name': 'date1', 'required': True},
-                {'type': 'date', 'label': gettext('Date'), 'name': 'date2'},
-                {'type': 'time', 'label': gettext('Time'), 'name': 'time1'},
+                {'type': 'date', 'label': 'Date', 'name': 'date2'},
+                {'type': 'time', 'label': 'Time', 'name': 'time1'},
 
-                {'type': 'title', 'label': gettext('Group Label')},
-                {'type': 'file', 'label': gettext('Upload File'),
+                {'type': 'title', 'label': 'Group Label'},
+                {'type': 'file', 'label': 'Upload File',
                  'name': 'files1', 'required': True,
                  'format': '.txt,.pdf,.png',
                  'help': '* %s: <span dir="ltr">.txt, .pdf, .png</span>'
-                    % gettext("allowed types")},
-                {'type': 'file', 'label': gettext('Upload Multiple'),
+                    % "allowed types"},
+                {'type': 'file', 'label': 'Upload Multiple',
                  'name': 'files2', 'required': False, 'multiple': True,
                  'placeholder': '', 'maxsize': 1048576,
-                 'help': gettext("* all types allowed, max file size: 1MB"),
-                 'helpguide': gettext("Extra detailed long help for fields")},
+                 'help': "* all types allowed, max file size: 1MB",
+                 'helpguide': "Extra detailed long help for fields"},
             ]
         }
         html = tpl('input_form.min.j2', contents=UiInputForm(options))
-        return self.reply(html, doctitle=gettext('Input Form'))
+        return self.reply(html, doctitle='Input Form')
 
     def post(self, **kwargs):
         validation = request.form.get('validation', '')
@@ -214,11 +208,11 @@ class InputForm(MenuBoardView):
             params = {
                 'validation': ['field1', 'date1', 'files1'],
             }
-            flash(gettext('Please correct invalid fields'), 'error')
+            flash('Please correct invalid fields', 'error')
             return self.reply(None, **params)
 
         msg = '%s<br><div dir="ltr" style="text-align:left">' \
-            % gettext('Submited Data:')
+            % 'Submited Data:'
         for k in request.form.keys():
             if k == '_csrf_token':
                 continue
@@ -240,8 +234,7 @@ class Datagrid(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 4,
-            lazy_gettext('Datagrid'), url='#datagrid', parent=1)
+            MENU_BUFFER, 4, 'Datagrid', url='#datagrid', parent=1)
 
     def get(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
@@ -288,7 +281,7 @@ class Datagrid(MenuBoardView):
             ],
         }
         html = tpl('data_grid.min.j2', contents=UiStdDataGrid(options))
-        return self.reply(html, doctitle=gettext('Datagrid'))
+        return self.reply(html, doctitle='Datagrid')
 
     def post(self, **kwargs):
         from exonwebui.macros.datagrids import UiStdDataGrid
@@ -352,8 +345,7 @@ class QueryBuilder(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 5,
-            lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
+            MENU_BUFFER, 5, 'Query Builder', url='#qbuilder', parent=1)
 
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiQBuilder
@@ -413,7 +405,7 @@ class QueryBuilder(MenuBoardView):
             },
         }
         html = tpl('query_builder.min.j2', contents=UiQBuilder(options))
-        return self.reply(html, doctitle=gettext('Query Builder'))
+        return self.reply(html, doctitle='Query Builder')
 
 
 class Loader(MenuBoardView):
@@ -423,19 +415,18 @@ class Loader(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 2,
-            lazy_gettext('Page Loader'), url='#loader')
+            MENU_BUFFER, 2, 'Page Loader', url='#loader')
 
     def get(self, **kwargs):
         from exonwebui.macros.basic import UiAlert
-        html = UiAlert('message', gettext('loaded after delay'),
+        html = UiAlert('message', 'loaded after delay',
                        styles='p-3', dismiss=False)
         html += tpl('progress_loader.min.j2')
 
         # simulate delay
         time.sleep(3)
 
-        return self.reply(html, doctitle=gettext('Page Loader'))
+        return self.reply(html, doctitle='Page Loader')
 
     def post(self, **kwargs):
         # get loading progress status
@@ -452,7 +443,7 @@ class Loader(MenuBoardView):
                 pass
             time.sleep(1)
 
-        flash(gettext('success'), 'success')
+        flash('success', 'success')
         return self.reply(None)
 
 
@@ -463,8 +454,7 @@ class Loginpage(MenuBoardView):
     def initialize(self):
         global MENU_BUFFER
         self.add_menulink(
-            MENU_BUFFER, 3,
-            lazy_gettext('Login Page'), url='loginpage')
+            MENU_BUFFER, 3, 'Login Page', url='loginpage')
 
     def get(self, **kwargs):
         from exonwebui.macros.forms import UiLoginForm
@@ -477,7 +467,7 @@ class Loginpage(MenuBoardView):
                 'submit_url': url_for('loginpage'),
                 'authkey': '123456',
             }, styles="text-white bg-secondary")
-            return self.reply(html, doctitle=gettext('Loginpage'))
+            return self.reply(html, doctitle='Loginpage')
         else:
             params = {
                 'doc_lang': session.get('lang', ''),
@@ -493,12 +483,12 @@ class Loginpage(MenuBoardView):
         authdigest = request.form.get('digest', '')
 
         if not username or not authdigest:
-            err = gettext("Please enter username and password")
+            err = "Please enter username and password"
         else:
             if username == 'admin':
-                flash("%s: %s" % (gettext("Welcome"), username), 'info')
+                flash("%s: %s" % ("Welcome", username), 'info')
                 return self.redirect(url_for('index'))
             else:
-                err = gettext("Invalid username or password")
+                err = "Invalid username or password"
 
         return self.notify(err, 'error')

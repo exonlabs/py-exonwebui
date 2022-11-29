@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block b_pagehead_title %}
-  <span>{{gettext("Sample Portal")}}</span>
+  <span>Sample Portal</span>
 {% endblock %}
 
 {% block b_pagehead_widgets %}
@@ -29,14 +29,10 @@
       <i class="fa fas fa-user"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
-      <a class="dropdown-item btn-sm px-3" href="#?toogleboard=1">{{gettext("Toogle boards")}}</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=en">English</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=ar">عربي</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=fr">Français</a>
+      <a class="dropdown-item btn-sm px-3" href="#?toogleboard=1">Toogle boards</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item btn-sm px-3" href="/loginpage">
-        <i class="fa fas fa-flip fa-sign-out fa-sign-out-alt"></i> {{gettext("Logout")}}
+        <i class="fa fas fa-flip fa-sign-out fa-sign-out-alt"></i> Logout
       </a>
     </div>
   </div>
@@ -44,9 +40,4 @@
 
 {% block b_board_pagebody %}
   <div id="pagebody-contents" class="pt-3"></div>
-{% endblock %}
-
-{% block b_board_scripts %}
-  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>{% endif %}
-  {{super()}}
 {% endblock %}

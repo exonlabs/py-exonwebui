@@ -19,11 +19,6 @@
           <div class="card bg-light">
             <div id="formbody" class="card-body pb-3" style="font-size:13px"></div>
           </div>
-          <div class="btn-group-sm float-left">
-            <a class="btn btn-link px-2" href="?lang=en">English</a>
-            <a class="btn btn-link px-2" href="?lang=ar">عربي</a>
-            <a class="btn btn-link px-2" href="?lang=fr">Français</a>
-          </div>
         </div>
       </div>
     </div>
@@ -31,7 +26,6 @@
 {% endblock %}
 
 {% block b_page_scripts %}
-  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>{% endif %}
   {{super()}}
   <script type="text/javascript">
     $(document).ready(function(){

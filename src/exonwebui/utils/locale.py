@@ -21,10 +21,6 @@ def init_locale(app, locale_path=''):
         # un-necessary operations in case of redirection
         app.before_request(check_locale)
 
-    else:
-        app.config['LOCALE_ENABLED'] = False
-        app.config['LOCALE_PATH'] = ''
-
 
 def check_locale():
     if not babelex or not current_app.config.get('LOCALE_ENABLED'):

@@ -49,9 +49,10 @@ def init_app(websrv, args):
     websrv.app.config['CSRF_DISABLE'] = True
 
     # adjust locale
-    from exonwebui.utils.locale import init_locale
-    locale_path = os.path.join(websrv.base_path, 'locale')
-    init_locale(websrv.app, locale_path=locale_path)
+    if args.use_i18n:
+        from exonwebui.utils.locale import init_locale
+        locale_path = os.path.join(websrv.base_path, 'locale')
+        init_locale(websrv.app, locale_path=locale_path)
 
     # adjust gzip
     if args.ext_gzip:
@@ -94,6 +95,9 @@ def main():
         pr.add_argument(
             '--use-cdn', dest='use_cdn', action='store_true',
             help="enable use of cdn for static contents")
+        pr.add_argument(
+            '--use-i18n', dest='use_i18n', action='store_true',
+            help="enable use of i18n localization")
         args = pr.parse_args()
 
         if args.debug > 0:
@@ -130,7 +134,10 @@ def main():
 
         init_app(websrv, args)
 
-        from views import MenuBoardView
+        if args.use_i18n:
+            from views_i18n import MenuBoardView
+        else:
+            from views import MenuBoardView
         for view_cls in MenuBoardView.__subclasses__():
             websrv.add_view(view_cls())
 
