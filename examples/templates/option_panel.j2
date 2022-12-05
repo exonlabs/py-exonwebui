@@ -2,11 +2,14 @@
   <div class="card">
     <div class="card-body text-left">
       {{message|safe}}
-      <div class="btn-group-sm mt-3">
-        <a class="btn btn-light px-3 pagelink" href="/?lang=en">English</a>
-        <a class="btn btn-light px-3 pagelink" href="/?lang=ar">عربي</a>
-        <a class="btn btn-light px-3 pagelink" href="/?lang=fr">Français</a>
-      </div>
+      {% if langs %}
+        <div class="btn-group-sm mt-3">
+          {% for k, v in langs.items() %}
+            <a class="btn btn-light px-3 pagelink" href="/?lang={{k}}">{{v}}</a>
+            &nbsp;
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
   <div class="card mt-2">

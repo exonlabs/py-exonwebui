@@ -25,9 +25,10 @@ class Index(MenuBoardView):
         global MENU_BUFFER
 
         params = {
+            'doc_title': "WebUI",
             'doc_lang': session.get('lang', ''),
             'doc_langdir': session.get('lang_dir', ''),
-            'doc_title': "WebUI",
+            'langs': current_app.config['LOCALE_LANGS'],
             'cdn_url': current_app.config.get('TPL_CDN_URL'),
             'menu': MENU_BUFFER,
         }
@@ -54,7 +55,11 @@ class Home(MenuBoardView):
             lazy_gettext('Home'), icon='fa-home', url='#home')
 
     def get(self, **kwargs):
-        html = tpl('option_panel.min.j2', message=gettext("Welcome"))
+        params = {
+            'langs': current_app.config['LOCALE_LANGS'],
+            'message': gettext("Welcome"),
+        }
+        html = tpl('option_panel.min.j2', **params)
         return self.reply(html, doctitle=gettext('Home'))
 
 
@@ -480,9 +485,10 @@ class Loginpage(MenuBoardView):
             return self.reply(html, doctitle=gettext('Loginpage'))
         else:
             params = {
+                'doc_title': "WebUI",
                 'doc_lang': session.get('lang', ''),
                 'doc_langdir': session.get('lang_dir', ''),
-                'doc_title': "WebUI",
+                'langs': current_app.config['LOCALE_LANGS'],
                 'cdn_url': current_app.config.get('TPL_CDN_URL'),
                 'load_url': "%s/load" % url_for('loginpage'),
             }

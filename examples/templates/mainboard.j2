@@ -30,10 +30,12 @@
     </button>
     <div class="dropdown-menu dropdown-menu-right">
       <a class="dropdown-item btn-sm px-3" href="#?toogleboard=1">{{gettext("Toogle boards")}}</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=en">English</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=ar">عربي</a>
-      <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang=fr">Français</a>
+      {% if langs %}
+        <div class="dropdown-divider"></div>
+        {% for k, v in langs.items() %}
+          <a class="dropdown-item btn-sm px-3 pagelink" href="/?lang={{k}}">{{v}}</a>
+        {% endfor %}
+      {% endif %}
       <div class="dropdown-divider"></div>
       <a class="dropdown-item btn-sm px-3" href="/loginpage">
         <i class="fa fas fa-flip fa-sign-out fa-sign-out-alt"></i> {{gettext("Logout")}}

@@ -19,11 +19,13 @@
           <div class="card bg-light">
             <div id="formbody" class="card-body pb-3" style="font-size:13px"></div>
           </div>
-          <div class="btn-group-sm float-left">
-            <a class="btn btn-link px-2" href="?lang=en">English</a>
-            <a class="btn btn-link px-2" href="?lang=ar">عربي</a>
-            <a class="btn btn-link px-2" href="?lang=fr">Français</a>
-          </div>
+          {% if langs %}
+            <div class="btn-group-sm float-left">
+              {% for k, v in langs.items() %}
+                <a class="btn btn-link px-2" href="?lang={{k}}">{{v}}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

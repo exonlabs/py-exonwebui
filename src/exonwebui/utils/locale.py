@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import current_app, request, session, flash, redirect
-try:
-    import flask_babelex as babelex
-except ImportError:
-    babelex = None
+import flask_babelex as babelex
 
 
 # initialize localization with babel extension
 def init_locale(app, locale_path=''):
-    if babelex and locale_path and os.path.exists(locale_path):
-        domain = babelex.Domain(dirname=locale_path)
-        babel = babelex.Babel(app, default_domain=domain)
+    domain = babelex.Domain(dirname=locale_path)
+    babel = babelex.Babel(app, default_domain=domain)
+
+    if locale_path and os.path.exists(locale_path):
         babel.localeselector(lambda: session.get('lang', 'en'))
         app.config['LOCALE_ENABLED'] = True
         app.config['LOCALE_PATH'] = locale_path
+
+        # load available locales
+        all_langs = {'en': 'English'}
+        for lang in list(os.walk(locale_path))[0][1]:
+            fpath = os.path.join(locale_path, lang, 'INFO')
+            if os.path.exists(fpath):
+                with open(fpath, 'r') as f:
+                    all_langs[lang] = f.read().strip()
+        if len(all_langs.keys()) > 1:
+            app.config['LOCALE_LANGS'] = all_langs
 
         # register before_request locale operation
         # better to keep this function as first operation to avoid
@@ -24,6 +32,7 @@ def init_locale(app, locale_path=''):
     else:
         app.config['LOCALE_ENABLED'] = False
         app.config['LOCALE_PATH'] = ''
+        app.config['LOCALE_LANGS'] = {}
 
 
 def check_locale():
