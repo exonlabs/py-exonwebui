@@ -28,7 +28,7 @@
               {% for i in menu.keys()|sort %}
                 {% if 'submenu' in menu[i] and menu[i].submenu.keys() %}
                   <li>
-                    <a href="#" class="has-arrow">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</a>
+                    <a id="submenu_{{i}}" href="#" class="has-arrow">{% if menu[i].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].icon}}"></i>{% endif %}{{menu[i].label|safe}}</a>
                     <ul>
                       {% for j in menu[i].submenu.keys()|sort %}
                         <li><a class="pagelink" href="{{menu[i].submenu[j].url}}">{% if menu[i].submenu[j].icon %}<i class="fa fas fa-fw fa-ta {{menu[i].submenu[j].icon}}"></i>{% endif %}{{menu[i].submenu[j].label|safe}}</a></li>

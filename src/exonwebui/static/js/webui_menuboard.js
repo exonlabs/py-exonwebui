@@ -17,6 +17,17 @@ var WebUI = function($, ui) {
     },
     toggle: function() {
       $("body").toggleClass("MenuToggled");
+    },
+    show_submenu: function(id) {
+      var m=$('#board-menubody #submenu_'+id);
+      if(m.attr('aria-expanded')!='true') m.click();
+    },
+    hide_submenu: function(id) {
+      var m=$('#board-menubody #submenu_'+id);
+      if(m.attr('aria-expanded')=='true') m.click();
+    },
+    toggle_submenu: function(id) {
+      $('#board-menubody #submenu_'+id).click();
     }
   };
 
@@ -85,9 +96,6 @@ var WebUI = function($, ui) {
       });
 
     $("#board-menubody>ul.metismenu").metisMenu();
-    $('#board-menubody a.pagelink[href="' +
-        window.location.hash.replace(/[\/?].*$/,"") + '"]')
-      .parents('ul').prev('a').click();
 
     $("body")
       .on("click", "a.pagelink", function(e) {

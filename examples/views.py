@@ -80,6 +80,7 @@ class Notify(MenuBoardView):
         flash(gettext('success message'), 'success')
         html = UiAlert('general message', gettext('showing notifications'),
                        styles='p-3', dismiss=False)
+        html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Notifications'))
 
 
@@ -99,6 +100,7 @@ class Alerts(MenuBoardView):
         html += UiAlert('error', gettext('error message'), styles='px-3')
         html += UiAlert('success', gettext('success message'), styles='px-3')
         html += UiAlert('message', gettext('general message'), styles='px-3')
+        html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Alerts'))
 
 
@@ -211,6 +213,7 @@ class InputForm(MenuBoardView):
             ]
         }
         html = tpl('input_form.min.j2', contents=UiInputForm(options))
+        html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Input Form'))
 
     def post(self, **kwargs):
@@ -293,6 +296,7 @@ class Datagrid(MenuBoardView):
             ],
         }
         html = tpl('data_grid.min.j2', contents=UiStdDataGrid(options))
+        html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Datagrid'))
 
     def post(self, **kwargs):
@@ -418,6 +422,7 @@ class QueryBuilder(MenuBoardView):
             },
         }
         html = tpl('query_builder.min.j2', contents=UiQBuilder(options))
+        html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Query Builder'))
 
 
