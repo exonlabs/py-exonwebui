@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import redirect, jsonify, flash, get_flashed_messages
-from exonutils.webapp.view import BaseWebView
+from exonutils.webapp.flask.view import BaseWebView
 
 from .macros.basic import UiAlert
 

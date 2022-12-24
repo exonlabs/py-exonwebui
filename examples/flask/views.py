@@ -6,7 +6,7 @@ from flask import current_app, session, flash, request, \
 from flask_babelex import gettext, lazy_gettext
 
 from exonutils.buffers.filebuffer import SimpleFileBuffer
-from exonwebui.menuboard import MenuBoardView
+from exonwebui.flask.menuboard import MenuBoardView
 
 # board menu buffer
 MENU_BUFFER = {}
@@ -40,9 +40,9 @@ class Index(MenuBoardView):
             return self.redirect(url_for('index'))
 
         if session.get('simpleboard', False):
-            return tpl('simpleboard.min.j2', **params)
+            return tpl('jinja2/i18n/simpleboard.min.j2', **params)
         else:
-            return tpl('mainboard.min.j2', **params)
+            return tpl('jinja2/i18n/mainboard.min.j2', **params)
 
 
 class Home(MenuBoardView):
@@ -59,7 +59,7 @@ class Home(MenuBoardView):
             'langs': current_app.config['LOCALE_LANGS'],
             'message': gettext("Welcome"),
         }
-        html = tpl('option_panel.min.j2', **params)
+        html = tpl('jinja2/i18n/option_panel.min.j2', **params)
         return self.reply(html, doctitle=gettext('Home'))
 
 
@@ -73,7 +73,7 @@ class Notify(MenuBoardView):
             lazy_gettext('Notifications'), url='#notify', parent=1)
 
     def get(self, **kwargs):
-        from exonwebui.macros.basic import UiAlert
+        from exonwebui.flask.macros.basic import UiAlert
         flash(gettext('error message') + " STICKY_MSG", 'error.us')
         flash(gettext('warning message'), 'warn')
         flash(gettext('info message'), 'info')
@@ -94,7 +94,7 @@ class Alerts(MenuBoardView):
             lazy_gettext('Alerts'), url='#alerts', parent=1)
 
     def get(self, **kwargs):
-        from exonwebui.macros.basic import UiAlert
+        from exonwebui.flask.macros.basic import UiAlert
         html = UiAlert('info', gettext('info message'), styles='px-3 pt-3')
         html += UiAlert('warn', gettext('warning message'), styles='px-3')
         html += UiAlert('error', gettext('error message'), styles='px-3')
@@ -114,7 +114,7 @@ class InputForm(MenuBoardView):
             lazy_gettext('Input Form'), url='#inputform', parent=1)
 
     def get(self, **kwargs):
-        from exonwebui.macros.forms import UiInputForm
+        from exonwebui.flask.macros.forms import UiInputForm
         options = {
             'form_id': "1234",
             'submit_url': "/inputform",
@@ -212,7 +212,8 @@ class InputForm(MenuBoardView):
                  'helpguide': gettext("Extra detailed long help for fields")},
             ]
         }
-        html = tpl('input_form.min.j2', contents=UiInputForm(options))
+        html = tpl('jinja2/i18n/input_form.min.j2',
+                   contents=UiInputForm(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Input Form'))
 
@@ -252,7 +253,7 @@ class Datagrid(MenuBoardView):
             lazy_gettext('Datagrid'), url='#datagrid', parent=1)
 
     def get(self, **kwargs):
-        from exonwebui.macros.datagrids import UiStdDataGrid
+        from exonwebui.flask.macros.datagrids import UiStdDataGrid
         options = {
             'grid_id': "1234",
             'base_url': "/datagrid",
@@ -295,12 +296,13 @@ class Datagrid(MenuBoardView):
                 {'label': 'Op 3 with Reload', 'action': "group_op3"},
             ],
         }
-        html = tpl('data_grid.min.j2', contents=UiStdDataGrid(options))
+        html = tpl('jinja2/i18n/data_grid.min.j2',
+                   contents=UiStdDataGrid(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Datagrid'))
 
     def post(self, **kwargs):
-        from exonwebui.macros.datagrids import UiStdDataGrid
+        from exonwebui.flask.macros.datagrids import UiStdDataGrid
 
         action = kwargs.get('action') or ''
 
@@ -365,7 +367,7 @@ class QueryBuilder(MenuBoardView):
             lazy_gettext('Query Builder'), url='#qbuilder', parent=1)
 
     def get(self, **kwargs):
-        from exonwebui.macros.forms import UiQBuilder
+        from exonwebui.flask.macros.forms import UiQBuilder
         options = {
             'form_id': "1234",
             'cdn_url': current_app.config.get('TPL_CDN_URL'),
@@ -421,7 +423,8 @@ class QueryBuilder(MenuBoardView):
                 ],
             },
         }
-        html = tpl('query_builder.min.j2', contents=UiQBuilder(options))
+        html = tpl('jinja2/i18n/query_builder.min.j2',
+                   contents=UiQBuilder(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Query Builder'))
 
@@ -437,10 +440,10 @@ class Loader(MenuBoardView):
             lazy_gettext('Page Loader'), url='#loader')
 
     def get(self, **kwargs):
-        from exonwebui.macros.basic import UiAlert
+        from exonwebui.flask.macros.basic import UiAlert
         html = UiAlert('message', gettext('loaded after delay'),
                        styles='p-3', dismiss=False)
-        html += tpl('progress_loader.min.j2')
+        html += tpl('jinja2/i18n/progress_loader.min.j2')
 
         # simulate delay
         time.sleep(3)
@@ -477,7 +480,7 @@ class Loginpage(MenuBoardView):
             lazy_gettext('Login Page'), url='loginpage')
 
     def get(self, **kwargs):
-        from exonwebui.macros.forms import UiLoginForm
+        from exonwebui.flask.macros.forms import UiLoginForm
 
         action = kwargs.get('action') or ''
 
@@ -497,7 +500,7 @@ class Loginpage(MenuBoardView):
                 'cdn_url': current_app.config.get('TPL_CDN_URL'),
                 'load_url': "%s/load" % url_for('loginpage'),
             }
-            return tpl('loginpage.min.j2', **params)
+            return tpl('jinja2/i18n/loginpage.min.j2', **params)
 
     def post(self, **kwargs):
         username = request.form.get('username', '')

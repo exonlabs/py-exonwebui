@@ -1,4 +1,4 @@
-{% extends "webui/simplepage.min.j2" %}
+{% extends "webui/jinja2/i18n/simplepage.min.j2" %}
 
 {% block b_page_head %}
   {{super()}}
@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block b_page_scripts %}
-  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>{% endif %}
+  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/js/locale/{{doc_lang}}.min.js"></script>{% endif %}
   {{super()}}
   <script type="text/javascript">
     $(document).ready(function(){

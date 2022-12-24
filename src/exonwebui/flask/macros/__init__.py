@@ -8,7 +8,7 @@ __all__ = []
 class UiBaseMacro(str):
 
     # root path for templates
-    root_path = 'webui/macros'
+    root_path = 'webui/jinja2/i18n/macros'
 
     # template file name
     tpl_name = ''

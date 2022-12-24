@@ -1,4 +1,4 @@
-{% extends "webui/menuboard.min.j2" %}
+{% extends "webui/jinja2/i18n/menuboard.min.j2" %}
 
 {% block b_board_head %}
   {{super()}}
@@ -49,6 +49,6 @@
 {% endblock %}
 
 {% block b_board_scripts %}
-  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/i18n/{{doc_lang}}.min.js"></script>{% endif %}
+  {% if doc_lang and doc_lang != 'en' %}<script type="text/javascript" src="/static/js/locale/{{doc_lang}}.min.js"></script>{% endif %}
   {{super()}}
 {% endblock %}

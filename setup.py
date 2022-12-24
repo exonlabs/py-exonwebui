@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup
+
+os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
 setup(
     name="exonwebui",
     install_requires=[
-        'exonutils>=6.5,<7.0',
-        'flask>=2.2',
-        'Jinja2>=3.1',
-        'Babel>=2.11',
-        'flask-babelex>=0.9',
+        'exonutils>=7.0,<8.0',
     ],
 )

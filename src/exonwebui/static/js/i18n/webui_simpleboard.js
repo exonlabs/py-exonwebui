@@ -1,11 +1,20 @@
 /*
-  :copyright: ExonLabs. All rights reserved.
+  :copyright: 2019-2023, ExonLabs. All rights reserved.
   :license: BSD, see LICENSE for more details.
 */
 var WebUI = function($, ui) {
 
   ui.scrolltop = function(interval) {
     $("#board-page").animate({scrollTop:0},(interval)?interval:300);
+  };
+
+  ui.board_menu = {
+    show: function() {},
+    hide: function() {},
+    toggle: function() {},
+    show_submenu: function(id) {},
+    hide_submenu: function(id) {},
+    toggle_submenu: function(id) {}
   };
 
   ui.board_content = {
@@ -51,12 +60,13 @@ var WebUI = function($, ui) {
           };
         },
         function(error) {
-          ui.notify.error(error,true,false);
+          if(error !== null) ui.notify.error(error,true,false);
           if(ui.board_content.old_hash) {
             ui.board_content.load_neglect = true;
             window.location.hash = ui.board_content.old_hash;
           };
-        });
+        }
+      );
     }
   };
 

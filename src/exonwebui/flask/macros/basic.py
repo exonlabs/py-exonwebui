@@ -5,7 +5,7 @@ __all__ = []
 
 
 class UiBasicMacro(UiBaseMacro):
-    root_path = 'webui/macros/basic'
+    root_path = 'webui/jinja2/i18n/macros/basic'
 
 
 class UiAlert(UiBasicMacro):

@@ -6,7 +6,7 @@ __all__ = []
 
 
 class UiFormsMacro(UiBaseMacro):
-    root_path = 'webui/macros/forms'
+    root_path = 'webui/jinja2/i18n/macros/forms'
 
 
 class UiInputForm(UiFormsMacro):

@@ -6,7 +6,7 @@ __all__ = []
 
 
 class UiDataGridsMacro(UiBaseMacro):
-    root_path = 'webui/macros/datagrids'
+    root_path = 'webui/jinja2/i18n/macros/datagrids'
 
 
 class UiStdDataGrid(UiDataGridsMacro):

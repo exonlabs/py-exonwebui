@@ -1,5 +1,5 @@
-{% extends "webui/html.min.j2" %}
-{% import "webui/macros/cdn.min.j2" as cdn %}
+{% extends "webui/jinja2/i18n/html.min.j2" %}
+{% import "webui/jinja2/i18n/macros/cdn.min.j2" as cdn %}
 
 {% block b_html_head %}
   {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+("-rtl" if doc_langdir=='rtl' else "")+".min.css")}}
@@ -17,6 +17,6 @@
   {{cdn.js_script(cdn_url,"bootstrap/bootstrap.bundle.min.js")}}
   {{cdn.js_script(cdn_url,"pnotify/pnotify.min.js")}}
   {% block b_page_scripts %}
-    <script type="text/javascript" src="/static/webui/js/webui.min.js"></script>
+    <script type="text/javascript" src="/static/webui/js/i18n/webui.min.js"></script>
   {% endblock %}
 {% endblock %}

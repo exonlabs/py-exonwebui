@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-
-
-def minify_tpl(src_path, dst_path):
-    with open(dst_path, 'w+') as fdst:
-        with open(src_path, 'r') as fsrc:
-            for line in fsrc.readlines():
-                fdst.write(line.strip())
+from argparse import ArgumentParser
 
 
 def find_templates(target):
@@ -19,20 +13,44 @@ def find_templates(target):
                 yield (src_path, dst_path)
 
 
+def minify_tpl(src_path, dst_path, inplace=False):
+    # read input
+    with open(src_path, 'r') as fsrc:
+        src_data = fsrc.readlines()
+
+    # write output
+    with open(src_path if inplace else dst_path, 'w+') as fdst:
+        for line in src_data:
+            fdst.write(line.strip())
+
+
 def main():
     try:
-        if not (len(sys.argv) >= 2 and sys.argv[1]):
-            raise ValueError("please specify target path")
+        pr = ArgumentParser(prog=None)
+        pr.add_argument(
+            '--quiet', dest='quiet', action='store_true',
+            help="quiet operaton mode")
+        pr.add_argument(
+            '--inplace', dest='inplace', action='store_true',
+            help="minify templates inplace (replace original file)")
+        pr.add_argument(
+            'target',
+            help="target parent folder to search for templates")
+        args = pr.parse_args()
 
-        target = sys.argv[1]
-        if not os.path.exists(target):
-            raise ValueError("invalid target path %s" % target)
+        if not (len(args.target) and os.path.exists(args.target)):
+            raise ValueError("invalid target path %s" % args.target)
 
-        for fsrc, fdst in find_templates(target):
-            minify_tpl(fsrc, fdst)
+        if not args.quiet:
+            print("minify templates under: %s" % args.target)
+
+        for fsrc, fdst in find_templates(args.target):
+            if not args.quiet:
+                print("template: %s" % fsrc)
+            minify_tpl(fsrc, fdst, inplace=args.inplace)
 
     except Exception as e:
-        print(e)
+        print("ERROR: %s" % e)
         sys.exit(1)
 
     sys.exit(0)

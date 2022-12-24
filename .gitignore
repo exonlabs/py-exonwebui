@@ -15,4 +15,5 @@ examples/*/vendor
 __pycache__/
 /dist/
 /build/
+/build_src/
 /tmp/
