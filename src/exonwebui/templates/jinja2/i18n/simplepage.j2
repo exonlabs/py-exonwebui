@@ -1,5 +1,5 @@
-{% extends "webui/jinja2/i18n/html.min.j2" %}
-{% import "webui/jinja2/i18n/macros/cdn.min.j2" as cdn %}
+{% extends "webui/jinja2/i18n/html.j2" %}
+{% import "webui/jinja2/i18n/macros/cdn.j2" as cdn %}
 
 {% block b_html_head %}
   {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+("-rtl" if doc_langdir=='rtl' else "")+".min.css")}}

@@ -38,6 +38,7 @@ sed -i "s|^__version__ = \".*|__version__ = \"${BUILD_VER}\"|g" \
 ${ENV_PYTHON} ${BUILD_FD}/setup.py sdist clean --all
 
 # create wheel package
+${ENV_PYTHON} scripts/minify_templates.py --quiet --inplace ${BUILD_FD}/src/
 ${ENV_PYTHON} ${BUILD_FD}/setup.py bdist_wheel clean --all
 
 # create dist and clean

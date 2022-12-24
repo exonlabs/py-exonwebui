@@ -10,7 +10,7 @@ class UiDataGridsMacro(UiBaseMacro):
 
 
 class UiStdDataGrid(UiDataGridsMacro):
-    tpl_name = 'stddatagrid.min.j2'
+    tpl_name = 'stddatagrid.j2'
 
     std_render = {'_': '_', 'display': 'd'}
 

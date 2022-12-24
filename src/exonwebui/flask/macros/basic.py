@@ -9,7 +9,7 @@ class UiBasicMacro(UiBaseMacro):
 
 
 class UiAlert(UiBasicMacro):
-    tpl_name = 'alert.min.j2'
+    tpl_name = 'alert.j2'
 
     def __new__(cls, type, msg, icon=True, dismiss=True, styles=''):
         if type == 'error':
@@ -35,7 +35,7 @@ class UiAlert(UiBasicMacro):
 
 
 class UiAsyncModal(UiBasicMacro):
-    tpl_name = 'asyncmodal.min.j2'
+    tpl_name = 'asyncmodal.j2'
 
     def __new__(cls, container, selector, styles=''):
         return cls.tpl(**{
@@ -46,7 +46,7 @@ class UiAsyncModal(UiBasicMacro):
 
 
 class UiLinkModal(UiBasicMacro):
-    tpl_name = 'linkmodal.min.j2'
+    tpl_name = 'linkmodal.j2'
 
     def __new__(cls, caption, title, contents, styles=''):
         return cls.tpl(**{

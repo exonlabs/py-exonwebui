@@ -40,9 +40,9 @@ class Index(MenuBoardView):
             return self.redirect(url_for('index'))
 
         if session.get('simpleboard', False):
-            return tpl('jinja2/i18n/simpleboard.min.j2', **params)
+            return tpl('jinja2/i18n/simpleboard.j2', **params)
         else:
-            return tpl('jinja2/i18n/mainboard.min.j2', **params)
+            return tpl('jinja2/i18n/mainboard.j2', **params)
 
 
 class Home(MenuBoardView):
@@ -59,7 +59,7 @@ class Home(MenuBoardView):
             'langs': current_app.config['LOCALE_LANGS'],
             'message': gettext("Welcome"),
         }
-        html = tpl('jinja2/i18n/option_panel.min.j2', **params)
+        html = tpl('jinja2/i18n/option_panel.j2', **params)
         return self.reply(html, doctitle=gettext('Home'))
 
 
@@ -212,7 +212,7 @@ class InputForm(MenuBoardView):
                  'helpguide': gettext("Extra detailed long help for fields")},
             ]
         }
-        html = tpl('jinja2/i18n/input_form.min.j2',
+        html = tpl('jinja2/i18n/input_form.j2',
                    contents=UiInputForm(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Input Form'))
@@ -296,7 +296,7 @@ class Datagrid(MenuBoardView):
                 {'label': 'Op 3 with Reload', 'action': "group_op3"},
             ],
         }
-        html = tpl('jinja2/i18n/data_grid.min.j2',
+        html = tpl('jinja2/i18n/data_grid.j2',
                    contents=UiStdDataGrid(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Datagrid'))
@@ -423,7 +423,7 @@ class QueryBuilder(MenuBoardView):
                 ],
             },
         }
-        html = tpl('jinja2/i18n/query_builder.min.j2',
+        html = tpl('jinja2/i18n/query_builder.j2',
                    contents=UiQBuilder(options))
         html += '<script>WebUI.board_menu.show_submenu(1)</script>'
         return self.reply(html, doctitle=gettext('Query Builder'))
@@ -443,7 +443,7 @@ class Loader(MenuBoardView):
         from exonwebui.flask.macros.basic import UiAlert
         html = UiAlert('message', gettext('loaded after delay'),
                        styles='p-3', dismiss=False)
-        html += tpl('jinja2/i18n/progress_loader.min.j2')
+        html += tpl('jinja2/i18n/progress_loader.j2')
 
         # simulate delay
         time.sleep(3)
@@ -500,7 +500,7 @@ class Loginpage(MenuBoardView):
                 'cdn_url': current_app.config.get('TPL_CDN_URL'),
                 'load_url': "%s/load" % url_for('loginpage'),
             }
-            return tpl('jinja2/i18n/loginpage.min.j2', **params)
+            return tpl('jinja2/i18n/loginpage.j2', **params)
 
     def post(self, **kwargs):
         username = request.form.get('username', '')
