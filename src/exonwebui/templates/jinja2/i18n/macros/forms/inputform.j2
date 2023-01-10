@@ -181,15 +181,18 @@
       e.preventDefault();
       WebUI.notify.clear();
       WebUI.scrolltop();
-      $(this).removeClass('was-validated').find("input").removeClass('is-invalid');
+      $(this).removeClass('was-validated').find("input,select,textarea").removeClass('is-invalid');
       if(this.checkValidity()===false){
         $(this).addClass('was-validated');
         WebUI.notify.error('{{gettext("Please fill all required fields")}}');
       }else{
         WebUI.loader.formsubmit($(this),function(result){
           if(result.validation){
-            for(var i=0;i<result.validation.length;i++)
+            for(var i=0;i<result.validation.length;i++){
               $("#form_{{id}} input[name='"+result.validation[i]+"']").addClass('is-invalid');
+              $("#form_{{id}} select[name='"+result.validation[i]+"']").addClass('is-invalid');
+              $("#form_{{id}} textarea[name='"+result.validation[i]+"']").addClass('is-invalid');
+            };
           };
           WebUI.request.success(result);
         },null,null,500);
@@ -201,7 +204,7 @@
       WebUI.scrolltop();
       $(this).removeClass('was-validated');
       $(this)[0].reset();
-      $(this).find("input").removeClass('is-valid is-invalid').trigger('change').trigger('keyup');
+      $(this).find("input,select,textarea").removeClass('is-valid is-invalid').trigger('change').trigger('keyup');
     });
   });
 </script>
