@@ -2,7 +2,7 @@
 {% import "webui/jinja2/i18n/macros/cdn.j2" as cdn %}
 
 {% block b_html_head %}
-  {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+("-rtl" if doc_langdir=='rtl' else "")+".min.css")}}
+  {{cdn.css_link(cdn_url,"bootstrap/bootstrap"+(".rtl" if doc_langdir=='rtl' else "")+".min.css")}}
   {{cdn.css_link(cdn_url,"fontawesome/css/fa4.min.css")}}
   {{cdn.css_link(cdn_url,"pnotify/pnotify.min.css")}}
   {{cdn.css_link(cdn_url,"metismenu/metisMenu.min.css")}}
@@ -16,7 +16,7 @@
   {% block b_board_body %}
     <div id="board-wrapper" class="ease h-100" style="display:none">
       <div id="board-menu" class="ease h-100 d-print-none">
-        <div id="board-menutoggle" class="text-right">
+        <div id="board-menutoggle" class="text-end">
           <a title="{{gettext('Toggle Menu')}}"><i class="fa fas fa-bars"></i></a>
         </div>
         <div id="board-menubody" class="h-100 scroll">
@@ -50,10 +50,10 @@
         <div id="board-pagehead" class="sticky-top">
           {% block b_board_pagehead %}
             <div id="pagehead-bar" class="d-flex">
-              <div id="pagehead-title" class="flex-grow-1 text-truncate text-left">
+              <div id="pagehead-title" class="flex-grow-1 text-truncate text-start">
                 {% block b_pagehead_title %}{% endblock %}
               </div>
-              <div id="pagehead-widgets" class="text-right d-print-none">
+              <div id="pagehead-widgets" class="text-end d-print-none">
                 {% block b_pagehead_widgets %}{% endblock %}
               </div>
             </div>

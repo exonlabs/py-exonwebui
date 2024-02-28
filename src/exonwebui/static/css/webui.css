@@ -48,10 +48,10 @@ a, a:hover, a:focus, button:focus {
   color:#6c757d7a; text-shadow:none}
 [dir=ltr] input {text-align:left}
 [dir=rtl] input {text-align:right}
-[dir=rtl] .float-left {float:right !important}
-[dir=rtl] .float-right {float:left !important}
-[dir=rtl] .text-left {text-align:right !important}
-[dir=rtl] .text-right {text-align:left !important}
+[dir=rtl] .float-start {float:right !important}
+[dir=rtl] .float-end {float:left !important}
+[dir=rtl] .text-start {text-align:right !important}
+[dir=rtl] .text-end {text-align:left !important}
 [dir=rtl] .pull-left {float:right !important}
 [dir=rtl] .pull-right {float:left !important}
 [dir=rtl] .alert-dismissible {padding-left:35px; padding-right:15px}

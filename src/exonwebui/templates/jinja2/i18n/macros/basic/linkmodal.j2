@@ -5,7 +5,7 @@
     WebUI.pagelock.modal(
       '<h5 class="m-0 py-2 text-info"> {{title}}</h5>',
       '{{contents|safe}}',
-      '<button class="btn btn-primary" onclick="WebUI.pagelock.hide()">{{gettext("Close")}}</button>',
+      '<button type="button" class="btn-close btn-primary" data-bs-dismiss="modal" onclick="WebUI.pagelock.hide()">{{gettext("Close")}}</button>',
       '{{styles}}');
     return false;
   });

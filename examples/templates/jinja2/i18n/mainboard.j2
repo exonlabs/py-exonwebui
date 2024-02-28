@@ -14,7 +14,7 @@
 
 {% block b_board_pagehead %}
   {{super()}}
-  <div class="px-3 text-right text-info" style="line-height:18px; margin-bottom:-20px">
+  <div class="px-3 text-end text-info" style="line-height:18px; margin-bottom:-20px">
     <small>[info bar]</small>
   </div>
 {% endblock %}
@@ -25,7 +25,7 @@
 
 {% block b_pagehead_widgets %}
   <div class="btn-group">
-    <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown">
       <i class="fa fas fa-user"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
