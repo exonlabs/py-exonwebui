@@ -1,6 +1,6 @@
 <script type="text/javascript">
   WebUI.loadCssCdn("{{cdn_url}}","datatables/datatables.min.css");
-  WebUI.loadCss("/static/webui/css/webui_datagrid.min.css");
+  WebUI.loadCss("/static/webui/css/webui_datagrid.css");
 </script>
 <table id="tblDataGrid_{{id}}" class="table table-sm table-hover text-nowrap w-100 {{styles}}"></table>
 <script type="text/javascript">
@@ -11,7 +11,7 @@
       $.fn.DataTable.ext.pager.numbers_length=5;
       $("#tblDataGrid_{{id}}").on('error.dt',function(e,s,t,msg){WebUI.notify.error(msg,null,true)});
       var dt=$("#tblDataGrid_{{id}}").DataTable({
-        dom:'<"float-right"<"float-left"f><"float-left"l>><"#DataGrid_Ops_{{id}}.float-left"><"table-responsive scroll"t><"float-left"i><"float-right pt-2"p>',
+        dom:'<"float-end"<"float-start"f><"float-start"l>><"#DataGrid_Ops_{{id}}.float-start"><"table-responsive scroll"t><"float-start"i><"float-end pt-2"p>',
         colReorder:true,
         pagingType:"full_numbers",
         stateSave:true,
@@ -25,7 +25,7 @@
         ],
         order:[{{order|safe}}],
         buttons:{
-          dom:{button:{className:'dropdown-item pl-3 pr-4 py-0 text-left tick-select'}},
+          dom:{button:{className:'dropdown-item pl-3 pr-4 py-0 text-start tick-select'}},
           buttons:[
             {extend:'columnsToggle',columns:':not(.dtctrl)'},
             {extend:'csvHtml5',className:'d-none',
@@ -55,15 +55,15 @@
           select:{rows:'',columns:'',cells:''},
         }
       });
-      $("#tblDataGrid_{{id}}_length").prepend('<div class="dataTables_custombtns mb-2"><button id="btnReload_{{id}}" class="btn btn-sm border px-3" title="{{gettext("Reload")}}"><i class="fa fas fa-fw fa-refresh fa-sync-alt"></i></button>'+
+      $("#tblDataGrid_{{id}}_wrapper .dt-length").prepend('<div class="dataTables_custombtns mb-0"><button id="btnReload_{{id}}" class="btn btn-sm border px-3" title="{{gettext("Reload")}}"><i class="fa fas fa-fw fa-refresh fa-sync-alt"></i></button>'+
         {% if export.types|length >0 %}
-          '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Export")}}"><i class="fa fas fa-fw fa-download fa-file-export"></i></button><div class="dropdown-menu dropdown-menu-right p-0 pb-1" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Export")}}</h6>'+
+          '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-bs-toggle="dropdown" title="{{gettext("Export")}}"><i class="fa fas fa-fw fa-download fa-file-export"></i></button><div class="dropdown-menu dropdown-menu-right p-0 pb-1" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Export")}}</h6>'+
           {% if 'csv' in export.types %}'<button id="btnExpCSV_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-text-o fa-file-csv"></i> {{gettext("csv")}}</button>'+{% endif %}
           {% if 'xls' in export.types %}'<button id="btnExpXLS_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-file-excel-o fa-file-excel"></i> {{gettext("excel")}}</button>'+{% endif %}
           {% if 'print' in export.types %}'<button id="btnPRINT_{{id}}" class="dropdown-item pl-3 pr-4 py-1"><i class="fa fas fa-fw fa-print"></i> {{gettext("print")}}</button>'+{% endif %}
           '</div></div>'+
         {% endif %}
-        '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown" title="{{gettext("Columns")}}"><i class="fa fas fa-fw fa-th-list"></i></button><div id="btnDataGridVis_{{id}}" class="dropdown-menu dropdown-menu-right p-0" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Show / Hide")}}</h6></div></div></div>');
+        '<div class="dropdown"><button class="btn btn-sm border dropdown-toggle" data-bs-toggle="dropdown" title="{{gettext("Columns")}}"><i class="fa fas fa-fw fa-th-list"></i></button><div id="btnDataGridVis_{{id}}" class="dropdown-menu dropdown-menu-right p-0" style="min-width:100px"><h6 class="dropdown-header px-3">{{gettext("Show / Hide")}}</h6></div></div></div>');
       dt.buttons().container().appendTo('#btnDataGridVis_{{id}}');
       $(dt.column(1).header()).html('<input type="checkbox">');
       $('input[type=checkbox]',dt.column(1).header()).on("click",function(){
@@ -100,7 +100,7 @@
           else{ {% for o in group_ops %}w.append('<button class="dropdown-item" data-op="{{o.action}}" {% if o.confirm %}data-confirm="{{o.confirm}}"{% endif %}>{{o.label|safe}}</button>');{% endfor %} };
           if(w.children().length){
             w.wrapInner('<div class="dropdown-menu '+($('body').attr('dir')=='rtl'?'dropdown-menu-right':'')+'"></div>');
-            w.prepend('<button class="btn btn-sm border dropdown-toggle" data-toggle="dropdown"><span class="title">{{gettext("Select Operation")}}</span></button>');
+            w.prepend('<button class="btn btn-sm border dropdown-toggle" data-bs-toggle="dropdown"><span class="title">{{gettext("Select Operation")}}</span></button>');
             w.wrapInner('<div class="dropdown dataTables_opbtns"></div>');
             $("#DataGrid_Ops_{{id}} button[data-op]").off('click').on('click',function(){
               var op=$(this).data('op'),confirm=$(this).data('confirm');

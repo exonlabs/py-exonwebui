@@ -38,13 +38,45 @@ var WebUI = function($, ui) {
       else return ui.pagelock.loading('<div class="row h-100 align-items-center justify-content-center"><div class="col-5"><div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated"></div></div></div></div>');
     },
     modal: function(title, contents, footer, styles) {
-      ui.pagelock.show('<div class="modal-dialog modal-dialog-centered '+(styles?styles:'')+'"><div class="modal-content"><div class="modal-header pt-2 pb-1">'+(title?title:'')+'<button class="close" onclick="WebUI.pagelock.hide()">&times;</button></div><div class="modal-body scroll">'+(contents?contents:'')+(footer?'</div><div class="modal-footer p-1">'+footer+'</div></div></div>':''));
+      title = title || '';
+      contents = contents || '';
+      footer = footer ? '<div class="modal-footer p-1">' + footer + '</div>' : '';
+      styles = styles || '';
+      const modalHTML = `
+        <div class="modal" id="customModal" tabindex="-1" aria-labelledby="customModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered ${styles}">
+            <div class="modal-content">
+              <div class="modal-header pt-2 pb-1">
+                ${title}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body scroll">${contents}</div>
+              ${footer}
+            </div>
+          </div>
+        </div>`;
+      ui.pagelock.show(modalHTML);
+      var customModal = new bootstrap.Modal(document.getElementById('customModal'));
+      customModal.show();
+      document.querySelector('.modal .btn-close').addEventListener('click', function() {
+        ui.pagelock.hide();
+      });
     },
     hide: function() {
-      if($("#_UiPageLock").length) $("#_UiPageLock").remove();
-    }
+      if($("#_UiPageLock").length) $("#_UiPageLock").remove();    
+      var backdrop = document.querySelector('.modal-backdrop');
+      if(backdrop) {
+        backdrop.remove();
+      }
+      var customModalElement = document.getElementById('customModal');
+      if(customModalElement) {
+        var customModalInstance = bootstrap.Modal.getInstance(customModalElement);
+        if(customModalInstance) {
+          customModalInstance.hide();
+        }
+      }
+    }    
   };
-
   ui.notify = {
     stack: {"dir1":"down", "dir2":"left", "push":"top",
             "firstpos1":14, "firstpos2":10, "spacing1":7, "spacing2":7},
