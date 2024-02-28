@@ -5,16 +5,15 @@
     {% elif k.type == 'icon' %}
       <span class="input-group-text"><i class="fa fas {{k.value}}"></i></span>
     {% elif k.type == 'select' %}
-      <select class="custom-select" name="{{k.name}}">
+      <select class="form-select" name="{{k.name}}">
         {% for o in k.options %}<option value="{{o.value}}" {{'selected' if o.selected else ''}}>{{o.label}}</option>{% endfor %}
       </select>
     {% endif %}
   {% endfor %}
 {% endmacro %}
-
 <script type="text/javascript">
   WebUI.loadCssCdn("{{cdn_url}}","datetimepicker/datetimepicker.min.css");
-  WebUI.loadCss("/static/webui/css/webui_inputform.min.css");
+  WebUI.loadCss("/static/webui/css/webui_inputform.css");
 </script>
 <form id="form_{{id}}" class="form-wrapper {{styles}}" method="POST" action="{{submit_url}}" novalidate>
   {% for f in fields %}
@@ -23,13 +22,13 @@
     {% elif f.type == 'title' %}
       <div class="form-title text-muted py-2">{{f.label|safe}}</div>
     {% else %}
-      <div class="form-row form-group">
-        <label class="col-11 col-sm-3 col-form-label text-nowrap {{'required' if f.required and f.type != 'static' else ''}}">{{f.label|safe}}</label>
-        {% if f.helpguide and f.type != 'static' %}
-          <div class="col-1 col-sm-1 order-sm-12 mt-2 text-left text-info">
-            <a class="btn_helpguide" data-helpguide="{{f.helpguide|safe}}"><i class="fa fas fa-fw fa-lg fa-question-circle"></i></a>
-          </div>
-        {% endif %}
+      <div class="row g-3 align-items-center">
+        <label class="col-11 col-sm-3 col-form-label text-end {{'required' if f.required and f.type != 'static' else ''}}">
+          {{f.label|safe}}
+          {% if f.required and (f.label in ['Required Field', 'Password 1', 'Password 2', 'Password 3'] or f.type in ['select', 'radio', 'file', 'date', 'time', 'datetime']) %}
+          <span class="text-danger">*</span>
+          {% endif %}
+        </label>
         <div class="col-12 col-sm-8">
           {% if f.type == 'custom' %}
             {{f.value|safe}}
@@ -38,28 +37,33 @@
           {% elif f.type in ['checkbox','radio'] %}
             {% for o in f.options %}
               <div class="form-check {{'pt-1' if loop.first else ''}}">
-                <input type="{{f.type}}" class="form-check-input" name="{{o.name if f.type=='checkbox' else f.name}}" value="{{1 if f.type=='checkbox' else o.value}}" {{'checked' if o.selected else ''}} {{'disabled' if o.disabled else ''}} {{'required' if f.required else ''}}>
+                <input class="form-check-input" type="{{f.type}}" name="{{o.name if f.type=='checkbox' else f.name}}" value="{{1 if f.type=='checkbox' else o.value}}" {{'checked' if o.selected else ''}} {{'disabled' if o.disabled else ''}} {{'required' if f.required else ''}}>
                 <label class="form-check-label px-1">{{o.label}}</label>
               </div>
             {% endfor %}
           {% elif f.type == 'password' %}
             <div class="input-group">
-              {% if f.prepend %}<div class="input-group-prepend">{{_group_items(f.prepend)}}</div>{% endif %}
-              <input type="password" class="form-control" name="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {% if f.strength %}data-plugin="passStrengthify"{% endif %} {% if f.confirm %}data-confirm="{{f.name}}"{% endif %} {{'required' if f.required else ''}}>
-              <div class="input-group-append">
-                {% if f.append %}{{_group_items(f.append)}}{% endif %}
-                <span class="input-group-text" data-pwdview="{{f.name}}"><i class="fa fas fa-eye-slash"></i></span>
-              </div>
+              {% if f.prepend %}
+              <div class="input-group-prepend">{{_group_items(f.prepend)}}</div>
+              {% endif %}
+              <input class="form-control" type="password" id="{{f.name}}" name="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}"
+                {% if f.strength %}data-plugin="passStrengthify"{% endif %}
+                {% if f.confirm %}data-confirm="{{f.name}}"{% endif %}
+                {{'required' if f.required else ''}}>
+              <button class="btn btn-outline-secondary" type="button" data-bs-toggle="password" data-bs-target="#{{f.name}}">
+                <i class="fa fas fa-eye-slash" aria-hidden="true"></i>
+              </button>
+              {% if f.append %}
+              {{_group_items(f.append)}}
+              {% endif %}
             </div>
             {% if f.confirm %}
               <div class="input-group pt-1">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">{{gettext('Confirm')}}</span>
-                </div>
-                <input type="password" class="form-control" name="{{f.name}}_confirm" data-confirm="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
-                <div class="input-group-append">
-                  <span class="input-group-text" data-pwdview="{{f.name}}_confirm"><i class="fa fas fa-eye-slash"></i></span>
-                </div>
+                <span class="input-group-text">{{gettext('Confirm')}}</span>
+                <input type="password" class="form-control" id="{{f.name}}_confirm" name="{{f.name}}_confirm" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="password" data-bs-target="#{{f.name}}_confirm">
+                  <i class="fa fas fa-eye-slash"></i>
+                </button>
               </div>
             {% endif %}
           {% elif f.type in ['date','time','datetime'] %}
@@ -73,36 +77,43 @@
             </div>
           {% elif f.type == 'file' %}
             <div class="input-group">
-              {% if f.prepend %}<div class="input-group-prepend">{{_group_items(f.prepend)}}</div>{% endif %}
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" name="{{f.name}}" {% if f.format %}accept="{{f.format}}"{% endif %} placeholder="{{f.placeholder if f.placeholder else gettext('Select files')}}" data-plugin="bsCustomFileInput" data-maxsize="{{f.maxsize}}" {{'multiple' if f.multiple else ''}} {{'required' if f.required else ''}}>
-                <label class="custom-file-label text-truncate empty">{{f.placeholder if f.placeholder else gettext('Select files')}}</label>
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text text-danger d-none" data-fileerror="{{f.name}}"></span>
-                <button class="input-group-text" data-fileselect="{{f.name}}">{{gettext('Browse')}}</button>
-                {% if f.append %}{{_group_items(f.append)}}{% endif %}
-              </div>
+              {% if f.prepend %}{{_group_items(f.prepend)}}{% endif %}
+
+              <input type="file" class="form-control" id="{{f.name}}" name="{{f.name}}" 
+                     {% if f.format %}accept="{{f.format}}"{% endif %} 
+                     {% if f.placeholder %}placeholder="{{f.placeholder}}"{% endif %} 
+                     data-bs-custom-file-input data-maxsize="{{f.maxsize}}" 
+                     {{'multiple' if f.multiple else ''}} {{'required' if f.required else ''}}>
+              {% if f.append or f.name %}
+              <button class="btn" type="button" data-fileselect="{{f.name}}">{{gettext('')}}</button>
+              {% endif %}
+
+              {% if f.append %}{{_group_items(f.append)}}{% endif %}
             </div>
           {% else %}
             <div class="input-group">
-              {% if f.prepend %}<div class="input-group-prepend">{{_group_items(f.prepend)}}</div>{% endif %}
+              {% if f.prepend %}{{_group_items(f.prepend)}}{% endif %}
               {% if f.type == 'text' %}
                 <input type="text" class="form-control" name="{{f.name}}" value="{{f.value}}" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>
               {% elif f.type == 'textarea' %}
                 <textarea class="form-control scroll" name="{{f.name}}" rows="{{f.rows}}" placeholder="{{f.placeholder}}" {{'required' if f.required else ''}}>{{f.value}}</textarea>
               {% elif f.type == 'select' %}
-                <select class="custom-select scroll" name="{{f.name}}" {% if f.multiple %}multiple {% if f.rows %}size="{{f.rows}}"{% endif %}{% endif %} {{'required' if f.required else ''}}>
+                <select class="form-select scroll" name="{{f.name}}" {% if f.multiple %}multiple {% if f.rows %}size="{{f.rows}}"{% endif %}{% endif %} {{'required' if f.required else ''}}>
                   {% for o in f.options %}
                     <option value="{{'' if o.value==None else o.value}}" {{'selected' if o.selected or (not f.multiple and loop.first and o.value==None) else ''}} {{'disabled' if o.disabled or (loop.first and o.value==None) else ''}}>{{o.label}}</option>
                   {% endfor %}
                 </select>
               {% endif %}
-              {% if f.append %}<div class="input-group-append">{{_group_items(f.append)}}</div>{% endif %}
+              {% if f.append %}{{_group_items(f.append)}}{% endif %}
             </div>
           {% endif %}
           {% if f.help and f.type != 'static' %}<i class="form-text text-muted">{{f.help|safe}}</i>{% endif %}
         </div>
+        {% if f.helpguide and f.type != 'static' %}
+          <div class="col-1 col-sm-1 order-sm-12 mt-2 text-start text-info">
+            <a class="btn btn_helpguide" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{f.helpguide|safe}}"><i class="fa fas fa-fw fa-lg fa-question-circle"></i></a>
+          </div>
+        {% endif %}
       </div>
     {% endif %}
   {% endfor %}
@@ -205,6 +216,18 @@
       $(this).removeClass('was-validated');
       $(this)[0].reset();
       $(this).find("input,select,textarea").removeClass('is-valid is-invalid').trigger('change').trigger('keyup');
+    });
+  });
+  document.querySelectorAll('[data-bs-toggle="password"]').forEach(button => {
+    button.addEventListener('click', function (){
+      const input = document.querySelector(this.dataset.bsTarget);
+      if (input.type === "password") {
+        input.type = "text";
+        this.innerHTML = '<i class="fa fas fa-eye" aria-hidden="true"></i>';
+      } else {
+        input.type = "password";
+        this.innerHTML = '<i class="fa fas fa-eye-slash" aria-hidden="true"></i>';
+      }
     });
   });
 </script>
