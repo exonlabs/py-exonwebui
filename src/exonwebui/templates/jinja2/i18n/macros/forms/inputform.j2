@@ -84,10 +84,6 @@
                      {% if f.placeholder %}placeholder="{{f.placeholder}}"{% endif %} 
                      data-bs-custom-file-input data-maxsize="{{f.maxsize}}" 
                      {{'multiple' if f.multiple else ''}} {{'required' if f.required else ''}}>
-              {% if f.append or f.name %}
-              <button class="btn" type="button" data-fileselect="{{f.name}}">{{gettext('')}}</button>
-              {% endif %}
-
               {% if f.append %}{{_group_items(f.append)}}{% endif %}
             </div>
           {% else %}
@@ -111,7 +107,7 @@
         </div>
         {% if f.helpguide and f.type != 'static' %}
           <div class="col-1 col-sm-1 order-sm-12 mt-2 text-start text-info">
-            <a class="btn btn_helpguide" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{f.helpguide|safe}}"><i class="fa fas fa-fw fa-lg fa-question-circle"></i></a>
+            <a class=" btn_helpguide" role="button" data-bs-toggle="tooltip" data-bs-placement="top" title="{{f.helpguide|safe}}"><i class="fa fas fa-fw fa-lg fa-question-circle"></i></a>
           </div>
         {% endif %}
       </div>
@@ -219,16 +215,18 @@
     });
   });
   document.querySelectorAll('[data-bs-toggle="password"]').forEach(button => {
-    button.addEventListener('click', function (){
+    button.addEventListener('mousedown', function () {
       const input = document.querySelector(this.dataset.bsTarget);
-      if (input.type === "password") {
-        input.type = "text";
-        this.innerHTML = '<i class="fa fas fa-eye" aria-hidden="true"></i>';
-      } else {
-        input.type = "password";
-        this.innerHTML = '<i class="fa fas fa-eye-slash" aria-hidden="true"></i>';
-      }
+      input.type = "text";
+      this.innerHTML = '<i class="fa fas fa-eye" aria-hidden="true"></i>';
+    });
+  
+    button.addEventListener('mouseup', function () {
+      const input = document.querySelector(this.dataset.bsTarget);
+      input.type = "password";
+      this.innerHTML = '<i class="fa fas fa-eye-slash" aria-hidden="true"></i>';
     });
   });
+
 </script>
 {{jscript|safe}}
