@@ -1,0 +1,39 @@
+[project]
+name = "exonwebui"
+version = "7.3.dev"
+description = "Simple lightweight libs for UI web applications."
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+authors = [{name = "ExonLabs", email = "info@exonlabs.net"}]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "exonweb>=7.0,<8.0",
+    "exonwebui-static>=1.0,<2.0",
+    "Babel>=2.16,<3.0",
+    "flask-babelex>=0.9,<1.0",
+    "pytz>=2024.1,<2025.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[project.urls]
+Documentation = "https://exonlabs.github.io/py-exonwebui"
+Repository = "https://github.com/exonlabs/py-exonwebui"
+
+[build-system]
+requires = ["setuptools >= 68.0"]
+build-backend = "setuptools.build_meta"

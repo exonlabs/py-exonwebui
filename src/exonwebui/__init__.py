@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__version__ = "7.3.dev"
-__author__ = "ExonLabs"
-__license__ = "BSD 3-Clause"
-__copyright__ = "(c) 2019-2023 by ExonLabs"
+
+# return package version
+def get_version() -> str:
+    import importlib.metadata
+    return importlib.metadata.version("exonwebui")

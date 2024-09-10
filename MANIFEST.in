@@ -1,4 +1,4 @@
-include *.md LICENSE
-graft examples
+include *.md *.txt
 graft src/exonwebui
-global-exclude *.py[co] Makefile MANIFEST.in
+graft examples
+global-exclude *.py[co]

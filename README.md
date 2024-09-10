@@ -1,6 +1,6 @@
 # ExonWebUi #
 
-Web libs for UI web applications.
+Simple lightweight libs for UI web applications.
 
 
 ## Installing ##
@@ -13,6 +13,6 @@ pip install -U exonwebui
 
 ## License ##
 
-**copyright :**  2019-2023, ExonLabs. All rights reserved.
+**copyright :**  2019 ExonLabs, All rights reserved.
 
-**license :**  BSD, see LICENSE for more details.
+**license :**  BSD 3-Clause, see LICENSE for more details.

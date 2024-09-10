@@ -1,9 +1,8 @@
 #!/bin/bash
 cd $(dirname $(readlink -f $0))/..
 
-PKGNAME=exonwebui
-VERSION=$(grep '__version__ = "' src/${PKGNAME}/__init__.py \
-    |head -n 1 |cut -d'"' -f2 |xargs)
+PKGNAME=$(grep 'name = ' pyproject.toml |head -n 1 |cut -d'"' -f2 |xargs)
+VERSION=$(grep 'version = ' pyproject.toml |head -n 1 |cut -d'"' -f2 |xargs)
 
 BUILD_VER=${VERSION}
 echo "${BUILD_VER}" |grep -q 'dev' && {
@@ -15,6 +14,8 @@ ENV_PYTHON=${SETUPENV_PATH}/bin/python
 ENV_PIP=${SETUPENV_PATH}/bin/pip
 
 BUILD_FD=build_src
+DIST_FD=dist
+PY_PKGNAME=$(echo "${PKGNAME}" |tr "-" "_")
 
 
 echo -e "\n* Building Packages:"
@@ -24,25 +25,32 @@ if ! (test -x ${ENV_PYTHON} && test -x ${ENV_PIP}) ;then
     exit 1
 fi
 
-rm -rf ${BUILD_FD}
-mkdir -m 775 -p ${BUILD_FD}/src
+# update build packages
+${ENV_PIP} install -U pip setuptools wheel build
 
-cp -rf src/${PKGNAME} ${BUILD_FD}/src/
-cp -rf examples/ setup.* *.md LICENSE MANIFEST.in ${BUILD_FD}/
+rm -rf ${BUILD_FD}
+mkdir -m 775 -p ${BUILD_FD}/src/${PY_PKGNAME}
+
+cp -rf src/${PY_PKGNAME}/* ${BUILD_FD}/src/${PY_PKGNAME}/
+cp -rf pyproject.toml MANIFEST.in *.md *.txt ${BUILD_FD}/
+if [ -d examples ] ;then
+    cp -rf examples/ ${BUILD_FD}/
+fi
 
 # set build version
-sed -i "s|^__version__ = \".*|__version__ = \"${BUILD_VER}\"|g" \
-    ${BUILD_FD}/src/${PKGNAME}/__init__.py
+sed -i "s|^version = \".*|version = \"${BUILD_VER}\"|g" \
+    ${BUILD_FD}/pyproject.toml
 
-# create source package
-${ENV_PYTHON} ${BUILD_FD}/setup.py sdist clean --all
-
-# create wheel package
-${ENV_PYTHON} scripts/minify_templates.py --quiet --inplace ${BUILD_FD}/src/
-${ENV_PYTHON} ${BUILD_FD}/setup.py bdist_wheel clean --all
+# create packages
+${ENV_PYTHON} -m build ${BUILD_FD}/
+if [ "$?" != "0" ]  ;then
+    echo -e "\n-- Error!! failed to build packages\n"
+    exit 1
+fi
 
 # create dist and clean
-mv -f ${BUILD_FD}/dist .
+mkdir -m 775 -p ${DIST_FD}
+mv -f ${BUILD_FD}/dist/* ${DIST_FD}/
 rm -rf ${BUILD_FD}
 
 echo -e "\n* Created packages: ${PKGNAME} ${BUILD_VER}\n"
