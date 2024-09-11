@@ -1,6 +1,6 @@
 [project]
 name = "exonwebui"
-version = "7.3"
+version = "7.4.dev"
 description = "Simple lightweight libs for UI web applications."
 readme = "README.md"
 license = {file = "LICENSE.txt"}
