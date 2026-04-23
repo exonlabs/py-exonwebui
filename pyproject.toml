@@ -1,6 +1,6 @@
 [project]
 name = "exonwebui"
-version = "7.4.dev"
+version = "7.4"
 description = "Simple lightweight framework for UI web applications."
 readme = "README.md"
 license = "BSD-3-Clause"
