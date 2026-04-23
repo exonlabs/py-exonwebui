@@ -1,4 +1,7 @@
 include *.md *.txt
-graft src/exonwebui
+
+graft src
 graft examples
+graft tests
+
 global-exclude *.py[co]

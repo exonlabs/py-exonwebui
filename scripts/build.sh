@@ -1,56 +1,62 @@
 #!/bin/bash
-cd $(dirname $(readlink -f $0))/..
+set -euo pipefail
 
-PKGNAME=$(grep 'name = ' pyproject.toml |head -n 1 |cut -d'"' -f2 |xargs)
-VERSION=$(grep 'version = ' pyproject.toml |head -n 1 |cut -d'"' -f2 |xargs)
+cd "$(dirname "$(realpath -e "${BASH_SOURCE[0]}")")/.."
+source environ
 
 BUILD_VER=${VERSION}
-echo "${BUILD_VER}" |grep -q 'dev' && {
+echo "${BUILD_VER}" |grep -qE '^.*\.dev$' && {
     BUILD_VER=${BUILD_VER}$(date +%y%m%d%H%M%S)
 }
 
-SETUPENV_PATH=$(realpath ../venv_py3)
-ENV_PYTHON=${SETUPENV_PATH}/bin/python
-ENV_PIP=${SETUPENV_PATH}/bin/pip
-
-BUILD_FD=build_src
-DIST_FD=dist
-PY_PKGNAME=$(echo "${PKGNAME}" |tr "-" "_")
+BUILD_FD="build_src"
+DIST_FD="dist"
+PKG_FD=$(echo "${PACKAGE}" | tr "-" "_")
 
 
-echo -e "\n* Building Packages:"
+info_msg "\nBuilding: ${PACKAGE} ver ${BUILD_VER}"
 
-if ! (test -x ${ENV_PYTHON} && test -x ${ENV_PIP}) ;then
-    echo -e "\n-- Error!! failed to detect virtualenv, rebuild DEV setup\n"
+# checking python virtualenv
+head_msg "\nChecking virtualenv ..."
+if ! [[ -x "${VENV_PYTHON}" && -x "${VENV_PIP}" ]]; then
+    error_msg "Error!! Failed to detect virtualenv\n"
+    exit 1
+fi
+text_msg "Found virtualenv: ${VENV_PATH}"
+
+head_msg "\nUpdating virtualenv pip and build toolchain ..."
+(set -x
+    "${VENV_PIP}" install -U pip
+    "${VENV_PIP}" install -U setuptools wheel build
+)
+
+head_msg "\nPreparing build directory ..."
+rm -rf "${BUILD_FD}"
+mkdir -m 775 -p "${BUILD_FD}/src/${PKG_FD}"
+cp -rf "src/${PKG_FD}/"* "${BUILD_FD}/src/${PKG_FD}/"
+cp -rf pyproject.toml MANIFEST.in *.md *.txt "${BUILD_FD}/"
+[ -d examples ] && cp -rf examples/ "${BUILD_FD}/"
+[ -d tests ] && cp -rf tests/ "${BUILD_FD}/"
+
+# adjust build version
+sed -i "s|^version = \".*\"$|version = \"${BUILD_VER}\"|g" \
+    "${BUILD_FD}/pyproject.toml"
+
+head_msg "\nBuilding source and wheel packages ..."
+(set -x
+    ${VENV_PYTHON} -m build "${BUILD_FD}/"
+)
+if [ "$?" != "0" ]; then
+    error_msg "Error!! failed to build packages\n"
     exit 1
 fi
 
-# update build packages
-${ENV_PIP} install -U pip setuptools wheel build
+# cleanup
+mkdir -m 775 -p "${DIST_FD}"
+mv -f "${BUILD_FD}/dist/"* "${DIST_FD}/"
+rm -rf "${BUILD_FD}"
 
-rm -rf ${BUILD_FD}
-mkdir -m 775 -p ${BUILD_FD}/src/${PY_PKGNAME}
-
-cp -rf src/${PY_PKGNAME}/* ${BUILD_FD}/src/${PY_PKGNAME}/
-cp -rf pyproject.toml MANIFEST.in *.md *.txt ${BUILD_FD}/
-if [ -d examples ] ;then
-    cp -rf examples/ ${BUILD_FD}/
-fi
-
-# set build version
-sed -i "s|^version = \".*|version = \"${BUILD_VER}\"|g" \
-    ${BUILD_FD}/pyproject.toml
-
-# create packages
-${ENV_PYTHON} -m build ${BUILD_FD}/
-if [ "$?" != "0" ]  ;then
-    echo -e "\n-- Error!! failed to build packages\n"
-    exit 1
-fi
-
-# create dist and clean
-mkdir -m 775 -p ${DIST_FD}
-mv -f ${BUILD_FD}/dist/* ${DIST_FD}/
-rm -rf ${BUILD_FD}
-
-echo -e "\n* Created packages: ${PKGNAME} ${BUILD_VER}\n"
+success_msg "\nCreated packages:"
+text_msg "  ${DIST_FD}/${PACKAGE}-${BUILD_VER}.tar.gz"
+text_msg "  ${DIST_FD}/${PACKAGE}-${BUILD_VER}-py3-none-any.whl"
+echo -e "\n"

@@ -2,8 +2,9 @@
 
 Simple lightweight libs for UI web applications.
 
+---
 
-## Installing ##
+## Installing
 
 Install and update using `pip`:
 
@@ -11,8 +12,19 @@ Install and update using `pip`:
 pip install -U exonwebui
 ```
 
-## License ##
+Supports Python 3.9 and above.
 
-**copyright :**  2019 ExonLabs, All rights reserved.
+---
 
-**license :**  BSD 3-Clause, see LICENSE for more details.
+## Documentation
+
+Full documentation is available at:
+[https://exonlabs.github.io/py-exonwebui](https://exonlabs.github.io/py-exonwebui)
+
+---
+
+## License
+
+**Copyright:**  2019-2025 ExonLabs, All rights reserved.
+
+**License:**  BSD 3-Clause. See the LICENSE file for full terms and conditions.

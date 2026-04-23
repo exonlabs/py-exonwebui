@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 import os
 from flask import current_app, request, session, flash, redirect
-import flask_babelex as babelex
+import flask_babel
 
 
 # initialize localization with babel extension
 def init_locale(app, locale_path=''):
-    domain = babelex.Domain(dirname=locale_path)
-    babel = babelex.Babel(app, default_domain=domain)
+    babel = flask_babel.Babel(
+        app, default_translation_directories=locale_path)
 
     if locale_path and os.path.exists(locale_path):
-        babel.localeselector(lambda: session.get('lang', 'en'))
+        babel.init_app(app,
+            locale_selector=lambda: session.get('lang', 'en'),
+            default_translation_directories=locale_path)
         app.config['LOCALE_ENABLED'] = True
         app.config['LOCALE_PATH'] = locale_path
 
@@ -36,7 +38,7 @@ def init_locale(app, locale_path=''):
 
 
 def check_locale():
-    if not babelex or not current_app.config.get('LOCALE_ENABLED'):
+    if not current_app.config.get('LOCALE_ENABLED'):
         return None
 
     # check session lang
@@ -52,9 +54,12 @@ def check_locale():
     old_lang = session['lang']
     try:
         session['lang'] = new_lang
-        if babelex.get_domain().get_translations().info() \
-                or new_lang == 'en':
-            babelex.refresh()
+        # validate translation exists on disk
+        mo_file = os.path.join(
+            current_app.config['LOCALE_PATH'], 
+            new_lang, 'LC_MESSAGES', 'messages.mo')
+        if new_lang == 'en' or os.path.exists(mo_file):
+            flask_babel.refresh()
         else:
             raise Exception(
                 "no translation for '%s' lang" % new_lang)

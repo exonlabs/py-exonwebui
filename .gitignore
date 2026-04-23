@@ -6,6 +6,7 @@
 *.pyc
 *.log
 *.db
+*.env
 examples/*/webui
 examples/*/vendor
 
@@ -13,7 +14,5 @@ examples/*/vendor
 *.egg-info/
 *.dist-info/
 __pycache__/
-/dist/
-/build/
-/build_src/
-/tmp/
+/dist*/
+/build*/

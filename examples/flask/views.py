@@ -12,7 +12,7 @@ from flask import (
     url_for,
     render_template as tpl,
 )
-from flask_babelex import gettext, lazy_gettext
+from flask_babel import gettext, lazy_gettext
 
 from exonwebui.flask.menuboard import MenuBoardView
 
